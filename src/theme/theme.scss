@@ -1,0 +1,8 @@
+@import "./mixins/spacing.scss";
+@import "./mixins/_grid-framework.scss";
+@import "./mixins/_grid.scss";
+@import "./text-conditional-color.scss";
+
+$blue-palette: ( 50: #ffffff, 100: #e7edf4, 200: #d0dae9, 300: #b8c8df, 400: #a1b5d4, 500: #7190be, 600: #5a7eb3, 700: #426ba9, 800:#2b599e, 900:#134693, contrast: ( 50: rgba(black, 0.87), 100: rgba(black, 0.87), 200: rgba(black, 0.87), 300: white ) );
+$yellow-palette: ( 50: #ffffff, 100: #fef7ea, 200: #fdeed4, 300: #fde6bf, 400: #fcddaa, 500: #fbd595, 600: #f9c46a, 700: #f9bc55, 800:#f8b33f, 900:#f7ab2a, contrast: ( 50: rgba(black, 0.87), 100: rgba(black, 0.87), 200: rgba(black, 0.87), 300: white ) );
+

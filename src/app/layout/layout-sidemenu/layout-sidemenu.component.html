@@ -1,0 +1,107 @@
+<mat-toolbar class="bgcolor-yellow-light bottom-shadow">
+  <span *ngIf="!(isHandset$ | async)">
+      <div class="plate plate4" onclick="this.classList.toggle('active')" (click)="toggleMenu()">
+    <svg class="burger" version="1.1" height="100" width="100" viewBox="0 0 100 100">
+      <path class="line line1" d="M 50,35 H 30" />
+      <path class="line line2" d="M 50,35 H 70" />
+      <path class="line line3" d="M 50,50 H 30" />
+      <path class="line line4" d="M 50,50 H 70" />
+      <path class="line line5" d="M 50,65 H 30" />
+      <path class="line line6" d="M 50,65 H 70" />
+    </svg>
+    <svg class="x" version="1.1" height="100" width="100" viewBox="0 0 100 100">
+      <path class="line" d="M 34,32 L 66,68" />
+      <path class="line" d="M 66,32 L 34,68" />
+    </svg>
+  </div>
+    </span>
+  
+  <!--Mobile View Only-->
+  <span *ngIf="(isHandset$ | async)">
+  <div class="plate plate4" onclick="this.classList.toggle('active')" (click)="!drawer.toggle()">
+      <svg class="burger" version="1.1" height="100" width="100" viewBox="0 0 100 100">
+        <path class="line line1" d="M 50,35 H 30" />
+        <path class="line line2" d="M 50,35 H 70" />
+        <path class="line line3" d="M 50,50 H 30" />
+        <path class="line line4" d="M 50,50 H 70" />
+        <path class="line line5" d="M 50,65 H 30" />
+        <path class="line line6" d="M 50,65 H 70" />
+      </svg>
+      <svg class="x" version="1.1" height="100" width="100" viewBox="0 0 100 100">
+        <path class="line" d="M 34,32 L 66,68" />
+        <path class="line" d="M 66,32 L 34,68" />
+      </svg>
+    </div>
+  </span>
+  <img class="logo-img" src="./assets/logo_notext.jpg" />
+  <span class="title color-not-so-black">Sharp Tutorials</span>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav disableClose #drawer class="sidenav  bgcolor-blue-light" fixedInViewport="false"
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false" id="sidenav"
+               [ngClass]="{'menu-open' : isMenuOpen, 'menu-close' : !isMenuOpen}">
+    <mat-nav-list>
+      <mat-list-item [routerLink]="['/']" [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}" role="main">
+                     <i class="fas fa-home fa-md m-10 color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Home</span>
+
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/about']" [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-address-card m-10 fa-md color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">About</span>
+      </mat-list-item>
+      <!-- <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent"
+                     [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}">
+        <span class="full-width" *ngIf="isExpanded || isShowing">
+          <i class="fas fa-book fa-md m-10 color-not-so-black"></i>
+          <span *ngIf="isMenuOpen">Course</span>
+        </span>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
+                  *ngIf="(isExpanded || isShowing) && isMenuOpen" style="color: #b5b5b5">
+          expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded && isMenuOpen">
+        <a mat-list-item href="..." *ngFor="let c of course" routerLink="/course/{{c.name.toLowerCase()}}">{{c.name}}</a>
+      </div> -->
+      <mat-list-item [routerLink]="['/testimonials']" [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-quote-right fa-md m-10 color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Testimonials</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/results']" [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-poll fa-md m-10 color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Results</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/blog']" [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-blog fa-md m-10 color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Blog</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/contactus']" [routerLinkActive]="['active-nav-item']"
+                     [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-address-book fa-md m-10 color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Contact Us</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content [ngStyle]="{ 'margin-left.px': contentMargin, 'transition': '300ms' }">
+    <!--<mat-toolbar p-0 *ngIf="(isHandset$ | async)">
+      <button type="button"
+              class="mr-16"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>-->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

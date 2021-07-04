@@ -1,0 +1,229 @@
+/*TOOLBAR START*/
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+.mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; 
+  width: 100%  !important;
+  top: 0;
+  z-index: 1000;
+  padding: 0;
+}
+
+.title {
+  font-size: 32px;
+  font-family: 'Abril Fatface', cursive;
+  line-height: 64px;
+  vertical-align: middle;
+  padding-left: 7px;
+}
+
+.logo-img {
+  display: inline-block;
+  height: 40px;
+  padding-bottom: 8px;
+}
+
+.social-icon {
+  position: absolute;
+  right: 16px;
+  height: 100% !important;
+
+  a {
+    transition: 100ms;
+    line-height: 64px;
+    height: 100%;
+    vertical-align: middle;
+    text-decoration: none;
+    color: #545454;
+  }
+
+  a:hover {
+    display: inline-block;
+    transition: 100ms ease-out;
+    -webkit-transform:scale(1.25);
+    padding: 0 5px;
+    color: black;
+  }
+}
+
+.bottom-shadow {
+  position: relative;
+  z-index: 10;
+  box-shadow: 0px 1px 5px -1px rgb(0 0 0 / 16%), 0px 1px 5px 0px rgb(0 0 0 / 10%), 0px 1px 3px 0px rgb(0 0 0 / 10%);
+}
+
+@media only screen and (max-width: 600px) {
+  .social-icon {
+    display: none;
+  }
+  .title {
+    font-size: 28px;
+    padding-left: 5px;
+  }
+
+  .logo-img {
+    height: 30px;
+    padding-top: 2px;
+    padding-left: 5px
+  }
+}
+
+/*TOOLBAR END*/
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  border-right: 1px solid #e8e8ed !important;
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.active-nav-item {
+  padding-left:  3px;
+  border-left: 3px solid #0a4191;
+  i{
+    margin-left: 7px !important;
+  }
+}
+
+.mat-expansion-panel-header {
+  overflow: auto !important
+}
+
+.full-width {
+  width: 100%;
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  display: none;
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+
+.submenu.expanded {
+  transition: 1s;
+  display: block;
+  transform: scaleY(1);
+}
+
+.mat-button {
+    width: 30px;
+  .mat-icon {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 25px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #sidenav.menu-close {
+    transition: 300ms ease-in;
+    width: 70px !important
+  }
+
+  #sidenav.menu-open {
+    width: 200px !important
+  }
+  .mat-button {
+    width: 70px;
+  }
+}
+
+
+.mat-toolbar {
+  .mat-icon:hover {
+    cursor: pointer;
+  }
+}
+
+
+svg {
+  height: 40px;
+  position: absolute;
+  width: 40px;
+}
+
+
+.plate {
+  height: 40px;
+  width: 40px;
+  padding: 16px;
+}
+.burger {
+  filter: url(#gooeyness);
+}
+.x {
+  transform: scale(0);
+  transition: transform 400ms;
+}
+.line {
+  fill: none;
+  stroke: black;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: 50%;
+  transition: stroke-dasharray 500ms 200ms, stroke-dashoffset 500ms 200ms, transform 500ms 200ms;
+}
+.x .line {
+  stroke-width: 5.5px;
+}
+
+@media (max-width: 640px) {
+  .plate {
+padding: 0; 
+  }
+}
+
+/* Die vierte teller */
+.plate4 .x {
+  transition: transform 400ms;
+}
+.plate4 .line {
+  transform-origin: 50%;
+  transition: transform 400ms 100ms;
+}
+.active.plate4 .line {
+  transition: transform 400ms;
+}
+.active.plate4 .line1 {
+  transform: translateX(18px) translateY(-3px) rotate(-45deg) scale(.7);
+}
+.active.plate4 .line2 {
+  transform: translateX(-18px) translateY(-3px) rotate(45deg) scale(.7);
+}
+.active.plate4 .line3 {
+  transform: translateY(0px) rotate(45deg) scale(.7);
+}
+.active.plate4 .line4 {
+  transform: translateY(0px) rotate(-45deg) scale(.7);
+}
+.active.plate4 .line5 {
+  transform: translateX(18px) translateY(3px) rotate(45deg) scale(.7);
+}
+.active.plate4 .line6 {
+  transform: translateX(-18px) translateY(3px) rotate(-45deg) scale(.7);
+}
+.active.plate4 .x {
+  transition: transform 400ms 100ms;
+  transform: scale(1);
+}
+

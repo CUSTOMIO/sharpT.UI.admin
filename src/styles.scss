@@ -1,0 +1,33 @@
+@import '~@angular/material/theming';
+@import "./theme/theme.scss";
+
+// font awesone
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,700&display=swap');
+@include mat-core();
+$custom-typography: mat-typography-config($font-family: '"Archivo", sans-serif;');
+@include mat-core($custom-typography);
+$sharp-primary: mat-palette($blue-palette, 400);
+$sharp-accent: mat-palette($yellow-palette, 400, 800, 700);
+
+$sharp-warn: mat-palette($mat-red);
+
+$sharp-theme: mat-light-theme((
+  color: (
+    primary: $sharp-primary,
+    accent: $sharp-accent,
+    warn: $sharp-warn
+  )
+));
+
+@include angular-material-theme($sharp-theme);
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
