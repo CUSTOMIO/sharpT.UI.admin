@@ -1,0 +1,13 @@
+form {
+    margin-top: 100px !important;
+    padding: 10px;
+    mat-form-field {
+        width: 300px
+    }
+    mat-icon {
+        color: grey
+    }
+    input {
+        padding-left: 6px;
+    }
+}

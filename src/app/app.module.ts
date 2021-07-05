@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,14 +17,15 @@ import { MatListModule } from '@angular/material/list';
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutSidemenuComponent } from './layout/layout-sidemenu/layout-sidemenu.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { LayoutFooterComponent } from './layout/layout-footer/layout-footer.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthInterceptor } from './core/dataService/auth-intercept';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     LayoutSidemenuComponent,
-    LayoutFooterComponent
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -39,7 +40,9 @@ import { LayoutFooterComponent } from './layout/layout-footer/layout-footer.comp
     MatListModule,
     SharedModule
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  // providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },
+  //   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

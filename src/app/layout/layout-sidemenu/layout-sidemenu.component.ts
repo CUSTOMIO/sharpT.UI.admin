@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/core/dataService';
 
 @Component({
   selector: 'app-layout-sidemenu',
@@ -15,6 +17,10 @@ export class LayoutSidemenuComponent implements OnInit {
   isShowing = false;
   showSubmenu: boolean = false;
 
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
+
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -22,9 +28,16 @@ export class LayoutSidemenuComponent implements OnInit {
     );
 
   constructor(
-    private breakpointObserver: BreakpointObserver) { }
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
   }
 
   toggleMenu() {
@@ -35,5 +48,9 @@ export class LayoutSidemenuComponent implements OnInit {
     } else {
       this.contentMargin = 200;
     }
+  }
+  logout() {
+    console.log('clickd me')
+    this.authService.logout();
   }
 }
