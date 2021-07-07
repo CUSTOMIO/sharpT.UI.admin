@@ -18,9 +18,10 @@ import {
       state: RouterStateSnapshot
     ): boolean | Observable<boolean> | Promise<boolean> {
       const isAuth = this.authService.getIsAuth();
+      console.log(isAuth)
       if (!isAuth) {
         this.router.navigate(['/login']);
-      }
+      } 
       return isAuth;
     }
   }
