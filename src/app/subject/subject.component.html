@@ -17,15 +17,20 @@
       <!-- Position Column -->
       <ng-container matColumnDef="standard">
         <th mat-header-cell *matHeaderCellDef> Standard </th>
-        <td mat-cell *matCellDef="let element"> {{element.standardId}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.SubjectStandardId.name}} </td>
       </ng-container>
       <!-- Weight Column -->
       <ng-container matColumnDef="isActive">
-        <th mat-header-cell *matHeaderCellDef> Staus </th>
+        <th mat-header-cell *matHeaderCellDef> Status </th>
         <td mat-cell *matCellDef="let element">
             <i class="fas fa-md" [ngClass]=" element.isActive ? 'fa-check text-success': 'fa-times text-danger'"></i>
-          <!-- <mat-icon color="success">{{element.isActive ? "close" : "done"}}</mat-icon> -->
            </td>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <i class="far fa-edit text-primary" (click)="openDialog(element)"></i>
+        </td>
       </ng-container>
        
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

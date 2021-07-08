@@ -3,6 +3,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SubjectService } from '../core/dataService';
 import { Subject } from '../core/model';
+import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-main',
@@ -13,12 +16,15 @@ export class SubjectComponent implements OnInit {
   public subject: Subject[];
 
   //Paginator
-  displayedColumns: string[] = ['name', 'standard' ,'isActive'];
+  displayedColumns: string[] = ['name', 'standard', 'isActive', 'edit'];
   dataSource: MatTableDataSource<Subject>;
 
   totalSubjects = 40;
   subjectPerPage = 20;
   pageSizeOptions = [20, 50, 100];
+
+  //Dialog
+  public subjectId: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -30,7 +36,8 @@ export class SubjectComponent implements OnInit {
   };
 
   constructor(
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -49,6 +56,22 @@ export class SubjectComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  openDialog(subject: object): void {
+    const dialogRef = this.dialog.open(EditSubjectComponent, {
+      // disableClose: true,
+      width: '350px',
+      data: {
+        subject: subject
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        return
+      }
+      this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
+    });
   }
 }
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule, routedComponents } from './subject-routing.module';
+import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { HomeRoutingModule, routedComponents } from './subject-routing.module';
   ],
   declarations: [
     routedComponents,
+    EditSubjectComponent
   ],
   providers: [
   ]

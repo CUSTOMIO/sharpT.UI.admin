@@ -40,7 +40,6 @@ export class AuthService {
     const url = `${environment.api_endpoint}/login`;
     return this.http.post<{ token: string, expiresIn: number }>(url, form)
       .subscribe(res => {
-        console.log(res)
         const token = res.token;
         if (token) {
           this.token = token;
@@ -66,7 +65,6 @@ export class AuthService {
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.isAuthenticated = true;
-      console.log("hey, i shud come first", this.isAuthenticated)
       this.token = authInformation.token;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);

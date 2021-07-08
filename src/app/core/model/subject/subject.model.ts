@@ -6,6 +6,7 @@ export class Subject {
     createdAt: Date;
     updatedAt: Date;
     standardId: number;
+    SubjectStandardId: object;
     constructor(item: Subject) {
         Object.assign(this, item)
     }
