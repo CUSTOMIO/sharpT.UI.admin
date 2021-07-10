@@ -8,6 +8,11 @@
   top: 0;
   z-index: 1000;
   padding: 0;
+  .usr-ctrl {
+    position: absolute;
+    right: 32px;
+    cursor: pointer;
+  }
 }
 
 .title {

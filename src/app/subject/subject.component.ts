@@ -19,9 +19,11 @@ export class SubjectComponent implements OnInit {
   displayedColumns: string[] = ['name', 'standard', 'isActive', 'edit'];
   dataSource: MatTableDataSource<Subject>;
 
-  totalSubjects = 40;
   subjectPerPage = 20;
   pageSizeOptions = [20, 50, 100];
+  pageIndex: number = 1;
+  public count: number;
+
 
   //Dialog
   public subjectId: number;
@@ -41,11 +43,19 @@ export class SubjectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.subjectService.subjectCount()
+    .subscribe(data => {
+      this.count = data.count
+    },
+    err => {
+      console.log(err)
+    })
     this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
   }
 
   onChangedPage(pageData: PageEvent) {
     this.subjectService.getSubject(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
+    this.pageIndex = pageData.pageIndex + 1;
   }
 
   applyFilter(event: Event) {
@@ -58,7 +68,6 @@ export class SubjectComponent implements OnInit {
     }
   }
   openDialog(subject: object, mode :String): void {
-    console.log(mode)
     const dialogRef = this.dialog.open(EditSubjectComponent, {
       // disableClose: true,
       width: '450px',
@@ -72,7 +81,8 @@ export class SubjectComponent implements OnInit {
       if(!result) {
         return
       }
-      this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
+      this.count += 1;
+      this.subjectService.getSubject(this.subjectPerPage, this.pageIndex).subscribe(this.observer);
     });
   }
 }

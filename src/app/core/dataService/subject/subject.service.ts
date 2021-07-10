@@ -13,7 +13,7 @@ export class SubjectService {
   constructor(private http: HttpClient) { }
 
   public getSubject(pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/adminEditSubject?pageSize=${pageSize}&page=${currentPage}`;
+    const url = `${environment.api_endpoint}/adminGetSubject?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<Subject[]>(url)
       .pipe(
         map(data =>
@@ -21,12 +21,19 @@ export class SubjectService {
         )
       );
   }
+
   public postEditSubject(form: object, id:number) {
-    const url = `${environment.api_endpoint}/adminSubject/${id}`;
+    const url = `${environment.api_endpoint}/adminEditSubject/${id}`;
     return this.http.post<{message: string}>(url, form)
   }
+
   public postAddSubject(form: object) {
     const url = `${environment.api_endpoint}/adminAddSubject`;
     return this.http.post<{message: string}>(url, form)
+  }
+
+  public subjectCount(){
+    const url = `${environment.api_endpoint}/subjectCount`;
+    return this.http.get<{count: number}>(url)
   }
 }

@@ -35,13 +35,20 @@
   </span>
   <img class="logo-img" src="./assets/logo_notext.jpg" />
   <span class="title color-not-so-black">Sharp Tutorials</span>
-    <button
+  <span 
+  class="usr-ctrl" 
+  mat-flat-button >
+  Admin  <i [matMenuTriggerFor]="menu" class="far fa-user-circle fa-lg"></i>
+</span>
+<mat-menu #menu="matMenu">
+  <button
+  mat-menu-item
     *ngIf="userIsAuthenticated"
-     mat-flat-button 
-     color="primary"
      (click)="logout()">
       Logout
     </button>
+</mat-menu>
+    
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav disableClose #drawer class="sidenav bgcolor-blue-light" fixedInViewport="false"
@@ -53,6 +60,11 @@
         [routerLinkActiveOptions]="{exact: true}" role="main">
         <i class="fas fa-swatchbook m-10 fa-md color-not-so-black"></i>
         <span *ngIf="isMenuOpen">Subject</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/standard']" [routerLinkActive]="['active-nav-item']"
+        [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-layer-group  m-10 fa-md color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Standard</span>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>

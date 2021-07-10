@@ -43,9 +43,6 @@ export class EditSubjectComponent implements OnInit {
     }
 
     onSubmit(){
-        // console.log(this.editForm.value, this.data.subject.id)
-        console.log("i was called")
-        
         const observer = {
             next: (x) => {
                 if (x.message !== null) {

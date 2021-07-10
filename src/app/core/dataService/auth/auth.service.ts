@@ -64,10 +64,11 @@ export class AuthService {
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
-      this.isAuthenticated = true;
+      this.isAuthenticated = true;      
       this.token = authInformation.token;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+      this.router.navigate(['./subject']);
     }
   }
 

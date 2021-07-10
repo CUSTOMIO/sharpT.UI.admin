@@ -1,0 +1,33 @@
+<h1 class="mat-subheading-2 mb-10">Edit Standard</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="editForm" *ngIf="data.standard" class="pt-20"
+    (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="width: 100% !important;">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100% !important;">
+        <mat-label>Standard</mat-label>
+        <mat-select formControlName="courseId">
+            <mat-option *ngFor="let c of course" [value]="c.id"
+                [innerHTML]="c.name">
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100% !important;">
+        <mat-label>Description</mat-label>
+        <textarea rows="3" matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-slide-toggle
+        formControlName="isActive"
+        color="primary"
+        class="mb-10">
+        isActive
+    </mat-slide-toggle>
+    <button type="submit" mat-flat-button color="accent">
+        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+    </button>
+</form>

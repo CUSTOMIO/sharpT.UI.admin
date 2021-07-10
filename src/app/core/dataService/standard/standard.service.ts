@@ -21,4 +21,28 @@ export class StandardService {
         )
       );
   }
+
+  public getAdminStandard(pageSize: number, currentPage: number) {
+    const url = `${environment.api_endpoint}/getAdminstandard?pageSize=${pageSize}&page=${currentPage}`;
+    return this.http.get<Standard[]>(url)
+      .pipe(
+        map(data =>
+          data.map(x => new Standard(x))
+        )
+      );
+  }
+  public postEditStandard(form: object, id:number) {
+    const url = `${environment.api_endpoint}/postEditAdminStandard/${id}`;
+    return this.http.post<{message: string}>(url, form)
+  }
+  public postAddStandard(form: object) {
+    const url = `${environment.api_endpoint}/postAddAdminStandard`;
+    return this.http.post<{message: string}>(url, form)
+  }
+
+  public standardCount(){
+    const url = `${environment.api_endpoint}/standardCount`;
+    return this.http.get<{count: number}>(url)
+  }
+  
 }
