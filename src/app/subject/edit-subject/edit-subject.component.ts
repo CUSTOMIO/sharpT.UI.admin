@@ -14,7 +14,7 @@ export class EditSubjectComponent implements OnInit {
     private editForm: FormGroup;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) public data: { subject: any},
+        @Inject(MAT_DIALOG_DATA) public data: { subject: any, mode: string},
         private dialogRef: MatDialogRef<EditSubjectComponent>,
         private standardService : StandardService,
         private subjectService: SubjectService,
@@ -25,11 +25,12 @@ export class EditSubjectComponent implements OnInit {
                 isActive: ['', [Validators.required]],
                 description: ['', [Validators.required]]
             })
-            this.editForm.get('name').setValue(data.subject.name);
-            // this.editForm.get('standard').setValue(data.subject.SubjectStandardId.name);
-            this.editForm.controls['standardId'].setValue(data.subject.SubjectStandardId.id);
-            this.editForm.get('isActive').setValue(data.subject.isActive);
-            this.editForm.get('description').setValue(data.subject.description);
+            if(data.mode === 'edit'){
+                this.editForm.get('name').setValue(data.subject.name);
+                this.editForm.controls['standardId'].setValue(data.subject.SubjectStandardId.id);
+                this.editForm.get('isActive').setValue(data.subject.isActive);
+                this.editForm.get('description').setValue(data.subject.description);
+            }
     }
     ngOnInit() {
         const observer = {
@@ -43,6 +44,8 @@ export class EditSubjectComponent implements OnInit {
 
     onSubmit(){
         // console.log(this.editForm.value, this.data.subject.id)
+        console.log("i was called")
+        
         const observer = {
             next: (x) => {
                 if (x.message !== null) {
@@ -51,8 +54,14 @@ export class EditSubjectComponent implements OnInit {
             },
             error: err => console.error('Observer got an error: ' + err)
           };
-        this.subjectService.postEditSubject(this.editForm.value, this.data.subject.id)
-        .subscribe(observer)
+          if(this.data.mode === 'edit'){
+              this.subjectService.postEditSubject(this.editForm.value, this.data.subject.id)
+              .subscribe(observer)
+          }
+          else if(this.data.mode === 'new'){
+            this.subjectService.postAddSubject(this.editForm.value)
+            .subscribe(observer)
+        }
     }
 }
 

@@ -1,9 +1,17 @@
 <div class="container m-20 mb-100">
-  <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="fitler list..." #input>
-  </mat-form-field>
-
+  
+  <div class="filter-div">
+    <div>
+      <mat-form-field appearance="standard" class="filter-input">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="fitler list..." #input>
+      </mat-form-field>
+    </div>
+    <div class="add-icon"> 
+      <button mat-flat-button color="primary" (click)="openDialog({}, 'new')">New</button>
+    </div>
+  </div>
+     
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
       
@@ -29,7 +37,7 @@
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <i class="far fa-edit text-primary" (click)="openDialog(element)"></i>
+          <i class="far fa-edit text-primary" (click)="openDialog(element, 'edit')"></i>
         </td>
       </ng-container>
        

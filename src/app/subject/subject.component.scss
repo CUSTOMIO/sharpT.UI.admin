@@ -9,3 +9,16 @@ table {
 td, th {
   width: 33%;
 }
+
+.filter-div{
+ display:flex;
+ width: 100%;
+
+
+  .filter-input { 
+    width: 300px;
+  }
+  button {
+    margin: 17px 0 17px 10px;
+  }
+}

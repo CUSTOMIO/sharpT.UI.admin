@@ -57,12 +57,14 @@ export class SubjectComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  openDialog(subject: object): void {
+  openDialog(subject: object, mode :String): void {
+    console.log(mode)
     const dialogRef = this.dialog.open(EditSubjectComponent, {
       // disableClose: true,
-      width: '350px',
+      width: '450px',
       data: {
-        subject: subject
+        subject: subject,
+        mode : mode
       }
     });
 

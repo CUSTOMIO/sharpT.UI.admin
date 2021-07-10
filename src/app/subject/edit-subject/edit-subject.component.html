@@ -1,17 +1,24 @@
-<h1 class="mat-display-1 mb-20">Edit Subject</h1>
-<mat-divider></mat-divider> 
-<form  [formGroup]="editForm" *ngIf="data.subject" class="mt-5" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="standard" style="width: 100% !important;">
+<h1 class="mat-subheading-2 mb-10">Edit Subject</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="editForm" *ngIf="data.subject" class="pt-20"
+    (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="width: 100% !important;">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name">
     </mat-form-field>
 
-    <mat-form-field appearance="standard" style="width: 100% !important;">
+    <mat-form-field appearance="outline" style="width: 100% !important;">
         <mat-label>Standard</mat-label>
         <mat-select formControlName="standardId">
-            <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
+            <mat-option *ngFor="let s of standard" [value]="s.id"
+                [innerHTML]="s.name">
             </mat-option>
         </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100% !important;">
+        <mat-label>Description</mat-label>
+        <textarea rows="3" matInput formControlName="description"></textarea>
     </mat-form-field>
 
     <mat-slide-toggle
@@ -20,11 +27,7 @@
         class="mb-10">
         isActive
     </mat-slide-toggle>
-
-    <mat-form-field appearance="standard" style="width: 100% !important;">
-        <mat-label>Description</mat-label>
-        <textarea rows="3" matInput formControlName="description"></textarea>
-    </mat-form-field>
-
-    <button type="submit" mat-flat-button color="primary">Save</button>
+    <button type="submit" mat-flat-button color="accent">
+        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+    </button>
 </form>
