@@ -25,7 +25,20 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [{ path: '', loadChildren: () => import('./standard/standard.module').then(m => m.StandardModule)}],
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'course',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./course/course.module').then(m => m.CourseModule)}],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}],
+    canActivate: [AuthGuard],
   }
+
 ];
 
 

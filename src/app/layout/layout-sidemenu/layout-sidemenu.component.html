@@ -63,9 +63,21 @@
       </mat-list-item>
       <mat-list-item [routerLink]="['/standard']" [routerLinkActive]="['active-nav-item']"
         [routerLinkActiveOptions]="{exact: true}" role="main">
-        <i class="fas fa-layer-group  m-10 fa-md color-not-so-black"></i>
+        <i class="fas fa-list-ul  m-10 fa-md color-not-so-black"></i>
         <span *ngIf="isMenuOpen">Standard</span>
       </mat-list-item>
+      <mat-list-item [routerLink]="['/course']" [routerLinkActive]="['active-nav-item']"
+      [routerLinkActiveOptions]="{exact: true}" role="main">
+      <i class="fas fa-layer-group  m-10 fa-md color-not-so-black"></i>
+      <span *ngIf="isMenuOpen">Course</span>
+    </mat-list-item>
+
+    <mat-list-item [routerLink]="['/user']" [routerLinkActive]="['active-nav-item']"
+    [routerLinkActiveOptions]="{exact: true}" role="main">
+    <i class="fas fa-user-tie  m-10 fa-md color-not-so-black"></i>
+    <span *ngIf="isMenuOpen">User</span>
+  </mat-list-item>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [ngStyle]="{ 'margin-left.px': contentMargin, 'transition': '300ms' }">

@@ -1,37 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SubjectService } from '../core/dataService';
-import { Subject } from '../core/model';
-import { EditSubjectComponent } from './edit-subject/edit-subject.component';
-import { MatDialog } from '@angular/material/dialog';
-
+import { CourseService } from '../core/dataService';
+import { Standard } from '../core/model';
+import { EditCourseComponent } from './edit-course/edit-course.component';
 
 @Component({
-  templateUrl: './subject.component.html',
-  styleUrls: ['./subject.component.scss']
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.scss']
 })
-export class SubjectComponent implements OnInit {
-  public subject: Subject[];
+export class CourseComponent {
+  title = 'Standard';
   public isLoading: boolean = true;
-
+  public standard: Standard[];
+  
   //Paginator
-  displayedColumns: string[] = ['name', 'standard', 'isActive', 'edit'];
-  dataSource: MatTableDataSource<Subject>;
-
-  subjectPerPage = 20;
+  displayedColumns: string[] = ['name', 'course', 'isActive', 'edit'];
+  dataSource: MatTableDataSource<Standard>;
+  
+  standardPerPage = 20;
   pageSizeOptions = [20, 50, 100];
   pageIndex: number = 1;
   public count: number;
 
-
   //Dialog
-  public subjectId: number;
+  public standardId: number;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
-    next: (x: Subject[]) => {
+    next: (x: Standard[]) => {
       this.dataSource = new MatTableDataSource(x);
       this.isLoading = false;
     },
@@ -39,30 +39,29 @@ export class SubjectComponent implements OnInit {
   };
 
   constructor(
-    private subjectService: SubjectService,
+    private courseService: CourseService,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
-    this.subjectService.subjectCount()
+    this.courseService.courseCount()
     .subscribe(data => {
       this.count = data.count
     },
     err => {
       console.log(err)
     })
-    this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
+    this.courseService.getAdminCourse(this.standardPerPage, 1).subscribe(this.observer);
   }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
-    this.subjectService.getSubject(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
+    this.courseService.getAdminCourse(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;
   }
 
   applyFilter(event: Event) {
     this.isLoading = true;
-    console.log(this.dataSource)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -70,14 +69,13 @@ export class SubjectComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
     this.isLoading = false;
-
   }
-  openDialog(subject: object, mode :String): void {
-    const dialogRef = this.dialog.open(EditSubjectComponent, {
+  openDialog(course: object, mode :String): void {
+    const dialogRef = this.dialog.open(EditCourseComponent, {
       // disableClose: true,
       width: '450px',
       data: {
-        subject: subject,
+        course: course,
         mode : mode
       }
     });
@@ -86,10 +84,8 @@ export class SubjectComponent implements OnInit {
       if(!result) {
         return
       }
-      this.subjectService.getSubject(this.subjectPerPage, this.pageIndex).subscribe(this.observer);
+      this.courseService.getAdminCourse(this.standardPerPage, this.pageIndex).subscribe(this.observer);
       this.count += 1;
     });
   }
 }
-
-

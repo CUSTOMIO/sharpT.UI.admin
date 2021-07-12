@@ -1,9 +1,9 @@
 <div class="header">
-    <h1 class="mat-subheading-2">Edit Subject</h1>
+    <h1 class="mat-subheading-2">Edit Course</h1>
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
-<form [formGroup]="editForm" *ngIf="data.subject" class="pt-20"
+<form [formGroup]="editForm" *ngIf="data.course" class="pt-20"
     (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" style="width: 100% !important;">
         <mat-label>Name</mat-label>
@@ -12,9 +12,9 @@
 
     <mat-form-field appearance="outline" style="width: 100% !important;">
         <mat-label>Standard</mat-label>
-        <mat-select formControlName="standardId">
-            <mat-option *ngFor="let s of standard" [value]="s.id"
-                [innerHTML]="s.name">
+        <mat-select formControlName="batchId">
+            <mat-option *ngFor="let b of batch" [value]="b.id"
+                [innerHTML]="b.name">
             </mat-option>
         </mat-select>
     </mat-form-field>

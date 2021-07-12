@@ -43,6 +43,9 @@ export class EditSubjectComponent implements OnInit {
     }
 
     onSubmit(){
+        if(!this.editForm.valid){
+            return
+        }
         const observer = {
             next: (x) => {
                 if (x.message !== null) {
@@ -59,6 +62,9 @@ export class EditSubjectComponent implements OnInit {
             this.subjectService.postAddSubject(this.editForm.value)
             .subscribe(observer)
         }
+    }
+    closeDialog(){
+        this.dialogRef.close()
     }
 }
 

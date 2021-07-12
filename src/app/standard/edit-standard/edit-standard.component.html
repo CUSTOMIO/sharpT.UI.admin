@@ -1,4 +1,7 @@
-<h1 class="mat-subheading-2 mb-10">Edit Standard</h1>
+<div class="header">
+    <h1 class="mat-subheading-2">Edit Subject</h1>
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
 <mat-divider></mat-divider>
 <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20"
     (ngSubmit)="onSubmit()">
