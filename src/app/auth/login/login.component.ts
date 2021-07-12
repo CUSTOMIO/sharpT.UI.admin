@@ -30,7 +30,9 @@ export class LoginComponent {
             next: x => {
                 this.isLoading = false;
             },
-            error: err => console.error('Observer got an error: ' + err)
+            error: err => {
+                this.isLoading = false;
+            }
         };
         if (this.loginForm.valid) {
             this.authService.postlogin(this.loginForm.value)
