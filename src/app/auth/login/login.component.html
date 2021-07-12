@@ -1,4 +1,6 @@
-<form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+<form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
     <div fxFlex fxLayout="column">
         <div  fxFlexAlign="center">
             <mat-icon>admin_panel_settings</mat-icon>

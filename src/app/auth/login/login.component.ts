@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/core/dataService';
 })
 export class LoginComponent {
     loginForm: FormGroup;
+    public isLoading: boolean = true;
 
     constructor(private fb: FormBuilder,
         private authService: AuthService) {
@@ -20,12 +21,14 @@ export class LoginComponent {
                 [Validators.required]
             ]
         });
+        this.isLoading = false;
     }
 
     onSubmit() {
+        this.isLoading = true
         const observer = {
             next: x => {
-                console.log(x)
+                this.isLoading = false;
             },
             error: err => console.error('Observer got an error: ' + err)
         };
