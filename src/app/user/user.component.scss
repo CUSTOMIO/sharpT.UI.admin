@@ -28,6 +28,13 @@
         }
         
         td, th {
-          width: 33%;
+          width: 20%;
         }
+
+        .name-td{
+          cursor: pointer;
+          text-decoration: underline;
+          text-decoration-color: grey;
+        }
+        
     }

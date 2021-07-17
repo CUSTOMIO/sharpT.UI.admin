@@ -1,0 +1,47 @@
+.top {
+    position: absolute;
+    top:0;
+    height: 250px;
+    background-color: rgba(162, 214, 249, 0.25);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+.top-span {
+    height: 350px !important;
+}
+
+.header {
+    margin-top: 25px;
+    width: 100%;
+
+    padding: 75px 100px 0 100px;
+    img {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 10px;         
+        border: 3px solid white;
+    }
+    .header-content-1, .header-content-2  {
+        margin: 15px 15px 0 25px;
+        p{
+            margin: 0 !important;
+            padding: 5px 0;
+        }
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .header {
+        padding: 75px 25px 0 25px;
+
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        padding: 50px 5px 0 5px;
+    }
+    .img-div{
+        width: 160px;
+    }
+}

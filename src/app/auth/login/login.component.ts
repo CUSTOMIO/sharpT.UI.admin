@@ -25,15 +25,6 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        this.isLoading = true
-        const observer = {
-            next: x => {
-                this.isLoading = false;
-            },
-            error: err => {
-                this.isLoading = false;
-            }
-        };
         if (this.loginForm.valid) {
             this.authService.postlogin(this.loginForm.value)
         }

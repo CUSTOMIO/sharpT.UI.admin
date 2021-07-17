@@ -50,7 +50,6 @@ export class LayoutSidemenuComponent implements OnInit {
     }
   }
   logout() {
-    console.log('clickd me')
     this.authService.logout();
   }
 }

@@ -13,8 +13,9 @@ export class UserComponent implements OnInit{
 
   public isLoading: boolean = true;
 
-  displayedColumns: string[] = ['username', 'email'];
+  displayedColumns: string[] = ['username', 'email', 'standard','verified', 'enrolledOn'];
   dataSource: MatTableDataSource<User>;
+  userPersonalDoc: object;
 
   userPerPage = 20;
   pageSizeOptions = [20, 50, 100];
@@ -22,9 +23,14 @@ export class UserComponent implements OnInit{
   public count: number;
 
   private observer = {
-    next: (x: User[]) => {
+    next: (x) => {
+      x.forEach(data => {
+        data.createdAt = new Date(data.createdAt).toDateString()
+      })
+
       this.dataSource = new MatTableDataSource(x);
       this.isLoading = false;
+      console.log(x[0].userPersonalDoc)
     },
     error: err => console.error('Observer got an error: ' + err)
   };
@@ -47,6 +53,7 @@ export class UserComponent implements OnInit{
     console.log(this.dataSource)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    // this.dataSource[0].userDoc.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();

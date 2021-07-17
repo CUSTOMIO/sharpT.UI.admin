@@ -14,11 +14,11 @@ export class UserService {
 
   public getUsers(pageSize: number, currentPage: number){
     const url = `${environment.api_endpoint}/getAdminUser?pageSize=${pageSize}&page=${currentPage}`;
-    return this.http.get<User[]>(url)
-    .pipe(
-        map(data =>
-          data.map(x => new User(x))
-        )
-      );
+    return this.http.get<User>(url)
+  }
+
+  public getUsersById(userId: number){
+    const url = `${environment.api_endpoint}/getAdminUser/${userId}`;
+    return this.http.get<User>(url)
   }
 }
