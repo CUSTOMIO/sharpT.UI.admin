@@ -73,10 +73,31 @@
     </mat-list-item>
 
     <mat-list-item [routerLink]="['/user']" [routerLinkActive]="['active-nav-item']"
-    [routerLinkActiveOptions]="{exact: true}" role="main">
+    [routerLinkActiveOptions]="{exact: false}" role="main">
     <i class="fas fa-user-tie  m-10 fa-md color-not-so-black"></i>
     <span *ngIf="isMenuOpen">Users</span>
   </mat-list-item>
+
+  <mat-list-item [routerLink]="['/otp']" [routerLinkActive]="['active-nav-item']"
+  [routerLinkActiveOptions]="{exact: true}" role="main">
+  <i class="fas fa-asterisk  m-10 fa-md color-not-so-black"></i>
+  <span *ngIf="isMenuOpen">OTP</span>
+</mat-list-item>
+
+<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+  <span class="full-width" *ngIf="isExpanded || isShowing">
+      <i class="fas fa-book fa-md m-10 color-not-so-black"></i>
+       <span *ngIf="isMenuOpen">Examination</span>
+  </span>
+  <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
+    *ngIf="(isExpanded || isShowing) && isMenuOpen" style="color: #b5b5b5">
+      expand_more
+  </mat-icon>
+</mat-list-item>
+<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded && isMenuOpen">
+<a mat-list-item [routerLink]="['/examination-type']">Examination Types</a>
+<a mat-list-item [routerLink]="['/examination-detail']">Examination Detail</a>
+</div>
 
     </mat-nav-list>
   </mat-sidenav>

@@ -1,19 +1,21 @@
 .top {
     position: absolute;
     top:0;
+    width: 100%;
     height: 250px;
     background-color: rgba(162, 214, 249, 0.25);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 .top-span {
     height: 350px !important;
+    width: 100%;
 }
 
 .header {
-    margin-top: 25px;
+    margin-top: 75px;
     width: 100%;
 
-    padding: 75px 100px 0 100px;
+    padding: 0px 100px 0 100px;
     img {
         display: block;
         object-fit: cover;
@@ -32,16 +34,35 @@
 
 @media only screen and (max-width: 960px) {
     .header {
-        padding: 75px 25px 0 25px;
+        padding: 0px 25px 0 25px;
 
     }
 }
 
 @media only screen and (max-width: 600px) {
+    .top{
+        height: 200px;
+    }
+
     .header {
-        padding: 50px 5px 0 5px;
+        margin-top: 55px;
+        width: 100%;
+        padding: 0; 
+        text-align: center;
     }
     .img-div{
+        position: relative;
         width: 160px;
+        margin: 0 auto;
+    }
+    .edit-icon {
+        position: absolute;
+        right: 0;
+    }
+    .m-auto {
+        text-align: center;
+    }
+    .w-full {
+        width: 100%;
     }
 }

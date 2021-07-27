@@ -1,0 +1,16 @@
+button {
+    display: block;
+    margin: 10px auto;
+}   
+.header {
+    margin-bottom: 10px;
+    h1{
+        float: left;
+    }
+    mat-icon {
+        display: block;
+        margin-left: auto; 
+    margin-right: 0;
+    cursor: pointer;
+    }
+}

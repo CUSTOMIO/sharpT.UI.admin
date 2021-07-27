@@ -1,0 +1,68 @@
+<div class="container">
+    <form [formGroup]="detailForm" (ngSubmit)="onSubmit()">
+        <div  class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>First Name : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="firstName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>Middle Name : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="middleName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div  class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>Last Name : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="lastName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>Student Number : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="studentPN">
+                </mat-form-field>
+            </div>
+        </div>        <div class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>Parent Number : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="parentPN">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>Address : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="address">
+                </mat-form-field>
+            </div>
+        </div>
+        <button
+        mat-raised-button
+        color="primary">
+            Update
+        </button>
+    </form>
+</div>

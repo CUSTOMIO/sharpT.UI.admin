@@ -16,7 +16,7 @@ export class SubjectComponent implements OnInit {
   public isLoading: boolean = true;
 
   //Paginator
-  displayedColumns: string[] = ['name', 'standard', 'isActive', 'edit'];
+  displayedColumns: string[] = ['name', 'standard', 'isActive','createdAt', 'edit'];
   dataSource: MatTableDataSource<Subject>;
 
   subjectPerPage = 20;
@@ -31,8 +31,11 @@ export class SubjectComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
-    next: (x: Subject[]) => {
-      this.dataSource = new MatTableDataSource(x);
+    next: (data) => {
+      data.forEach(data => {
+        data.createdAt = new Date(data.createdAt).toDateString()
+      })
+      this.dataSource = new MatTableDataSource(data);
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)

@@ -1,25 +1,25 @@
 import { Component, OnInit } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { UserService } from "../core/dataService";
-import { User } from "../core/model";
+import { UserService } from "src/app/core/dataService";
+import { UsersDetail } from "src/app/core/model";
 
 @Component({
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.scss']
+    templateUrl: './user-list.component.html',
+    styleUrls: ['./user-list.component.scss']
   })
 
-export class UserComponent implements OnInit{
+export class UserListComponent implements OnInit{
 
-  public isLoading: boolean = true;
+  public isLoading = true;
 
   displayedColumns: string[] = ['username', 'email', 'standard','verified', 'enrolledOn'];
-  dataSource: MatTableDataSource<User>;
+  dataSource: MatTableDataSource<UsersDetail>;
   userPersonalDoc: object;
 
   userPerPage = 20;
   pageSizeOptions = [20, 50, 100];
-  pageIndex: number = 1;
+  pageIndex = 1;
   public count: number;
 
   private observer = {
@@ -27,10 +27,9 @@ export class UserComponent implements OnInit{
       x.forEach(data => {
         data.createdAt = new Date(data.createdAt).toDateString()
       })
-
       this.dataSource = new MatTableDataSource(x);
       this.isLoading = false;
-      console.log(x[0].userPersonalDoc)
+      console.log(this.dataSource)
     },
     error: err => console.error('Observer got an error: ' + err)
   };

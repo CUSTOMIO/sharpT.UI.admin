@@ -3,10 +3,9 @@ export class Subject {
     name: string;
     description: string;
     isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
     standardId: number;
-    SubjectStandardId: object;
+    standardName: string;
     constructor(item: Subject) {
         Object.assign(this, item)
     }

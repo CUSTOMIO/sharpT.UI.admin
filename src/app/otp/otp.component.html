@@ -1,0 +1,73 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+<div class="container">
+<div class="filter-div">
+  <div>
+    <mat-form-field appearance="standard" class="filter-input">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="filterlist..." #input>
+    </mat-form-field>
+  </div>
+</div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element">
+             <span 
+                class="user-exist"
+                *ngIf="element.userId" 
+                routerLink="/user/{{element.userId}}">
+                 {{element.email}} 
+             </span> 
+             <span *ngIf="element.userId === null">
+                {{element.email}} 
+            </span>
+            </td>
+        </ng-container>
+  
+        <!-- Otp Column -->
+        <ng-container matColumnDef="otp">
+          <th mat-header-cell *matHeaderCellDef> Otp </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.otp}} </td>
+        </ng-container>
+
+        <!-- Verified Column -->
+        <ng-container matColumnDef="isVerified">
+          <th mat-header-cell *matHeaderCellDef> Verified </th>
+          <td mat-cell *matCellDef="let element">
+            <i class="fas fa-md" [ngClass]="element.isVerified ? 'fa-check
+              text-success': 'fa-times text-danger'"></i>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Created At</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.createdAt}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updatedAt">
+            <th mat-header-cell *matHeaderCellDef>Updated At</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.updatedAt}}
+            </td>
+          </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator [length]="count"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="otpPerPage"
+        showFirstLastButtons
+        (page)="onChangedPage($event)">
+      </mat-paginator>
+    </div>
+  </div>

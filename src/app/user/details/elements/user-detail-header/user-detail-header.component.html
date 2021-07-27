@@ -2,36 +2,36 @@
     <div class="top">
         <div class="header" fxLayout="row" fxLayout.sm="row" fxLayout.xs="column"
             fxLayoutFap="10px">
-            <div class="img-div" fxFlex="18" fxFlex.sm="25" fxFlex.xs="20">
-                <img src="{{apiEndpoint + userDetail?.userPersonal?.image}}">
+            <div class="img-div m-auto" fxFlex="18" fxFlex.sm="25" fxFlex.xs="100">
+                <i class="far fa-edit edit-icon"></i>
+                <img src="{{apiEndpoint + imageUrl}}">
             </div>
-            <div class="header-content-1 mat-subheading-2" fxFlex="75"
+            <div class="header-content-1 mat-subheading-2" fxFlex="70"
                 fxFlex.sm="75"
                 fxFlex.xs="100" >
     
                 <div fxLayout="column" fxLayoutAlign="start start"  fxLayoutFap="10px">
-                    <div fxFlex="20">
+                    <div fxFlex="20" class="w-full">
                         <p class="mat-display-1">
-                            {{userDetail?.userPersonal?.firstName+'
-                            '+userDetail?.userPersonal?.middleName}}
+                            {{firstName+' '+middleName}}
                         </p>
                     </div>
-                    <div fxFlex="80">
+                    <div fxFlex="80" style="width: 100%;">
                         <div fXLayout="row" fxLayout.sm="row" fxLayout.xs="column">
-                            <div fxFlex="50" fxFlex.xs="100"> 
+                            <div fxFlex="100" fxFlex.xs="100"> 
                                 <p class="mat-subheading-2">
                                     <i class="far fa-envelope fa-md"></i>
-                                    {{userDetail?.user?.email}}
+                                    {{email}}
                                 </p>
                                 <p class="mat-subheading-2">
                                     <i class="fas fa-phone-alt fa-md"></i>
-                                    {{userDetail?.user?.phoneNumber}}
+                                    {{studentPN}}
                                 </p>
                             </div>
                             <div fxFlex="50"  fxFlex.xs="100">
                                 <p class="mat-subheading-2">
                                     <i class="fas fa-map-marker-alt fa-md"></i>
-                                    {{userDetail?.userPersonal?.address}}
+                                    {{address}}
                                 </p>
                             </div>
                         </div>

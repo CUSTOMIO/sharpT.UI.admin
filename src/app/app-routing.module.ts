@@ -5,10 +5,10 @@ import { AuthGuard } from './core/dataService/auth.gaurd';
 import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
-  { 
+  {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full' 
+    redirectTo: 'subject',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -36,6 +36,26 @@ const routes: Routes = [
     path: 'user',
     component: LayoutComponent,
     children: [{ path: '', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'otp',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./otp/otp.module').then(m => m.OtpModule)}],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'examination-type',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./examination/examination-type/examination-type.module')
+    .then(m => m.ExaminationTypeModule)}],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'examination-detail',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./examination/examination-detail/examination-detail.module')
+    .then(m => m.ExaminationDetailModule)}],
     canActivate: [AuthGuard],
   }
 
