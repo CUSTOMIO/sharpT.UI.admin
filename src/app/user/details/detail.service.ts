@@ -1,8 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { UserEnrollDate, UserName } from 'src/app/core/model';
+import { UserEnrollDate, UserName, UserStandard, UserSubject } from 'src/app/core/model';
 import { UserService } from '../../core/dataService';
-
 
 @Injectable()
 export class UserDetailService {
@@ -14,9 +13,10 @@ export class UserDetailService {
   public userPPN: BehaviorSubject<bigint> = new BehaviorSubject(null);
   public userSchool: BehaviorSubject<string> = new BehaviorSubject(null);
   public userEnrollDate: BehaviorSubject<UserEnrollDate> = new BehaviorSubject(null);
-  public userStandard: BehaviorSubject<string> = new BehaviorSubject(null);
-  public userSubject: BehaviorSubject<string[]> = new BehaviorSubject(null);
+  public userStandard: BehaviorSubject<UserStandard> = new BehaviorSubject(null);
+  public userSubject: BehaviorSubject<UserSubject[]> = new BehaviorSubject(null);
   public userEmail: BehaviorSubject<string> = new BehaviorSubject(null);
+  public userStandardId: BehaviorSubject<number> = new BehaviorSubject(null);
   
   constructor(private userService: UserService) { }
 

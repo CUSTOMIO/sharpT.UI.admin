@@ -22,28 +22,26 @@ export class EditStandardComponent implements OnInit {
             name: [, [Validators.required]],
             courseId: ['', [Validators.required]],
             isActive: ['', [Validators.required]],
+            allowSubjectSelection: ['', [Validators.required]],
             description: ['', [Validators.required]]
-        })
+        });
         if (data.mode === 'edit') {
             this.editForm.get('name').setValue(data.standard.name);
-            this.editForm.controls['courseId'].setValue(data.standard.standardCourseId.id);
+            this.editForm.controls.courseId.setValue(data.standard.standardCourseId.id);
             this.editForm.get('isActive').setValue(data.standard.isActive);
+            this.editForm.get('allowSubjectSelection').setValue(data.standard.allowSubjectSelection);
             this.editForm.get('description').setValue(data.standard.description);
         }
     }
     ngOnInit() {
-        const observer = {
-            next: (x) => {
-                this.course = x;
-            },
-            error: err => console.error('Observer got an error: ' + err)
-        };
-        this.courseService.getCourse().subscribe(observer)
+        this.courseService.getCourse().subscribe(res => {
+            this.course = res;
+        });
     }
 
     onSubmit() {
-        if(!this.editForm.valid){
-            return
+        if (!this.editForm.valid){
+            return;
         }
         const observer = {
             next: (x) => {
@@ -53,7 +51,7 @@ export class EditStandardComponent implements OnInit {
             },
             error: err => console.error('Observer got an error: ' + err)
         };
-        
+
         if (this.data.mode === 'edit') {
             this.standardService.postEditStandard(this.editForm.value, this.data.standard.id)
                 .subscribe(observer)
@@ -65,7 +63,7 @@ export class EditStandardComponent implements OnInit {
     }
 
     closeDialog(){
-        this.dialogRef.close()
+        this.dialogRef.close();
     }
 }
 

@@ -3,34 +3,33 @@
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
-<form [formGroup]="editForm" *ngIf="data.examinationType" class="pt-20"
+<!-- <form [formGroup]="editForm" *ngIf="data.examinationType" class="pt-20"
     (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" style="width: 100% !important;">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name">
     </mat-form-field>
+    <button type="submit" mat-flat-button color="accent">
+        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+    </button>
+</form> -->
 
-    <!-- <mat-form-field appearance="outline" style="width: 100% !important;">
-        <mat-label>Standard</mat-label>
-        <mat-select formControlName="batchId">
-            <mat-option *ngFor="let b of batch" [value]="b.id"
-                [innerHTML]="b.name">
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+<div class="container">
+    <form [formGroup]="editForm" *ngIf="data.examinationType" class="pt-20"
+    (ngSubmit)="onSubmit()">
+    <div class="wrapper">
+        <div fxFlex="35" class="label">
+            <mat-label>Name : </mat-label>
+        </div>
+        <div fxFlex="65" class="input">
+            <mat-form-field appearance="standard">
+                <input matInput formControlName="name">
+            </mat-form-field>
+        </div>
+    </div>
 
-    <mat-form-field appearance="outline" style="width: 100% !important;">
-        <mat-label>Description</mat-label>
-        <textarea rows="3" matInput formControlName="description"></textarea>
-    </mat-form-field>
-
-    <mat-slide-toggle
-        formControlName="isActive"
-        color="primary"
-        class="mb-10">
-        isActive
-    </mat-slide-toggle> -->
     <button type="submit" mat-flat-button color="accent">
         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
     </button>
 </form>
+</div>

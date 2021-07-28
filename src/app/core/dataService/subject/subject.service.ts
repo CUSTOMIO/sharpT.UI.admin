@@ -22,7 +22,12 @@ export class SubjectService {
       );
   }
 
-  public postEditSubject(form: object, id:number) {
+  public getSubjectByStandardId(id: number) {
+    const url = `${environment.api_endpoint}/subject/${id}?getActive=true`;
+    return this.http.get<Subject[]>(url);
+  }
+
+  public postEditSubject(form: object, id: number) {
     const url = `${environment.api_endpoint}/adminEditSubject/${id}`;
     return this.http.post<{message: string}>(url, form)
   }

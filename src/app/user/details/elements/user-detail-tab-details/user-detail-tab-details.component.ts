@@ -20,7 +20,7 @@ export class UserDetailTabComponent implements OnInit {
     public detailForm: FormGroup;
 
     constructor(private userService: UserDetailService,
-        private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder) {
         this.detailForm = this.formBuilder.group({
             firstName: [, [Validators.required]],
             middleName: [, [Validators.required]],

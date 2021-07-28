@@ -6,7 +6,7 @@ import { UserDetailService } from './details/detail.service';
 import { UserDetailHeaderComponent } from './details/elements/user-detail-header/user-detail-header.component';
 import { UserDetailTabComponent } from './details/elements/user-detail-tab-details/user-detail-tab-details.component';
 import { UserDetailComponent } from './details/detail.component';
-
+import { UserStandardTabComponent } from './details/elements/user-standard-tab-details/user-standard-tab-details.component';
 
 @NgModule({
   imports: [
@@ -18,7 +18,8 @@ import { UserDetailComponent } from './details/detail.component';
     routedComponents,
     UserDetailComponent,
     UserDetailTabComponent,
-    UserDetailHeaderComponent
+    UserDetailHeaderComponent,
+    UserStandardTabComponent
   ],
   providers: [
     UserDetailService

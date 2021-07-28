@@ -1,0 +1,17 @@
+.container{
+    margin: 25px auto 100px auto;
+    width: 100%;
+    .wrapper{
+        height: 50px;
+        align-items: center;
+        .label{
+            text-align: right;
+            padding-top: 16px;
+            margin-right: 20px;
+        }
+    }
+    button {
+        display: block;
+        margin: 25px auto;
+    }
+}

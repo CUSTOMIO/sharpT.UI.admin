@@ -16,7 +16,7 @@ export class StandardComponent {
   public standard: Standard[];
   
   //Paginator
-  displayedColumns: string[] = ['name', 'course', 'isActive', 'edit'];
+  displayedColumns: string[] = ['name', 'course', 'isActive', 'allowSubjectSelection', 'edit'];
   dataSource: MatTableDataSource<Standard>;
   
   standardPerPage = 20;

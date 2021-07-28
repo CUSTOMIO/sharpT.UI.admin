@@ -14,3 +14,21 @@ button {
     cursor: pointer;
     }
 }
+
+.container{
+    margin: 0px auto 25px auto;
+    width: 100%;
+    .wrapper{
+        height: 50px;
+        align-items: center;
+        .label{
+            text-align: right;
+            padding-top: 16px;
+            margin-right: 20px;
+        }
+    }
+    button {
+        display: block;
+        margin: 10px auto 0 auto;
+    }
+}

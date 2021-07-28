@@ -30,6 +30,17 @@
             padding: 5px 0;
         }
     }
+    .img-div{
+        position: relative;
+        width: fit-content;
+        .edit-icon {
+            position: absolute;
+            top: -5px;
+            right: -15px;
+            color: #4d4f52; 
+        }
+    }
+
 }
 
 @media only screen and (max-width: 960px) {
@@ -54,10 +65,14 @@
         position: relative;
         width: 160px;
         margin: 0 auto;
-    }
-    .edit-icon {
-        position: absolute;
-        right: 0;
+        img {
+            width: 160px;
+        }
+        .edit-icon {
+            top: 0;
+            right: -5px;
+            cursor: pointer;
+        }
     }
     .m-auto {
         text-align: center;
