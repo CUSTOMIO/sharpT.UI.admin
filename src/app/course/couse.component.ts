@@ -12,19 +12,19 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
 })
 export class CourseComponent {
   title = 'Standard';
-  public isLoading: boolean = true;
+  public isLoading = true;
   public standard: Standard[];
-  
-  //Paginator
+
+  // Paginator
   displayedColumns: string[] = ['name', 'course', 'isActive', 'edit'];
   dataSource: MatTableDataSource<Standard>;
-  
+
   standardPerPage = 20;
   pageSizeOptions = [20, 50, 100];
-  pageIndex: number = 1;
+  pageIndex = 1;
   public count: number;
 
-  //Dialog
+  // Dialog
   public standardId: number;
 
 
@@ -46,11 +46,11 @@ export class CourseComponent {
   ngOnInit() {
     this.courseService.courseCount()
     .subscribe(data => {
-      this.count = data.count
+      this.count = data.count;
     },
     err => {
-      console.log(err)
-    })
+      console.log(err);
+    });
     this.courseService.getAdminCourse(this.standardPerPage, 1).subscribe(this.observer);
   }
 
@@ -70,19 +70,19 @@ export class CourseComponent {
     }
     this.isLoading = false;
   }
-  openDialog(course: object, mode :String): void {
+  openDialog(course: object, mode: string): void {
     const dialogRef = this.dialog.open(EditCourseComponent, {
       // disableClose: true,
       width: '450px',
       data: {
-        course: course,
-        mode : mode
+        course,
+        mode
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(!result) {
-        return
+      if (!result) {
+        return;
       }
       this.courseService.getAdminCourse(this.standardPerPage, this.pageIndex).subscribe(this.observer);
       this.count += 1;

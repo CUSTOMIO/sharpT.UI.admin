@@ -10,6 +10,9 @@ export * from './user/user-standard.model';
 export * from './user/user-subject.model';
 export * from './otp/otp.model';
 export * from './examination/examination-type.model';
+export * from './examination/examination-detail.model';
+export * from './academic-year/academic-year.model';
+
 
 
 

@@ -12,6 +12,11 @@ export class ExaminationService {
 
   constructor(private http: HttpClient) { }
 
+  public examination(){
+    const url = `${environment.api_endpoint}/examination`;
+    return this.http.get<{id: number, name: string}>(url);
+  }
+
   public getExamination(pageSize: number, currentPage: number) {
     const url = `${environment.api_endpoint}/getExamination?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<ExaminationType[]>(url)

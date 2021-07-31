@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit{
   private observer = {
     next: (x) => {
       x.forEach(data => {
-        data.createdAt = new Date(data.createdAt).toDateString()
+        data.createdAt = new Date(data.createdAt).toDateString();
       })
       this.dataSource = new MatTableDataSource(x);
       this.isLoading = false;

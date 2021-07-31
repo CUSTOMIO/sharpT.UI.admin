@@ -21,8 +21,8 @@ export class EditStandardComponent implements OnInit {
         this.editForm = formBuilder.group({
             name: [, [Validators.required]],
             courseId: ['', [Validators.required]],
-            isActive: ['', [Validators.required]],
-            allowSubjectSelection: ['', [Validators.required]],
+            isActive: [false, [Validators.required]],
+            allowSubjectSelection: [false, [Validators.required]],
             description: ['', [Validators.required]]
         });
         if (data.mode === 'edit') {
@@ -40,6 +40,7 @@ export class EditStandardComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.editForm.value);
         if (!this.editForm.valid){
             return;
         }
@@ -54,11 +55,12 @@ export class EditStandardComponent implements OnInit {
 
         if (this.data.mode === 'edit') {
             this.standardService.postEditStandard(this.editForm.value, this.data.standard.id)
-                .subscribe(observer)
+                .subscribe(observer);
         }
         else if (this.data.mode === 'new') {
+            console.log(this.editForm.value);
             this.standardService.postAddStandard(this.editForm.value)
-                .subscribe(observer)
+                .subscribe(observer);
         }
     }
 

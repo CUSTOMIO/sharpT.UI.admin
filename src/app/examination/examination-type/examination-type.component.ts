@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
-import { ExaminationService } from "src/app/core/dataService";
-import { ExaminationType } from "src/app/core/model";
-import { EditExaminationTypeComponent } from "./edit-examination-type/edit-examination-type.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { ExaminationService } from 'src/app/core/dataService';
+import { ExaminationType } from 'src/app/core/model';
+import { EditExaminationTypeComponent } from './edit-examination-type/edit-examination-type.component';
 
 @Component({
     templateUrl: './examination-type.component.html',
@@ -13,19 +13,19 @@ import { EditExaminationTypeComponent } from "./edit-examination-type/edit-exami
 
 export class ExaminationTypeComponent  implements OnInit{
     title = 'Examination-Types';
-    public isLoading: boolean = true;
+    public isLoading = true;
     public ExaminationType: ExaminationType[];
-  
-  //Paginator
+
+  // Paginator
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<ExaminationType>;
-  
+
   examinationTypePerPage = 20;
   pageSizeOptions = [10, 25, 100];
-  pageIndex: number = 1;
+  pageIndex = 1;
   public count: number;
 
-  //Dialog
+  // Dialog
   public examinationTypeId: number;
 
 
@@ -44,13 +44,13 @@ export class ExaminationTypeComponent  implements OnInit{
       };
 
     constructor(private examinationService: ExaminationService,
-      public dialog: MatDialog){
+                public dialog: MatDialog){
     }
 
     ngOnInit() {
         this.examinationService.examinationCount()
         .subscribe(data => {
-          this.count = data.count
+          this.count = data.count;
         },
         err => {
           console.log(err)
@@ -63,32 +63,31 @@ export class ExaminationTypeComponent  implements OnInit{
         this.examinationService.getExamination(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
         this.pageIndex = pageData.pageIndex + 1;
       }
-    
+
       applyFilter(event: Event) {
         this.isLoading = true;
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
-    
+
         if (this.dataSource.paginator) {
           this.dataSource.paginator.firstPage();
         }
         this.isLoading = false;
       }
 
-      openDialog(examinationType: object, mode :String): void {
-        console.log(examinationType)
+      openDialog(examinationType: object, mode : string): void {
         const dialogRef = this.dialog.open(EditExaminationTypeComponent, {
           // disableClose: true,
           width: '450px',
           data: {
-            examinationType: examinationType,
-            mode : mode
+            examinationType,
+            mode
           }
         });
-    
+
         dialogRef.afterClosed().subscribe(result => {
           if(!result) {
-            return
+            return;
           }
           this.examinationService.getExamination(this.examinationTypePerPage, this.pageIndex).subscribe(this.observer);
           this.count += 1;

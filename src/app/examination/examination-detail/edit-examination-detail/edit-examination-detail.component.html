@@ -1,0 +1,93 @@
+<div class="header">
+    <h1 class="mat-subheading-2">Examination Detail</h1>
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<mat-divider></mat-divider>
+
+<div class="container">
+    <form [formGroup]="editForm" *ngIf="data.examinationDetail" class="pt-20" (ngSubmit)="onSubmit()">
+
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Examination Name : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <mat-select formControlName="examinationId">
+                        <mat-option *ngFor="let e of examination" [value]="e.id" [innerHTML]="e.name">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Standard : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <mat-select formControlName="standardId">
+                        <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Academic Year : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <mat-select formControlName="academicYearId">
+                        <mat-option *ngFor="let e of academicYear" [value]="e.id" [innerHTML]="e.startYear+ '-'+e.endYear">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Total Marks : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="totalMarks">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Start On : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="fill" class="date">
+                    <input matInput [matDatepicker]="startOn" formControlName="startOn">
+                    <mat-datepicker-toggle matSuffix [for]="startOn"></mat-datepicker-toggle>
+                    <mat-datepicker #startOn></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>End On : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="fill" class="date">
+                    <input matInput [matDatepicker]="endOn" formControlName="endOn">
+                    <mat-datepicker-toggle matSuffix [for]="endOn"></mat-datepicker-toggle>
+                    <mat-datepicker #endOn></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <button type="submit" mat-flat-button color="accent">
+            {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+        </button>
+    </form>
+</div>

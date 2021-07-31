@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { ExaminationDetailRoutingModule } from './examination-detail.routing';
-
+import { ExaminationDetailRoutingModule, routedComponents } from './examination-detail.routing';
+import { EditExaminationDetailComponent } from './edit-examination-detail/edit-examination-detail.component';
 
 @NgModule({
   imports: [
@@ -11,8 +11,8 @@ import { ExaminationDetailRoutingModule } from './examination-detail.routing';
     ExaminationDetailRoutingModule
   ],
   declarations: [
-    
-    
+    routedComponents,
+    EditExaminationDetailComponent
   ],
   providers: [
   ]

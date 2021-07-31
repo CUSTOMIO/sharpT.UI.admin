@@ -22,7 +22,7 @@ export class EditSubjectComponent implements OnInit {
         this.editForm = formBuilder.group({
             name: [, [Validators.required]],
             standardId: ['', [Validators.required]],
-            isActive: ['', [Validators.required]],
+            isActive: [false, [Validators.required]],
             description: ['', [Validators.required]]
         })
         if (data.mode === 'edit') {
