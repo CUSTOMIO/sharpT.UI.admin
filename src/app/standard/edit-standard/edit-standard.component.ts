@@ -26,11 +26,11 @@ export class EditStandardComponent implements OnInit {
             description: ['', [Validators.required]]
         });
         if (data.mode === 'edit') {
-            this.editForm.get('name').setValue(data.standard.name);
-            this.editForm.controls.courseId.setValue(data.standard.standardCourseId.id);
-            this.editForm.get('isActive').setValue(data.standard.isActive);
-            this.editForm.get('allowSubjectSelection').setValue(data.standard.allowSubjectSelection);
-            this.editForm.get('description').setValue(data.standard.description);
+            this.editForm.controls.name.setValue(data.standard.name);
+            this.editForm.controls.courseId.setValue(data.standard.courseId);
+            this.editForm.controls.isActive.setValue(data.standard.isActive);
+            this.editForm.controls.allowSubjectSelection.setValue(data.standard.allowSubjectSelection);
+            this.editForm.controls.description.setValue(data.standard.description);
         }
     }
     ngOnInit() {
@@ -40,7 +40,6 @@ export class EditStandardComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.editForm.value);
         if (!this.editForm.valid){
             return;
         }

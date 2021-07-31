@@ -20,7 +20,7 @@ export class EditSubjectComponent implements OnInit {
         private subjectService: SubjectService,
         private formBuilder: FormBuilder) {
         this.editForm = formBuilder.group({
-            name: [, [Validators.required]],
+            name: ['', [Validators.required]],
             standardId: ['', [Validators.required]],
             isActive: [false, [Validators.required]],
             description: ['', [Validators.required]]
@@ -39,7 +39,7 @@ export class EditSubjectComponent implements OnInit {
             },
             error: err => console.error('Observer got an error: ' + err)
         };
-        this.standardService.getStandard().subscribe(observer)
+        this.standardService.getStandard().subscribe(observer);
     }
 
     onSubmit() {
@@ -56,7 +56,7 @@ export class EditSubjectComponent implements OnInit {
         };
         if (this.data.mode === 'edit') {
             this.subjectService.postEditSubject(this.editForm.value, this.data.subject.id)
-                .subscribe(observer)
+                .subscribe(observer);
         }
         else if (this.data.mode === 'new') {
             this.subjectService.postAddSubject(this.editForm.value)
@@ -64,7 +64,7 @@ export class EditSubjectComponent implements OnInit {
         }
     }
     closeDialog() {
-        this.dialogRef.close()
+        this.dialogRef.close();
     }
 }
 

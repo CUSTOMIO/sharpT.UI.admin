@@ -12,29 +12,25 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./subject.component.scss']
 })
 export class SubjectComponent implements OnInit {
-  public subject: Subject[];
-  public isLoading: boolean = true;
 
-  //Paginator
-  displayedColumns: string[] = ['name', 'standard', 'isActive','createdAt', 'edit'];
+  // Table & Paginator
+  displayedColumns: string[] = ['name', 'standard', 'isActive', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Subject>;
-
   subjectPerPage = 20;
   pageSizeOptions = [20, 50, 100];
-  pageIndex: number = 1;
+  pageIndex = 1;
   public count: number;
 
-
-  //Dialog
-  public subjectId: number;
+  // Loading
+  public isLoading = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
     next: (data) => {
       data.forEach(data => {
-        data.createdAt = new Date(data.createdAt).toDateString()
-      })
+        data.updatedAt = new Date(data.updatedAt).toDateString();
+      });
       this.dataSource = new MatTableDataSource(data);
       this.isLoading = false;
     },
@@ -49,10 +45,10 @@ export class SubjectComponent implements OnInit {
   ngOnInit() {
     this.subjectService.subjectCount()
     .subscribe(data => {
-      this.count = data.count
+      this.count = data.count;
     },
     err => {
-      console.log(err)
+      console.log(err);
     })
     this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
   }
@@ -75,19 +71,19 @@ export class SubjectComponent implements OnInit {
     this.isLoading = false;
 
   }
-  openDialog(subject: object, mode :String): void {
+  openDialog(subject: object, mode: string): void {
     const dialogRef = this.dialog.open(EditSubjectComponent, {
       // disableClose: true,
       width: '450px',
       data: {
-        subject: subject,
-        mode : mode
+        subject,
+        mode
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(!result) {
-        return
+      if (!result) {
+        return;
       }
       this.subjectService.getSubject(this.subjectPerPage, this.pageIndex).subscribe(this.observer);
       this.count += 1;

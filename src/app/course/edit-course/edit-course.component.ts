@@ -24,12 +24,12 @@ export class EditCourseComponent implements OnInit {
             batchId: ['', [Validators.required]],
             isActive: [false, [Validators.required]],
             description: ['', [Validators.required]]
-        })
+        });
         if (data.mode === 'edit') {
-            this.editForm.get('name').setValue(data.course.name);
-            this.editForm.controls['batchId'].setValue(data.course.coursesBatchId.id);
-            this.editForm.get('isActive').setValue(data.course.isActive);
-            this.editForm.get('description').setValue(data.course.description);
+            this.editForm.controls.name.setValue(data.course.name);
+            this.editForm.controls.batchId.setValue(data.course.batchId);
+            this.editForm.controls.isActive.setValue(data.course.isActive);
+            this.editForm.controls.description.setValue(data.course.description);
         }
     }
     ngOnInit() {
@@ -39,13 +39,12 @@ export class EditCourseComponent implements OnInit {
             },
             error: err => console.error('Observer got an error: ' + err)
         };
-        this.batchService.getAdminBatch().subscribe(observer)
+        this.batchService.getAdminBatch().subscribe(observer);
     }
 
     onSubmit() {
-        console.log(this.editForm.value)
-        if(!this.editForm.valid){
-            return
+        if (!this.editForm.valid){
+            return;
         }
         const observer = {
             next: (x) => {
@@ -55,19 +54,19 @@ export class EditCourseComponent implements OnInit {
             },
             error: err => console.error('Observer got an error: ' + err)
         };
-        
+
         if (this.data.mode === 'edit') {
             this.courseService.postEditCours(this.editForm.value, this.data.course.id)
-                .subscribe(observer)
+                .subscribe(observer);
         }
         else if (this.data.mode === 'new') {
             this.courseService.postAddCourse(this.editForm.value)
-                .subscribe(observer)
+                .subscribe(observer);
         }
     }
 
     closeDialog(){
-        this.dialogRef.close()
+        this.dialogRef.close();
     }
 }
 

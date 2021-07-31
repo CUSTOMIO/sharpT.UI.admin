@@ -13,19 +13,16 @@ import { EditExaminationDetailComponent } from './edit-examination-detail/edit-e
 
 export class ExaminationDetailComponent implements OnInit{
 
-  public examinationDetail: ExaminationDetail[];
-
+  // Paginator
   displayedColumns: string[] = ['name', 'standard', 'startOn', 'endOn', 'totalMarks', 'updatedAt', 'edit'];
-
   dataSource: MatTableDataSource<ExaminationDetail>;
-
   examinationDetailPerPage = 20;
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;
 
-  // Dialog
-  public standardId: number;
+  // Loading
+  public isLoading = true;
 
   private observer = {
     next: (data: ExaminationDetail[]) => {
@@ -35,6 +32,7 @@ export class ExaminationDetailComponent implements OnInit{
         x.endOn = new Date(x.endOn).toDateString();
         x.updatedAt = new Date(x.updatedAt).toDateString();
       });
+      this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)
   };
@@ -42,7 +40,7 @@ export class ExaminationDetailComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor(private examinationDetailService: ExaminationDetailService, 
+  constructor(private examinationDetailService: ExaminationDetailService,
               public dialog: MatDialog){}
 
 
@@ -52,18 +50,21 @@ export class ExaminationDetailComponent implements OnInit{
   }
 
   onChangedPage(pageData: PageEvent) {
+    this.isLoading = true;
     this.examinationDetailService.getExaminationDetail(pageData.pageSize, pageData.pageIndex + 1)
     .subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;
   }
 
   applyFilter(event: Event) {
+    this.isLoading = true;
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+    this.isLoading = false;
   }
 
   openDialog(examinationDetail: object, mode: string): void {

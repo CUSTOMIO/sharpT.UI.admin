@@ -11,28 +11,26 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent {
-  title = 'Standard';
-  public isLoading = true;
-  public standard: Standard[];
 
-  // Paginator
-  displayedColumns: string[] = ['name', 'course', 'isActive', 'edit'];
+  // Table & Paginator
+  displayedColumns: string[] = ['name', 'course', 'isActive', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
-
   standardPerPage = 20;
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;
 
-  // Dialog
-  public standardId: number;
-
+  // Loading
+  public isLoading = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
-    next: (x: Standard[]) => {
-      this.dataSource = new MatTableDataSource(x);
+    next: (data) => {
+      this.dataSource = new MatTableDataSource(data);
+      data.forEach(data => {
+        data.updatedAt = new Date(data.updatedAt).toDateString();
+      })
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)

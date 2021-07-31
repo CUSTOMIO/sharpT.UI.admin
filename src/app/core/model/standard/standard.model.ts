@@ -4,6 +4,7 @@ export class Standard {
     description: string;
     isActive: boolean;
     allowSubjectSelection: boolean;
+    updatedAt: string;
     constructor(item: Standard) {
         Object.assign(this, item)
     }

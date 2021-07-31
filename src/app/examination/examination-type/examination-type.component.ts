@@ -13,7 +13,6 @@ import { EditExaminationTypeComponent } from './edit-examination-type/edit-exami
 
 export class ExaminationTypeComponent  implements OnInit{
     title = 'Examination-Types';
-    public isLoading = true;
     public ExaminationType: ExaminationType[];
 
   // Paginator
@@ -27,6 +26,9 @@ export class ExaminationTypeComponent  implements OnInit{
 
   // Dialog
   public examinationTypeId: number;
+
+  // Loading
+  public isLoading = true;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -53,7 +55,7 @@ export class ExaminationTypeComponent  implements OnInit{
           this.count = data.count;
         },
         err => {
-          console.log(err)
+          console.log(err);
         })
         this.examinationService.getExamination(this.examinationTypePerPage, 1).subscribe(this.observer)
     }
@@ -86,7 +88,7 @@ export class ExaminationTypeComponent  implements OnInit{
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          if(!result) {
+          if (!result) {
             return;
           }
           this.examinationService.getExamination(this.examinationTypePerPage, this.pageIndex).subscribe(this.observer);

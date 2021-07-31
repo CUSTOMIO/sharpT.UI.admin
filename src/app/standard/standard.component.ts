@@ -11,31 +11,30 @@ import { EditStandardComponent } from './edit-standard/edit-standard.component';
   styleUrls: ['./standard.component.scss']
 })
 export class StandardComponent {
-  title = 'Standard';
-  public isLoading: boolean = true;
-  public standard: Standard[];
-  
-  //Paginator
-  displayedColumns: string[] = ['name', 'course', 'isActive', 'allowSubjectSelection', 'edit'];
+
+  // Table & Paginator
+  displayedColumns: string[] = ['name', 'course', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
-  
   standardPerPage = 20;
   pageSizeOptions = [20, 50, 100];
-  pageIndex: number = 1;
+  pageIndex = 1;
   public count: number;
-
-  //Dialog
   public standardId: number;
 
+  // Loading
+  public isLoading = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
-    next: (x: Standard[]) => {
-      this.dataSource = new MatTableDataSource(x);
+    next: (data: Standard[]) => {
+      this.dataSource = new MatTableDataSource(data);
+      data.forEach(data => {
+        data.updatedAt = new Date(data.updatedAt).toDateString();
+      })
       this.isLoading = false;
     },
-    error: err => console.error('Observer got an error: ' + err)
+    error: err => console.error(err)
   };
 
   constructor(
@@ -46,11 +45,11 @@ export class StandardComponent {
   ngOnInit() {
     this.standardService.standardCount()
     .subscribe(data => {
-      this.count = data.count
+      this.count = data.count;
     },
     err => {
-      console.log(err)
-    })
+      console.log(err);
+    });
     this.standardService.getAdminStandard(this.standardPerPage, 1).subscribe(this.observer);
   }
 
@@ -70,19 +69,19 @@ export class StandardComponent {
     }
     this.isLoading = false;
   }
-  openDialog(standard: object, mode :String): void {
+  openDialog(standard: object, mode: string): void {
     const dialogRef = this.dialog.open(EditStandardComponent, {
       // disableClose: true,
       width: '450px',
       data: {
-        standard: standard,
-        mode : mode
+        standard,
+        mode
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(!result) {
-        return
+      if (!result) {
+        return;
       }
       this.standardService.getAdminStandard(this.standardPerPage, this.pageIndex).subscribe(this.observer);
       this.count += 1;
