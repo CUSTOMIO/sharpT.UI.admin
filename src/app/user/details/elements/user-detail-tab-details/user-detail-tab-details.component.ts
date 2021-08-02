@@ -66,10 +66,9 @@ export class UserDetailTabComponent implements OnInit {
                 if (res) {
                     this.address = res;
                     this.detailForm.controls.address.setValue(res);
-
+                    this.isLoading = false;
                 }
             });
-        this.isLoading = false;
     }
 
     onSubmit() {

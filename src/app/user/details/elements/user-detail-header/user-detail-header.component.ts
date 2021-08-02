@@ -52,8 +52,8 @@ export class UserDetailHeaderComponent implements OnInit {
             if (res) {
                 this.address = res;
             }
+            this.isLoading = false;
         });
-        this.isLoading = false;
     }
 }
 
