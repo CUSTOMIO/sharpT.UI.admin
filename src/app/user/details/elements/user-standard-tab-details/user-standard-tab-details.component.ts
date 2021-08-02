@@ -21,6 +21,7 @@ export class UserStandardTabComponent implements OnInit {
     public subjects: object;
     public userSubjects: Array<UserSubject>;
 
+    public isLoading = true;
 
     constructor(private userService: UserDetailService,
                 private standardService: StandardService,
@@ -60,10 +61,10 @@ export class UserStandardTabComponent implements OnInit {
     }
 
     getSubjects(standardId: number) {
-        console.log('triggered', standardId);
         this.subjectService.getSubjectByStandardId(standardId)
             .subscribe(res => {
                 this.subjects = res;
+                this.isLoading = false;
             });
     }
 
@@ -88,17 +89,12 @@ export class UserStandardTabComponent implements OnInit {
         });
     }
 
-    checkUserSubject(subject: any) {
-        for (let item of this.userSubjects) {
+    checkSubjectToggle(subject: any) {
+        for (const item of this.userSubjects) {
             if (subject.id === item.subjectId) {
                 return true;
             }
         }
-    }
-
-    changeStandard(standard){
-        this.subjectService.getSubjectByStandardId(standard.value);
-
     }
 
     onSubmit() {

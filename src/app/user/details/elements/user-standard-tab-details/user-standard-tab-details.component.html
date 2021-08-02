@@ -1,5 +1,6 @@
 <div class="container">
-    <form [formGroup]="standardForm" (ngSubmit)="onSubmit()">
+    <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="standardForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
         <div class="wrapper">
             <div fxFlex="50" class="label">
                 <mat-label>Standard : </mat-label>
@@ -25,7 +26,7 @@
                             color="primary"
                             (change)="checkSubject($event, subject)"
                             [formGroupName]="'subjects'"
-                            [checked]="checkUserSubject(subject)">
+                            [checked]="checkSubjectToggle(subject)">
                             {{subject.name}}
                         </mat-slide-toggle>
                     </div>
@@ -52,35 +53,6 @@
                 </div>
             </span>
         </div>
-
-
-
-        <!-- <div class="subject-list" *ngIf="allSubject">
-            <mat-form-field style="width: 100% !important;" appearance="standard"> 
-            <span *ngIf="allSubject.allowSubjectSelection">
-                <p *ngFor="let subject of allSubject.data">
-                    <mat-slide-toggle
-                        color="primary"
-                        (change)="checkSubject($event, subject)"
-                        [formGroupName]="'subjects'">
-                        {{subject.name}}
-                    </mat-slide-toggle>
-                </p>
-            </span>
-            <span *ngIf="!allSubject.allowSubjectSelection">
-                <p *ngFor="let subject of allSubject.data">
-                    <mat-slide-toggle
-                        color="primary"
-                        onload="printvalue()"
-                        [formGroupName]="'subjects'"
-                        [checked]="true"
-                        [disabled]="true">
-                        {{subject.name}}
-                    </mat-slide-toggle>
-                </p>
-            </span>
-             </mat-form-field> 
-        </div> -->
         <button mat-raised-button color="primary">
             Update
         </button>

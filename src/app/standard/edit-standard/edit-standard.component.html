@@ -3,6 +3,8 @@
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
 <div class="container">
     <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20" (ngSubmit)="onSubmit()">
         <div class="wrapper">

@@ -18,6 +18,7 @@ export class UserDetailTabComponent implements OnInit {
     public address: string;
 
     public detailForm: FormGroup;
+    public isLoading = true;
 
     constructor(private userService: UserDetailService,
                 private formBuilder: FormBuilder) {
@@ -68,8 +69,7 @@ export class UserDetailTabComponent implements OnInit {
 
                 }
             });
-
-
+        this.isLoading = false;
     }
 
     onSubmit() {

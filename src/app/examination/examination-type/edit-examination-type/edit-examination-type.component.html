@@ -3,6 +3,8 @@
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
 <!-- <form [formGroup]="editForm" *ngIf="data.examinationType" class="pt-20"
     (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" style="width: 100% !important;">
@@ -15,21 +17,20 @@
 </form> -->
 
 <div class="container">
-    <form [formGroup]="editForm" *ngIf="data.examinationType" class="pt-20"
-    (ngSubmit)="onSubmit()">
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Name : </mat-label>
+    <form [formGroup]="editForm" *ngIf="data.examinationType" class="pt-20" (ngSubmit)="onSubmit()">
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Name : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="name">
+                </mat-form-field>
+            </div>
         </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <input matInput formControlName="name">
-            </mat-form-field>
-        </div>
-    </div>
 
-    <button type="submit" mat-flat-button color="accent">
+        <button type="submit" mat-flat-button color="accent">
         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
     </button>
-</form>
+    </form>
 </div>

@@ -29,7 +29,6 @@ export class UserListComponent implements OnInit{
       })
       this.dataSource = new MatTableDataSource(x);
       this.isLoading = false;
-      console.log(this.dataSource)
     },
     error: err => console.error('Observer got an error: ' + err)
   };

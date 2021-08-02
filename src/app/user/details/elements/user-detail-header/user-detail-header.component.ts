@@ -19,6 +19,8 @@ export class UserDetailHeaderComponent implements OnInit {
     public studentPN: bigint;
     public address: string;
 
+    public isLoading = true;
+
     constructor(private userService: UserDetailService) { }
 
     ngOnInit() {
@@ -51,6 +53,7 @@ export class UserDetailHeaderComponent implements OnInit {
                 this.address = res;
             }
         });
+        this.isLoading = false;
     }
 }
 

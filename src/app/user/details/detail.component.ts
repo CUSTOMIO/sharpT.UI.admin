@@ -8,6 +8,7 @@ import { UserDetailService } from './detail.service';
 })
 
 export class UserDetailComponent implements OnInit {
+    public isLoading = true;
 
     constructor(
         private route: ActivatedRoute,
@@ -17,6 +18,7 @@ export class UserDetailComponent implements OnInit {
     ngOnInit() {
         const userId = Number(this.route.snapshot.paramMap.get('id'));
         this.userDetailService.getUser(userId);
+        this.isLoading = false;
     }
 }
 

@@ -3,6 +3,8 @@
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
 <!-- <form [formGroup]="editForm" *ngIf="data.course" class="pt-20"
     (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" style="width: 100% !important;">
@@ -35,58 +37,53 @@
     </button>
 </form> -->
 <div class="container">
-    <form [formGroup]="editForm" *ngIf="data.course" class="pt-20"
-    (ngSubmit)="onSubmit()">
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Name : </mat-label>
+    <form [formGroup]="editForm" *ngIf="data.course" class="pt-20" (ngSubmit)="onSubmit()">
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Name : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="name">
+                </mat-form-field>
+            </div>
         </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <input matInput formControlName="name">
-            </mat-form-field>
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Description : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <!-- <textarea rows="3" matInput formControlName="description"></textarea> -->
+                    <input matInput formControlName="description">
+                </mat-form-field>
+            </div>
         </div>
-    </div>
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Description : </mat-label>
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Batch : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <mat-select formControlName="batchId">
+                        <mat-option *ngFor="let b of batch" [value]="b.id" [innerHTML]="b.name">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <!-- <textarea rows="3" matInput formControlName="description"></textarea> -->
-                <input matInput formControlName="description">
-            </mat-form-field>
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Active Status : </mat-label>
+            </div>
+            <div fxFlex="65">
+                <mat-slide-toggle formControlName="isActive" color="primary" class="side-toggle">
+                </mat-slide-toggle>
+            </div>
         </div>
-    </div>
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Batch : </mat-label>
-        </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <mat-select formControlName="batchId">
-                    <mat-option *ngFor="let b of batch" [value]="b.id"
-                        [innerHTML]="b.name">
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Active Status : </mat-label>
-        </div>
-        <div fxFlex="65">
-            <mat-slide-toggle
-            formControlName="isActive"
-            color="primary"
-            class="side-toggle">
-        </mat-slide-toggle>
-        </div>
-    </div>
 
-    <button type="submit" mat-flat-button color="accent">
+        <button type="submit" mat-flat-button color="accent">
         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
     </button>
-</form>
+    </form>
 </div>

@@ -1,6 +1,7 @@
 <div class="container">
-    <form [formGroup]="detailForm" (ngSubmit)="onSubmit()">
-        <div  class="wrapper">
+    <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="detailForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <div class="wrapper">
             <div fxFlex="50" class="label">
                 <mat-label>First Name : </mat-label>
             </div>
@@ -20,7 +21,7 @@
                 </mat-form-field>
             </div>
         </div>
-        <div  class="wrapper">
+        <div class="wrapper">
             <div fxFlex="50" class="label">
                 <mat-label>Last Name : </mat-label>
             </div>
@@ -39,7 +40,8 @@
                     <input matInput formControlName="studentPN">
                 </mat-form-field>
             </div>
-        </div>        <div class="wrapper">
+        </div>
+        <div class="wrapper">
             <div fxFlex="50" class="label">
                 <mat-label>Parent Number : </mat-label>
             </div>
@@ -59,9 +61,7 @@
                 </mat-form-field>
             </div>
         </div>
-        <button
-        mat-raised-button
-        color="primary">
+        <button mat-raised-button color="primary">
             Update
         </button>
     </form>
