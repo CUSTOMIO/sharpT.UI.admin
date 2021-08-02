@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../../environments/environment';
-import { UsersDetail, UserName, UserEnrollDate, UserStandard, UserSubject } from '../../model';
+import { UsersDetail, UserName, UserEnrollDate, UserStandard, UserSubject, UserByStandardId } from '../../model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -21,6 +21,16 @@ export class UserService {
           data.map(x => new UsersDetail(x))
         ));
   }
+
+  public getUserBySId(pageSize: number, currentPage: number, standardId: number): Observable<UserByStandardId[]> {
+    const url = `${environment.api_endpoint}/getUserBySId/${standardId}?pageSize=${pageSize}&page=${currentPage}`;
+    return this.http.get<UserByStandardId[]>(url)
+      .pipe(
+        map(data =>
+          data.map(x => new UserByStandardId(x))
+        ));
+  }
+
 
   public getUserName(userId: number): Observable<UserName> {
     const url = `${environment.api_endpoint}/getUserName/${userId}`;

@@ -12,6 +12,7 @@ export class EditSubjectComponent implements OnInit {
 
     public standard: object;
     private editForm: FormGroup;
+    public isLoading = true;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { subject: any, mode: string },
@@ -24,7 +25,7 @@ export class EditSubjectComponent implements OnInit {
             standardId: ['', [Validators.required]],
             isActive: [false, [Validators.required]],
             description: ['', [Validators.required]]
-        })
+        });
         if (data.mode === 'edit') {
             this.editForm.get('name').setValue(data.subject.name);
             this.editForm.controls.standardId.setValue(data.subject.standardId);
@@ -33,26 +34,29 @@ export class EditSubjectComponent implements OnInit {
         }
     }
     ngOnInit() {
-        const observer = {
-            next: (x) => {
-                this.standard = x;
-            },
-            error: err => console.error('Observer got an error: ' + err)
-        };
-        this.standardService.getStandard().subscribe(observer);
+        this.standardService.getStandard().subscribe(res => {
+            this.standard = res;
+            this.isLoading = false;
+        });
     }
 
     onSubmit() {
         if (!this.editForm.valid) {
             return;
         }
+        this.isLoading = true;
+
         const observer = {
             next: (x) => {
                 if (x.message !== null) {
                     this.dialogRef.close({ data: x.message });
                 }
+                this.isLoading = false;
             },
-            error: err => console.error('Observer got an error: ' + err)
+            error: err => {
+                console.error(err);
+                this.isLoading = false;
+            }
         };
         if (this.data.mode === 'edit') {
             this.subjectService.postEditSubject(this.editForm.value, this.data.subject.id)
@@ -60,9 +64,10 @@ export class EditSubjectComponent implements OnInit {
         }
         else if (this.data.mode === 'new') {
             this.subjectService.postAddSubject(this.editForm.value)
-                .subscribe(observer)
+                .subscribe(observer);
         }
     }
+
     closeDialog() {
         this.dialogRef.close();
     }

@@ -1,49 +1,10 @@
 <div class="header">
-    <h1 class="mat-subheading-2">Edit Subject</h1>
+    <h1 class="mat-subheading-2">Edit Standard</h1>
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
-<!-- <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20"
-    (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" style="width: 100% !important;">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 100% !important;">
-        <mat-label>Standard</mat-label>
-        <mat-select formControlName="courseId">
-            <mat-option *ngFor="let c of course" [value]="c.id"
-                [innerHTML]="c.name">
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" style="width: 100% !important;">
-        <mat-label>Description</mat-label>
-        <textarea rows="3" matInput formControlName="description"></textarea>
-    </mat-form-field>
-
-    <mat-slide-toggle
-        formControlName="isActive"
-        color="primary"
-        class="mb-10">
-        isActive
-    </mat-slide-toggle>
-    <br>
-    <mat-slide-toggle
-        formControlName="allowSubjectSelection"
-        color="primary"
-        class="mb-10">
-        Subject Selection
-    </mat-slide-toggle>
-    <button type="submit" mat-flat-button color="accent">
-        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-    </button>
-</form> -->
 <div class="container">
-    <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20"
-        (ngSubmit)="onSubmit()">
+    <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20" (ngSubmit)="onSubmit()">
         <div class="wrapper">
             <div fxFlex="35" class="label">
                 <mat-label>Name : </mat-label>
@@ -71,8 +32,7 @@
             <div fxFlex="65" class="input">
                 <mat-form-field appearance="standard">
                     <mat-select formControlName="courseId">
-                        <mat-option *ngFor="let c of course" [value]="c.id"
-                            [innerHTML]="c.name">
+                        <mat-option *ngFor="let c of course" [value]="c.id" [innerHTML]="c.name">
                             {{c.name}}
                         </mat-option>
                     </mat-select>
@@ -85,10 +45,7 @@
                 <mat-label>Subject Selection : </mat-label>
             </div>
             <div fxFlex="65">
-                <mat-slide-toggle
-                    formControlName="allowSubjectSelection"
-                    color="primary"
-                    class="side-toggle">
+                <mat-slide-toggle formControlName="allowSubjectSelection" color="primary" class="side-toggle">
                 </mat-slide-toggle>
             </div>
         </div>
@@ -98,10 +55,7 @@
                 <mat-label>Active Status : </mat-label>
             </div>
             <div fxFlex="65">
-                <mat-slide-toggle
-                    formControlName="isActive"
-                    color="primary"
-                    class="side-toggle">
+                <mat-slide-toggle formControlName="isActive" color="primary" class="side-toggle">
                 </mat-slide-toggle>
             </div>
         </div>

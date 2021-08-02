@@ -3,58 +3,55 @@
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
-<div class="container">
-    <form [formGroup]="editForm" *ngIf="data.subject" class="pt-20"
-    (ngSubmit)="onSubmit()">
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Name : </mat-label>
-        </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <input matInput formControlName="name">
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Description : </mat-label>
-        </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <input matInput formControlName="description">
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Standard : </mat-label>
-        </div>
-        <div fxFlex="65" class="input">
-            <mat-form-field appearance="standard">
-                <mat-select formControlName="standardId">
-                    <mat-option *ngFor="let s of standard" [value]="s.id"
-                        [innerHTML]="s.name">
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="wrapper">
-        <div fxFlex="35" class="label">
-            <mat-label>Active Status : </mat-label>
-        </div>
-        <div fxFlex="65">
-            <mat-slide-toggle
-            formControlName="isActive"
-            color="primary"
-            class="side-toggle">
-        </mat-slide-toggle>
-        </div>
-    </div>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 
-    <button type="submit" mat-flat-button color="accent">
+<div class="container">
+    <form [formGroup]="editForm" *ngIf="data.subject" class="pt-20" (ngSubmit)="onSubmit()">
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Name : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="name">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Description : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <input matInput formControlName="description">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Standard : </mat-label>
+            </div>
+            <div fxFlex="65" class="input">
+                <mat-form-field appearance="standard">
+                    <mat-select formControlName="standardId">
+                        <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div fxFlex="35" class="label">
+                <mat-label>Active Status : </mat-label>
+            </div>
+            <div fxFlex="65">
+                <mat-slide-toggle formControlName="isActive" color="primary" class="side-toggle">
+                </mat-slide-toggle>
+            </div>
+        </div>
+
+        <button type="submit" mat-flat-button color="accent" *ngIf="!isLoading">
         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
     </button>
-</form>
+    </form>
 </div>

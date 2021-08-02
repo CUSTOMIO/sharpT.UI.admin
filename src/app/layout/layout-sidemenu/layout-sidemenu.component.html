@@ -1,5 +1,5 @@
 <mat-toolbar class="bgcolor-yellow-light bottom-shadow">
-  <span *ngIf="!(isHandset$ | async)">
+    <span *ngIf="!(isHandset$ | async)">
     <div class="plate plate4" onclick="this.classList.toggle('active')" (click)="toggleMenu()">
       <svg class="burger" version="1.1" height="100" width="100" viewBox="0 0 100 100">
         <path class="line line1" d="M 50,35 H 30" />
@@ -16,8 +16,8 @@
     </div>
   </span>
 
-  <!--Mobile View Only-->
-  <span *ngIf="(isHandset$ | async)">
+    <!--Mobile View Only-->
+    <span *ngIf="(isHandset$ | async)">
     <div class="plate plate4" onclick="this.classList.toggle('active')" (click)="!drawer.toggle()">
       <svg class="burger" version="1.1" height="100" width="100" viewBox="0 0 100 100">
         <path class="line line1" d="M 50,35 H 30" />
@@ -33,75 +33,66 @@
       </svg>
     </div>
   </span>
-  <img class="logo-img" src="./assets/logo_notext.jpg" />
-  <span class="title color-not-so-black">Sharp Tutorials</span>
-  <span 
-  class="usr-ctrl" 
-  mat-flat-button >
+    <img class="logo-img" src="./assets/logo_notext.jpg" />
+    <span class="title color-not-so-black">Sharp Tutorials</span>
+    <span class="usr-ctrl" mat-flat-button>
   Admin  <i [matMenuTriggerFor]="menu" class="far fa-user-circle fa-lg"></i>
 </span>
-<mat-menu #menu="matMenu">
-  <button
-  mat-menu-item
-    *ngIf="userIsAuthenticated"
-     (click)="logout()">
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="userIsAuthenticated" (click)="logout()">
       Logout
     </button>
-</mat-menu>
-    
+    </mat-menu>
+
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav disableClose #drawer class="sidenav bgcolor-blue-light" fixedInViewport="false"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false" id="sidenav"
-    [ngClass]="{'menu-open' : isMenuOpen, 'menu-close' : !isMenuOpen}">
-    <mat-nav-list>
-      <mat-list-item [routerLink]="['/subject']" [routerLinkActive]="['active-nav-item']"
-        [routerLinkActiveOptions]="{exact: true}" role="main">
-        <i class="fas fa-swatchbook m-10 fa-md color-not-so-black"></i>
-        <span *ngIf="isMenuOpen">Subject</span>
-      </mat-list-item>
-      <mat-list-item [routerLink]="['/standard']" [routerLinkActive]="['active-nav-item']"
-        [routerLinkActiveOptions]="{exact: true}" role="main">
-        <i class="fas fa-list-ul  m-10 fa-md color-not-so-black"></i>
-        <span *ngIf="isMenuOpen">Standard</span>
-      </mat-list-item>
-      <mat-list-item [routerLink]="['/course']" [routerLinkActive]="['active-nav-item']"
-      [routerLinkActiveOptions]="{exact: true}" role="main">
-      <i class="fas fa-layer-group  m-10 fa-md color-not-so-black"></i>
-      <span *ngIf="isMenuOpen">Course</span>
-    </mat-list-item>
+    <mat-sidenav disableClose #drawer class="sidenav bgcolor-blue-light" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" id="sidenav"
+        [ngClass]="{'menu-open' : isMenuOpen, 'menu-close' : !isMenuOpen}">
+        <mat-nav-list>
+            <mat-list-item [routerLink]="['/subject']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+                <i class="fas fa-swatchbook m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">Subject</span>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['/standard']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+                <i class="fas fa-list-ul  m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">Standard</span>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['/course']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+                <i class="fas fa-layer-group  m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">Course</span>
+            </mat-list-item>
 
-    <mat-list-item [routerLink]="['/user']" [routerLinkActive]="['active-nav-item']"
-    [routerLinkActiveOptions]="{exact: false}" role="main">
-    <i class="fas fa-user-tie  m-10 fa-md color-not-so-black"></i>
-    <span *ngIf="isMenuOpen">Users</span>
-  </mat-list-item>
+            <mat-list-item [routerLink]="['/user']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: false}" role="main">
+                <i class="fas fa-user-tie  m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">Users</span>
+            </mat-list-item>
 
-  <mat-list-item [routerLink]="['/otp']" [routerLinkActive]="['active-nav-item']"
-  [routerLinkActiveOptions]="{exact: true}" role="main">
-  <i class="fas fa-asterisk  m-10 fa-md color-not-so-black"></i>
-  <span *ngIf="isMenuOpen">OTP</span>
-</mat-list-item>
+            <mat-list-item [routerLink]="['/otp']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+                <i class="fas fa-asterisk  m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">OTP</span>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['/result']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+                <i class="fas fa-poll  m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">Result</span>
+            </mat-list-item>
 
-<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-  <span class="full-width" *ngIf="isExpanded || isShowing">
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+                <span class="full-width" *ngIf="isExpanded || isShowing">
       <i class="fas fa-book fa-md m-10 color-not-so-black"></i>
        <span *ngIf="isMenuOpen">Examination</span>
-  </span>
-  <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
-    *ngIf="(isExpanded || isShowing) && isMenuOpen" style="color: #b5b5b5">
-      expand_more
-  </mat-icon>
-</mat-list-item>
-<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded && isMenuOpen">
-<a mat-list-item [routerLink]="['/examination-type']">Examination Types</a>
-<a mat-list-item [routerLink]="['/examination-detail']">Examination Detail</a>
-</div>
+                </span>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="(isExpanded || isShowing) && isMenuOpen" style="color: #b5b5b5">
+                    expand_more
+                </mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded && isMenuOpen">
+                <a mat-list-item [routerLink]="['/examination-type']">Examination Types</a>
+                <a mat-list-item [routerLink]="['/examination-detail']">Examination Detail</a>
+            </div>
 
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content [ngStyle]="{ 'margin-left.px': contentMargin, 'transition': '300ms' }">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content [ngStyle]="{ 'margin-left.px': contentMargin, 'transition': '300ms' }">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
 </mat-sidenav-container>

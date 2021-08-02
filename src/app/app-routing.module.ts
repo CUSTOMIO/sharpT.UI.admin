@@ -57,6 +57,13 @@ const routes: Routes = [
     children: [{ path: '', loadChildren: () => import('./examination/examination-detail/examination-detail.module')
     .then(m => m.ExaminationDetailModule)}],
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'result',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./result/result.module')
+    .then(m => m.ResultModule)}],
+    canActivate: [AuthGuard],
   }
 
 ];

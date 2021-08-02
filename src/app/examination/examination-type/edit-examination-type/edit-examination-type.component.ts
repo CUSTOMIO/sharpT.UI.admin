@@ -10,6 +10,7 @@ import { ExaminationService } from 'src/app/core/dataService';
 export class EditExaminationTypeComponent implements OnInit {
 
     private editForm: FormGroup;
+    public isLoading = true;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { examinationType: any, mode: string },
@@ -23,19 +24,26 @@ export class EditExaminationTypeComponent implements OnInit {
             this.editForm.get('name').setValue(data.examinationType.name);
         }
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.isLoading = false;
+     }
 
     onSubmit() {
         if (!this.editForm.valid) {
             return;
         }
+        this.isLoading = true;
         const observer = {
             next: (x) => {
                 if (x.message) {
                     this.dialogRef.close({ data: x.message });
                 }
+                this.isLoading = false;
             },
-            error: err => console.error('Observer got an error: ' + err)
+            error: err => {
+                console.error(err);
+                this.isLoading = false;
+            }
         };
 
         if (this.data.mode === 'edit') {
@@ -44,8 +52,7 @@ export class EditExaminationTypeComponent implements OnInit {
         }
         else if (this.data.mode === 'new') {
             this.examinationService.postAddExamination(this.editForm.value)
-                .subscribe(observer)
-            console.log(this.editForm.value);
+                .subscribe(observer);
         }
     }
 

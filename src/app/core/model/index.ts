@@ -8,10 +8,14 @@ export * from './user/user-enrollDate.model';
 export * from './user/user-name.model';
 export * from './user/user-standard.model';
 export * from './user/user-subject.model';
+export * from './user/user-byStandard.model';
 export * from './otp/otp.model';
 export * from './examination/examination-type.model';
 export * from './examination/examination-detail.model';
+export * from './examination/examination-detailSId';
 export * from './academic-year/academic-year.model';
+export * from './result/result.model';
+
 
 
 

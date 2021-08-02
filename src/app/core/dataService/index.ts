@@ -5,6 +5,8 @@ export * from './course/course.service';
 export * from './user/user.service';
 export * from './examination/examination.service';
 export * from './examination/examination-detail.service';
+export * from './result/result.service';
+
 
 
 

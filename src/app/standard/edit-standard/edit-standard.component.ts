@@ -11,6 +11,8 @@ export class EditStandardComponent implements OnInit {
 
     private editForm: FormGroup;
     public course: object;
+    public isLoading = true;
+
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { standard: any, mode: string },
@@ -36,6 +38,7 @@ export class EditStandardComponent implements OnInit {
     ngOnInit() {
         this.courseService.getCourse().subscribe(res => {
             this.course = res;
+            this.isLoading = false;
         });
     }
 
@@ -43,13 +46,18 @@ export class EditStandardComponent implements OnInit {
         if (!this.editForm.valid){
             return;
         }
+        this.isLoading = true;
         const observer = {
             next: (x) => {
                 if (x.message !== null) {
                     this.dialogRef.close({ data: x.message });
                 }
+                this.isLoading = false;
             },
-            error: err => console.error('Observer got an error: ' + err)
+            error: err => {
+                console.error(err);
+                this.isLoading = false;
+            }
         };
 
         if (this.data.mode === 'edit') {

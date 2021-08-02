@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="filter-div">
+        <div>
+            <mat-form-field appearance="standard" class="filter-input">
+                <mat-label>Filter</mat-label>
+                <input matInput placeholder="filterlist...">
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="search-input">
+                <mat-select placeholder="Standard..." (selectionChange)="getExaminationDetail($event.value)">
+                    <!-- <mat-select placeholder="standard..." (selectionChange)="getUser($event.value)" formControlName="standardSearchId"> -->
+                    <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="search-input">
+                <mat-select placeholder="Examination...">
+                    <!-- <mat-select placeholder="standard..." (selectionChange)="getUser($event.value)" formControlName="standardSearchId"> -->
+                    <mat-option *ngFor="let e of examinationDetail" [value]="e.id" [innerHTML]="e.examinationName">
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

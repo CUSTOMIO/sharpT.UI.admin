@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../../environments/environment';
-import { ExaminationDetail } from '../../model';
+import { ExaminationDetail, ExaminationDetailBySId } from '../../model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -14,11 +14,20 @@ export class ExaminationDetailService {
 
   public getExaminationDetail(pageSize: number, currentPage: number) {
     const url = `${environment.api_endpoint}/getExaminationDetail?pageSize=${pageSize}&page=${currentPage}`;
-    // const url = `${environment.api_endpoint}/getExaminationDetail`;
     return this.http.get<ExaminationDetail[]>(url)
       .pipe(
         map(data =>
           data.map(x => new ExaminationDetail(x))
+        )
+      );
+  }
+
+  public getExaminationDetailBySId(standardId: number) {
+    const url = `${environment.api_endpoint}/getExaminationDetail/${standardId}`;
+    return this.http.get<ExaminationDetailBySId[]>(url)
+      .pipe(
+        map(data =>
+          data.map(x => new ExaminationDetailBySId(x))
         )
       );
   }

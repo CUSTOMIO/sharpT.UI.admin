@@ -12,6 +12,7 @@ export class EditCourseComponent implements OnInit {
 
     private editForm: FormGroup;
     public batch: object;
+    public isLoading = true;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { course: any, mode: string },
@@ -33,28 +34,29 @@ export class EditCourseComponent implements OnInit {
         }
     }
     ngOnInit() {
-        const observer = {
-            next: (x) => {
-                this.batch = x;
-            },
-            error: err => console.error('Observer got an error: ' + err)
-        };
-        this.batchService.getAdminBatch().subscribe(observer);
+        this.batchService.getAdminBatch().subscribe(res => {
+            this.batch = res;
+            this.isLoading = false;
+        });
     }
 
     onSubmit() {
         if (!this.editForm.valid){
             return;
         }
+        this.isLoading = true;
         const observer = {
             next: (x) => {
                 if (x.message !== null) {
                     this.dialogRef.close({ data: x.message });
                 }
+                this.isLoading = false;
             },
-            error: err => console.error('Observer got an error: ' + err)
+            error: err => {
+                console.error(err);
+                this.isLoading = false;
+            }
         };
-
         if (this.data.mode === 'edit') {
             this.courseService.postEditCours(this.editForm.value, this.data.course.id)
                 .subscribe(observer);

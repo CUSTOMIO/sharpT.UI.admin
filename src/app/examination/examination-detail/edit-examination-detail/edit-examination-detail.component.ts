@@ -38,6 +38,8 @@ export class EditExaminationDetailComponent implements OnInit {
     private endOn: Date;
     private startOn: Date;
 
+    public isLoading = true;
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { examinationDetail: any, mode: string },
         private dialogRef: MatDialogRef<EditExaminationDetailComponent>,
@@ -77,21 +79,26 @@ export class EditExaminationDetailComponent implements OnInit {
         this.academicYearService.academicYear()
         .subscribe(res => {
             this.academicYear = res;
-            console.log(this.academicYear);
         });
+        this.isLoading = false;
      }
 
     onSubmit() {
         if (!this.editForm.valid) {
             return;
         }
+        this.isLoading = true;
         const observer = {
             next: (x: {message: boolean}) => {
                 if (x.message) {
                     this.dialogRef.close({ data: x.message });
                 }
+                this.isLoading = false;
             },
-            error: (err: string) => console.error(err)
+            error: err => {
+                console.error(err);
+                this.isLoading = false;
+            }
         };
 
         if (this.data.mode === 'edit') {

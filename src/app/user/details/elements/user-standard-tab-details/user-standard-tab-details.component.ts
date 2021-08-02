@@ -97,8 +97,7 @@ export class UserStandardTabComponent implements OnInit {
     }
 
     changeStandard(standard){
-        console.log(standard)
-        this.subjectService.getSubjectByStandardId(standard.value)
+        this.subjectService.getSubjectByStandardId(standard.value);
 
     }
 

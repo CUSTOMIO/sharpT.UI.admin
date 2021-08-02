@@ -7,8 +7,7 @@
             <div fxFlex="50" class="input">
                 <mat-form-field appearance="standard">
                     <mat-select formControlName="standardId" (selectionChange)="getSubjects($event.value)">
-                        <mat-option *ngFor="let s of standards" [value]="s.id"
-                            [innerHTML]="s.name">
+                        <mat-option *ngFor="let s of standards" [value]="s.id" [innerHTML]="s.name">
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -27,6 +26,26 @@
                             (change)="checkSubject($event, subject)"
                             [formGroupName]="'subjects'"
                             [checked]="checkUserSubject(subject)">
+                            {{subject.name}}
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </span>
+        </div>
+
+        <div *ngIf="subjects">
+            <span *ngIf="!subjects.allowSubjectSelection">
+                <div class="wrapper" *ngFor="let subject of subjects.data">
+                    <div fxFlex="50" class="label">
+                        <mat-label>{{subject.name}} : </mat-label>
+                    </div>
+                    <div fxFlex="50" class="input">
+                        <mat-slide-toggle
+                            color="primary"
+                            (change)="checkSubject($event, subject)"
+                            [formGroupName]="'subjects'"
+                            [checked]="true"
+                            [disabled]="true">
                             {{subject.name}}
                         </mat-slide-toggle>
                     </div>
@@ -62,9 +81,7 @@
             </span>
              </mat-form-field> 
         </div> -->
-        <button
-            mat-raised-button
-            color="primary">
+        <button mat-raised-button color="primary">
             Update
         </button>
     </form>
