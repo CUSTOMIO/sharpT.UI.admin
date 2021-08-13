@@ -64,6 +64,13 @@ const routes: Routes = [
     children: [{ path: '', loadChildren: () => import('./result/result.module')
     .then(m => m.ResultModule)}],
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'reach-us',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./reach-us/reach-us.module')
+    .then(m => m.ReachUsModule)}],
+    canActivate: [AuthGuard],
   }
 
 ];

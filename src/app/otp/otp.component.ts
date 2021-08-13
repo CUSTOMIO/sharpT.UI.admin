@@ -32,8 +32,8 @@ export class OtpComponent implements OnInit {
   private observer = {
     next: (data: Otp[]) => {
       data.forEach(data => {
-        data.createdAt = new Date(data.createdAt).toLocaleString()
-        data.updatedAt = new Date(data.updatedAt).toLocaleString()
+        data.createdAt = new Date(data.createdAt).toLocaleString();
+        data.updatedAt = new Date(data.updatedAt).toLocaleString();
       })
       this.dataSource = new MatTableDataSource(data);
       this.isLoading = false;

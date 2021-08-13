@@ -1,0 +1,26 @@
+<div class="header">
+    <h1 class="mat-subheading-2">Edit Standard</h1>
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<mat-divider></mat-divider>
+
+<p>Name: {{data.user.firstName+' '+data.user.middleName}}</p>
+<p>Email: {{data.user.email}}</p>
+
+<form [formGroup]="resultForm" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let result of resultForm.controls">
+        <span [formGroup]="result" *ngFor="let subject of userSubject">
+            <div class="wrapper">
+                <div fxFlex="35" class="label">
+                    <mat-label>{{subject.name}} : </mat-label>
+                </div>
+                <div fxFlex="65" class="input">
+                    <mat-form-field appearance="standard">
+                        <input matInput formControlName="marksObtained">
+                    </mat-form-field>
+                </div>
+            </div>
+        </span>
+    </ng-container>
+    <button mat-button>Check</button>
+</form>

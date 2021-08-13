@@ -75,6 +75,11 @@
                 <i class="fas fa-poll  m-10 fa-md color-not-so-black"></i>
                 <span *ngIf="isMenuOpen">Result</span>
             </mat-list-item>
+            <mat-list-item [routerLink]="['/reach-us']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+                <i class="fas fa-file-signature m-10 fa-md color-not-so-black"></i>
+                <span *ngIf="isMenuOpen">Reach Us</span>
+            </mat-list-item>
+
 
             <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
                 <span class="full-width" *ngIf="isExpanded || isShowing">

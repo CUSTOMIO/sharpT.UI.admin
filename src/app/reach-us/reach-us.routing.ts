@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EditResultComponent } from './edit-result/edit-result.component';
 
 // Views
-import { ResultComponent } from './result.component';
+import { ReachUsComponent } from './reach-us.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ResultComponent,
-  },
-  {
-    path: ':userId',
-    component: EditResultComponent,
+    component: ReachUsComponent,
   }
 ];
 
@@ -24,9 +19,9 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class ResultRoutingModule { }
+export class ReachUsRoutingModule { }
 
 export const routedComponents = [
-    ResultComponent
+    ReachUsComponent
 ];
 

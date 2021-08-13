@@ -5,20 +5,49 @@
                 <mat-label>Filter</mat-label>
                 <input matInput placeholder="filterlist...">
             </mat-form-field>
-            <mat-form-field appearance="standard" class="search-input">
-                <mat-select placeholder="Standard..." (selectionChange)="getExaminationDetail($event.value)">
-                    <!-- <mat-select placeholder="standard..." (selectionChange)="getUser($event.value)" formControlName="standardSearchId"> -->
-                    <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="standard" class="search-input">
-                <mat-select placeholder="Examination...">
-                    <!-- <mat-select placeholder="standard..." (selectionChange)="getUser($event.value)" formControlName="standardSearchId"> -->
-                    <mat-option *ngFor="let e of examinationDetail" [value]="e.id" [innerHTML]="e.examinationName">
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <form [formGroup]="searchResult">
+                <mat-form-field appearance="standard" class="search-input">
+                    <mat-select placeholder="Standard..." (selectionChange)="getExamAndUserDetail($event.value)" formControlName="standardId">
+                        <!-- <mat-select placeholder="standard..." (selectionChange)="getUser($event.value)" formControlName="standardSearchId"> -->
+                        <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="standard" class="search-input">
+                    <mat-select placeholder="Examination..." formControlName="examinationDetailId">
+                        <!-- <mat-select placeholder="standard..." (selectionChange)="getUser($event.value)" formControlName="standardSearchId"> -->
+                        <mat-option *ngFor="let e of examinationDetail" [value]="e.id" [innerHTML]="e.examinationName">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
         </div>
+    </div>
+
+    <!-- Table -->
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.firstName+' '+element.middleName}} </td>
+            </ng-container>
+
+            <!-- Course Column -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element" (click)="openDialog(element)">
+                    {{element.email}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- Paginator -->
+        <!-- <mat-paginator [length]="count" [pageSizeOptions]="pageSizeOptions" [pageSize]="standardPerPage" showFirstLastButtons (page)="onChangedPage($event)">
+            </mat-paginator> -->
     </div>
 </div>
