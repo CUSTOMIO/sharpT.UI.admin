@@ -52,7 +52,10 @@ export class AuthService {
           this.saveAuthData(token, expirationDate);
           this.router.navigate(['../subject'])
         }
-      })
+      },
+        err => {
+         this.authStatusListener.next(false);
+        })
   }
 
   autoAuthUser() {

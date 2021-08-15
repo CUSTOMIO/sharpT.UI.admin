@@ -1,37 +1,37 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 
-<form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
-    <div fxFlex fxLayout="column">
-        <div  fxFlexAlign="center">
-            <mat-icon>admin_panel_settings</mat-icon>
-        </div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+  <div fxFlex fxLayout="column">
     <div fxFlexAlign="center">
-        <mat-form-field appearance="standard">
-            <mat-label>Email</mat-label>
-            <input 
-            matInput 
-            type="email" 
-            placeholder="email..."
-            formControlName="email">
-        </mat-form-field>
+      <mat-icon>admin_panel_settings</mat-icon>
     </div>
     <div fxFlexAlign="center">
-        <mat-form-field appearance="standard">
-            <mat-label>Password</mat-label>
-            <input 
-            matInput 
-            type="password" 
-            placeholder="password..."
-            formControlName="password">
-        </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Email</mat-label>
+        <input matInput
+               type="email"
+               placeholder="email..."
+               formControlName="email">
+      </mat-form-field>
     </div>
     <div fxFlexAlign="center">
-        <button 
-            type="submit"
-            mat-raised-button 
-            color="primary">
-            Login
-        </button>
+      <mat-form-field appearance="standard">
+        <mat-label>Password</mat-label>
+        <input matInput
+               type="password"
+               placeholder="password..."
+               formControlName="password">
+      </mat-form-field>
     </div>
-</div>
+    <div fxFlexAlign="center"
+         *ngIf="!spinnerLoading">
+      <button type="submit"
+              mat-raised-button
+              color="primary">
+        Login
+      </button>
+    </div>
+  </div>
 </form>
+<p class="error-msg" align="center" *ngIf="invalidLogin">Invalid credentials</p>
+<mat-spinner [diameter]="40" *ngIf="spinnerLoading"></mat-spinner>
