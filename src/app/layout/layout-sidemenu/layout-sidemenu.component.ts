@@ -42,8 +42,7 @@ export class LayoutSidemenuComponent implements OnInit {
       });
     this.reachUsService.reachUsUnreadCount()
       .subscribe(res => {
-        this.unreadReadUs = res.count
-        console.log(this.unreadReadUs)
+        this.unreadReadUs = res.count;
       })
   }
 

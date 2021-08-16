@@ -15,7 +15,7 @@ export class StandardComponent {
   // Table & Paginator
   displayedColumns: string[] = ['name', 'course', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
-     = 20;
+  standardPerPage  = 20;
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;

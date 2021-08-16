@@ -1,3 +1,4 @@
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -71,7 +72,7 @@ export class ResultComponent implements OnInit {
         }
         const dialogRef = this.dialog.open(EditResultComponent, {
           // disableClose: true,
-          width: '450px',
+          width: 'fit-content ',
           data: {
               user,
               searchResult: this.searchResult.value

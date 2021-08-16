@@ -1,12 +1,22 @@
 .header {
-    margin-bottom: 10px;
-    h1 {
-        float: left;
-    }
-    mat-icon {
-        display: block;
-        margin-left: auto;
-        margin-right: 0;
-        cursor: pointer;
-    }
+  margin-bottom: 10px;
+  height: 32px;
+  p {
+    float: left;
+    width: 80%;
+    padding: 0;
+    margin: 0;
+  }
+
+  mat-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    cursor: pointer;
+  }
+}
+
+button {
+    display: block;
+    margin: 0 auto;
 }

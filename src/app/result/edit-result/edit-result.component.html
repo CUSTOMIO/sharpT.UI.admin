@@ -1,26 +1,30 @@
 <div class="header">
-    <h1 class="mat-subheading-2">Edit Standard</h1>
-    <mat-icon (click)="closeDialog()">close</mat-icon>
+  <p class="mat-headline">Result</p>
+  <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
 
-<p>Name: {{data.user.firstName+' '+data.user.middleName}}</p>
-<p>Email: {{data.user.email}}</p>
+<div class="mat-subheading-2">
+  <p> <b>Name</b> : {{data.user.firstName+' '+data.user.middleName}}</p>
+  <p> <b>Email</b> : {{data.user.email}}</p>
+</div>
 
 <form [formGroup]="resultForm" (ngSubmit)="onSubmit()">
-    <ng-container *ngFor="let result of resultForm.controls">
-        <span [formGroup]="result" *ngFor="let subject of userSubject">
-            <div class="wrapper">
-                <div fxFlex="35" class="label">
-                    <mat-label>{{subject.name}} : </mat-label>
-                </div>
-                <div fxFlex="65" class="input">
-                    <mat-form-field appearance="standard">
-                        <input matInput formControlName="marksObtained">
-                    </mat-form-field>
-                </div>
-            </div>
-        </span>
-    </ng-container>
-    <button mat-button>Check</button>
+  <div *ngFor="let data of t.controls; let i = index">
+    <div [formGroup]="data">
+      <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="subjectName">
+      </mat-form-field>
+      <mat-form-field appearance="standard" class="ml-20 mr-20">
+        <mat-label>Marks Obtained</mat-label>
+        <input matInput formControlName="marksObtained">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Out Of</mat-label>
+        <input matInput formControlName="outOf">
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button color="primary">Submit</button>
 </form>
