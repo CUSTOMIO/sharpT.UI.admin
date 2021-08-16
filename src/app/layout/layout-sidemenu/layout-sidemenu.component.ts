@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/dataService';
+import { AuthService, ReachUsService } from 'src/app/core/dataService';
 
 @Component({
   selector: 'app-layout-sidemenu',
@@ -16,6 +16,7 @@ export class LayoutSidemenuComponent implements OnInit {
   isMenuOpen = true;
   isShowing = false;
   showSubmenu: boolean = false;
+  unreadReadUs: number;
 
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
@@ -29,7 +30,8 @@ export class LayoutSidemenuComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private reachUsService: ReachUsService) { }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -38,6 +40,11 @@ export class LayoutSidemenuComponent implements OnInit {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+    this.reachUsService.reachUsUnreadCount()
+      .subscribe(res => {
+        this.unreadReadUs = res.count
+        console.log(this.unreadReadUs)
+      })
   }
 
   toggleMenu() {

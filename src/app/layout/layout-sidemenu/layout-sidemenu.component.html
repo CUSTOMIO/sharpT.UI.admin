@@ -76,8 +76,9 @@
                 <span *ngIf="isMenuOpen">Result</span>
             </mat-list-item>
             <mat-list-item [routerLink]="['/reach-us']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
-                <i class="fas fa-file-signature m-10 fa-md color-not-so-black"></i>
-                <span *ngIf="isMenuOpen">Reach Us</span>
+              <i *ngIf="isMenuOpen" class="fas fa-file-signature m-10 fa-md color-not-so-black"></i>
+              <i *ngIf="!isMenuOpen" class="fas fa-file-signature m-10 fa-md color-not-so-black" matBadge="{{unreadReadUs}}" matBadgeColor="warn"></i>
+              <span *ngIf="isMenuOpen" matBadge="{{unreadReadUs}}" matBadgeOverlap="false" matBadgeColor="warn">Reach Us</span>
             </mat-list-item>
 
 

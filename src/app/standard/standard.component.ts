@@ -15,7 +15,7 @@ export class StandardComponent {
   // Table & Paginator
   displayedColumns: string[] = ['name', 'course', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
-  standardPerPage = 20;
+     = 20;
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;
@@ -56,7 +56,7 @@ export class StandardComponent {
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
     this.standardService.getAdminStandard(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
-    this.pageIndex = pageData.pageIndex + 1;
+    this.pageIndex = pageData.pageIndex + 1;  
   }
 
   applyFilter(event: Event) {

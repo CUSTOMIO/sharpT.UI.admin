@@ -22,4 +22,19 @@ export class ReachUsService {
       );
   }
 
+  public reachUsCount() {
+    const url = `${environment.api_endpoint}/reachUsCount`;
+    return this.http.get<{ count: number }>(url)
+  }
+
+  public reachUsUnreadCount() {
+    const url = `${environment.api_endpoint}/reachusUnreadCount`;
+    return this.http.get<{ count: number }>(url)
+  }
+
+  public reachUsRead(form: object, id: number) {
+    const url = `${environment.api_endpoint}/reachUs/${id}`;
+    return this.http.post<{ message: boolean }>(url, form)
+  }
+
 }
