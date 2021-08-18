@@ -67,6 +67,7 @@ export class EditExaminationDetailComponent implements OnInit {
     });
 
     if (data.mode === 'edit') {
+      console.log(data);
       this.getSubjects(data.examinationDetail.standardId);
 
       this.startOn = new Date(data.examinationDetail.startOn);
