@@ -14,7 +14,7 @@ import { EditExaminationDetailComponent } from './edit-examination-detail/edit-e
 export class ExaminationDetailComponent implements OnInit{
 
   // Paginator
-  displayedColumns: string[] = ['name', 'standard', 'startOn', 'endOn', 'totalMarks', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'standard', 'startOn', 'endOn', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<ExaminationDetail>;
   examinationDetailPerPage = 20;
   pageSizeOptions = [20, 50, 100];
@@ -70,7 +70,7 @@ export class ExaminationDetailComponent implements OnInit{
   openDialog(examinationDetail: object, mode: string): void {
     const dialogRef = this.dialog.open(EditExaminationDetailComponent, {
       disableClose: true,
-      width: '450px',
+      width: '550px',
       data: {
         examinationDetail,
         mode
