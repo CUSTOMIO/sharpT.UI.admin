@@ -151,6 +151,7 @@ export class EditExaminationDetailComponent implements OnInit {
 
     const observer = {
       next: (x: { message: boolean }) => {
+        console.log(x);
         if (x.message) {
           this.dialogRef.close({ data: x.message });
         }
