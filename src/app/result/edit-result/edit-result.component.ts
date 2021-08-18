@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/core/dataService';
+import { ExaminationSubjectDetailService, UserService } from 'src/app/core/dataService';
 import { UserSubject } from 'src/app/core/model';
 
 @Component({
@@ -20,7 +20,8 @@ export class EditResultComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { user: any, searchResult: any },
     private dialogRef: MatDialogRef<EditResultComponent>,
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private examinationSubjectDetailService: ExaminationSubjectDetailService
   ) {
     this.resultForm = this.formBuilder.group({
       data: new FormArray([])
@@ -43,6 +44,7 @@ export class EditResultComponent implements OnInit {
             outOf: ['', [Validators.required]]
           }));
         }
+        this.getExaminationSubjectDetail(this.data.searchResult.examinationDetailId);
       });
   }
 
@@ -52,6 +54,24 @@ export class EditResultComponent implements OnInit {
       examinationDetailId: this.data.searchResult.examinationDetailId,
       userId: this.data.user.userId,
     });
+  }
+
+  getExaminationSubjectDetail(examinationDetailId: number) {
+    this.examinationSubjectDetailService.getExaminationSubjectDetail(examinationDetailId)
+      .subscribe(res => {
+        res.forEach(e => {
+          this.userSubject.forEach(s => {
+            if (e.subjectId == s.subjectId) {
+              const index = this.t.value.findIndex((x, id) => {
+                return x.subjectId === e.subjectId;
+              })
+              this.t.at(index).patchValue({
+                outOf: e.outOf
+              })
+            }
+          })
+        })
+      })
   }
 
   onSubmit() {

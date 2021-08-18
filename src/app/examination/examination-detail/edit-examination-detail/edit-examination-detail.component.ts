@@ -2,9 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { ExaminationDetailService, ExaminationService, StandardService, SubjectService } from 'src/app/core/dataService';
+import { ExaminationDetailService, ExaminationService, ExaminationSubjectDetailService, StandardService, SubjectService } from 'src/app/core/dataService';
 import { AcademicYearService } from 'src/app/core/dataService/academic-year/academic-year.service';
-import { AcademicYear, ExaminationDetail, Standard } from 'src/app/core/model';
+import { AcademicYear, ExaminationDetail, ExaminationSubjectDetail, Standard } from 'src/app/core/model';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -37,6 +37,7 @@ export class EditExaminationDetailComponent implements OnInit {
   public subjects: any; // assign data type here in place of any
   public academicYear: AcademicYear[];
   public examination: any;
+  //public examinationSubjectDetail: ExaminationSubjectDetail[];
 
   private startOn: Date;
   private endOn: Date;
@@ -52,6 +53,7 @@ export class EditExaminationDetailComponent implements OnInit {
     private standardService: StandardService,
     private examinationService: ExaminationService,
     private examinationDetailService: ExaminationDetailService,
+    private examinationSubjectDetailService: ExaminationSubjectDetailService,
     private academicYearService: AcademicYearService,
     private subjectService: SubjectService) {
 
@@ -75,6 +77,8 @@ export class EditExaminationDetailComponent implements OnInit {
       this.editForm.get('endOn').setValue(this.endOn);
       this.editForm.get('examinationId').setValue(data.examinationDetail.examinationId);
       this.editForm.get('academicYearId').setValue(data.examinationDetail.academicYearId);
+
+      this.getExaminationSubjectDetail(this.data.examinationDetail.id);
     }
 
     this.subjectForm = this.formBuilder.group({
@@ -116,6 +120,24 @@ export class EditExaminationDetailComponent implements OnInit {
             outOf: ['', [Validators.required]]
           }));
         }
+      })
+  }
+
+  getExaminationSubjectDetail(examinationDetailId: number) {
+    this.examinationSubjectDetailService.getExaminationSubjectDetail(examinationDetailId)
+      .subscribe(res => {
+        res.forEach(e => {
+          this.subjects.data.forEach(s => {
+            if (e.subjectId == s.id) {
+              const index = this.t.value.findIndex((x, id) => {
+                return x.subjectId === e.subjectId;
+              })
+              this.t.at(index).patchValue({
+                outOf: e.outOf
+              })
+            }
+          })
+        })
       })
   }
 

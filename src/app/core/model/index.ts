@@ -13,6 +13,7 @@ export * from './otp/otp.model';
 export * from './examination/examination-type.model';
 export * from './examination/examination-detail.model';
 export * from './examination/examination-detailSId';
+export * from './examination/examination-subject-detail';
 export * from './academic-year/academic-year.model';
 export * from './result/result.model';
 export * from './reach-us/reach-us.model';
