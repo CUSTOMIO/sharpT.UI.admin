@@ -113,6 +113,7 @@ export class EditExaminationDetailComponent implements OnInit {
 
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe((res) => {
+        console.log(res);
         this.subjects = res;
         for (let s of this.subjects.data) {
           this.t.push(this.formBuilder.group({
