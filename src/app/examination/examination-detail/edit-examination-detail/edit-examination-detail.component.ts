@@ -31,7 +31,6 @@ export class EditExaminationDetailComponent implements OnInit {
 
   // Form
   public editForm: FormGroup;
-  public subjectForm: FormGroup;
 
   public standard: Standard[];
   public subjects: any; // assign data type here in place of any
@@ -45,6 +44,7 @@ export class EditExaminationDetailComponent implements OnInit {
   // Loader
   public isLoading = true;
   public spinnerLoading = false;
+  public subjectDetailLoading = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { examinationDetail: any, mode: string },
@@ -67,7 +67,6 @@ export class EditExaminationDetailComponent implements OnInit {
     });
 
     if (data.mode === 'edit') {
-      console.log(data);
       this.getSubjects(data.examinationDetail.standardId);
 
       this.startOn = new Date(data.examinationDetail.startOn);
@@ -78,13 +77,8 @@ export class EditExaminationDetailComponent implements OnInit {
       this.editForm.get('endOn').setValue(this.endOn);
       this.editForm.get('examinationId').setValue(data.examinationDetail.examinationId);
       this.editForm.get('academicYearId').setValue(data.examinationDetail.academicYearId);
-
-      this.getExaminationSubjectDetail(this.data.examinationDetail.id);
     }
-
-    this.subjectForm = this.formBuilder.group({
-      data: new FormArray([])
-    });
+    //else this.subjectDetailLoading = false;
   }
 
   get t() { return this.editForm.controls.data as FormArray; }
@@ -107,13 +101,12 @@ export class EditExaminationDetailComponent implements OnInit {
 
   getSubjects(standardId) {
 
-    if (this.subjectForm) {
+    if (this.editForm.controls.data.value) {
       this.t.clear();
     }
 
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe((res) => {
-        console.log(res);
         this.subjects = res;
         for (let s of this.subjects.data) {
           this.t.push(this.formBuilder.group({
@@ -122,6 +115,10 @@ export class EditExaminationDetailComponent implements OnInit {
             outOf: ['', [Validators.required]]
           }));
         }
+        if (this.data.mode === 'edit') {
+          this.getExaminationSubjectDetail(this.data.examinationDetail.id);
+        }
+        else this.subjectDetailLoading = false;
       })
   }
 
@@ -140,6 +137,7 @@ export class EditExaminationDetailComponent implements OnInit {
             }
           })
         })
+        this.subjectDetailLoading = false;
       })
   }
 

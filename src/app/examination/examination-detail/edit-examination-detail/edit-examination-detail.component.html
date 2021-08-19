@@ -88,7 +88,7 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Subject Detail</ng-template>
-    <form [formGroup]="editForm"> 
+    <form [formGroup]="editForm" *ngIf="!subjectDetailLoading"> 
       <div *ngFor="let data of t.controls; let i = index">
         <div [formGroup]="data" align="center">
 
@@ -103,13 +103,14 @@
           </mat-form-field>
         </div>
       </div>
-      <button type="submit"
+      <button *ngIf="!spinnerLoading && !subjectDetailLoading"
+              type="submit"
               mat-flat-button color="accent"
               (click)="onSubmit()"
-              [disabled]="!editForm.valid ">
+              [disabled]="!editForm.valid || editForm.untouched">
          {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
        </button>
-      <mat-spinner [diameter]="40" *ngIf="spinnerLoading"></mat-spinner>
     </form>
+      <mat-spinner [diameter]="40" *ngIf="subjectDetailLoading || spinnerLoading"></mat-spinner>
   </mat-step>
 </mat-horizontal-stepper>
