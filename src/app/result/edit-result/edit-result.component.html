@@ -9,7 +9,7 @@
   <p> <b>Email</b> : {{data.user.email}}</p>
 </div>
 
-<form [formGroup]="resultForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="resultForm" (ngSubmit)="onSubmit()" *ngIf="!spinnerLoading">
   <div *ngFor="let data of t.controls; let i = index">
     <div [formGroup]="data">
       <mat-form-field appearance="standard">
@@ -28,3 +28,5 @@
   </div>
   <button mat-raised-button color="primary">Submit</button>
 </form>
+
+<mat-spinner [diameter]="40" *ngIf="spinnerLoading"></mat-spinner>

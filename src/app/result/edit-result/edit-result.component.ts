@@ -13,8 +13,9 @@ import { UserSubject } from 'src/app/core/model';
 export class EditResultComponent implements OnInit {
 
   public userSubject: any;
-  // public userSubject: UserSubject[];
   public resultForm: FormGroup;
+
+  public spinnerLoading = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { user: any, searchResult: any },
@@ -71,6 +72,8 @@ export class EditResultComponent implements OnInit {
             }
           })
         })
+        this.spinnerLoading = false;
+        console.log('Trigggered')
       })
   }
 

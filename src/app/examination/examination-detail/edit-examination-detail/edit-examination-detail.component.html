@@ -1,12 +1,15 @@
-<div class="header">
-  <h1 class="mat-subheading-2">Examination Detail</h1>
-  <mat-icon (click)="closeDialog()">close</mat-icon>
+<div class="header-div">
+  <div class="header">
+    <h1 class="mat-subheading-2">Examination Detail</h1>
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+  </div>
 </div>
+
 <mat-divider></mat-divider>
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 
 <mat-horizontal-stepper *ngIf="!isLoading">
-  <mat-step >
+  <mat-step>
     <ng-template matStepLabel>Examination Detail</ng-template>
     <div class="container">
       <form [formGroup]="editForm" *ngIf="data.examinationDetail" class="pt-20">
@@ -31,7 +34,7 @@
           </div>
           <div fxFlex="65" class="input">
             <mat-form-field appearance="standard">
-              <mat-select formControlName="standardId"  (selectionChange)="getSubjects($event.value)">
+              <mat-select formControlName="standardId" (selectionChange)="getSubjects($event.value)">
                 <mat-option *ngFor="let s of standard" [value]="s.id" [innerHTML]="s.name">
                 </mat-option>
               </mat-select>
@@ -88,7 +91,7 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Subject Detail</ng-template>
-    <form [formGroup]="editForm" *ngIf="!subjectDetailLoading"> 
+    <form [formGroup]="editForm" *ngIf="!subjectDetailLoading">
       <div *ngFor="let data of t.controls; let i = index">
         <div [formGroup]="data" align="center">
 
@@ -108,9 +111,9 @@
               mat-flat-button color="accent"
               (click)="onSubmit()"
               [disabled]="!editForm.valid || editForm.untouched">
-         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-       </button>
+        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+      </button>
     </form>
-      <mat-spinner [diameter]="40" *ngIf="subjectDetailLoading || spinnerLoading"></mat-spinner>
+    <mat-spinner [diameter]="40" *ngIf="subjectDetailLoading || spinnerLoading"></mat-spinner>
   </mat-step>
 </mat-horizontal-stepper>

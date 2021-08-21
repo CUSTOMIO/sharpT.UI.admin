@@ -71,6 +71,7 @@ export class ExaminationDetailComponent implements OnInit{
     const dialogRef = this.dialog.open(EditExaminationDetailComponent, {
       disableClose: true,
       width: '550px',
+      height: '600px',
       data: {
         examinationDetail,
         mode
