@@ -53,5 +53,11 @@ body {
 .mat-spinner {
   position: relative;
   margin-left: 50%;
-  margin-top: 100px;
+  margin-top: 20px;
+}
+
+//center header cell with sort
+.mat-sort-header-container {
+  display: flex;
+  justify-content: center;
 }

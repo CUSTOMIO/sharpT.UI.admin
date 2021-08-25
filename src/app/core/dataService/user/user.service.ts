@@ -89,4 +89,14 @@ export class UserService {
     const url = `${environment.api_endpoint}/getUserEmail/${userId}`;
     return this.http.get<{ email: string }>(url);
   }
+
+  public getUserCount(): Observable<{ count: number }> {
+    const url = `${environment.api_endpoint}/getUserCount`;
+    return this.http.get<{ count: number }>(url);
+  }
+
+  public getUserUnverifiedCount(): Observable<{ count: number }> {
+    const url = `${environment.api_endpoint}/getUnverifiedUserCount`;
+    return this.http.get<{ count: number }>(url);
+  }
 }

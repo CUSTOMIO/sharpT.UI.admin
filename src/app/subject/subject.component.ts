@@ -5,6 +5,7 @@ import { SubjectService } from '../core/dataService';
 import { Subject } from '../core/model';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class SubjectComponent implements OnInit {
 
   // Table & Paginator
-  displayedColumns: string[] = ['name', 'standard', 'isActive', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'standardName', 'isActive', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Subject>;
   subjectPerPage = 20;
   pageSizeOptions = [20, 50, 100];
@@ -25,6 +26,7 @@ export class SubjectComponent implements OnInit {
   public isLoading = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   private observer = {
     next: (data) => {
@@ -32,6 +34,7 @@ export class SubjectComponent implements OnInit {
         data.updatedAt = new Date(data.updatedAt).toDateString();
       });
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)
@@ -46,9 +49,6 @@ export class SubjectComponent implements OnInit {
     this.subjectService.subjectCount()
     .subscribe(data => {
       this.count = data.count;
-    },
-    err => {
-      console.log(err);
     })
     this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
   }

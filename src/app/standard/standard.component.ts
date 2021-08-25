@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { StandardService } from '../core/dataService';
 import { Standard } from '../core/model';
@@ -13,7 +14,7 @@ import { EditStandardComponent } from './edit-standard/edit-standard.component';
 export class StandardComponent {
 
   // Table & Paginator
-  displayedColumns: string[] = ['name', 'course', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'courseName', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
   standardPerPage  = 20;
   pageSizeOptions = [20, 50, 100];
@@ -25,6 +26,8 @@ export class StandardComponent {
   public isLoading = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
 
   private observer = {
     next: (data: Standard[]) => {
@@ -32,6 +35,7 @@ export class StandardComponent {
       data.forEach(data => {
         data.updatedAt = new Date(data.updatedAt).toDateString();
       })
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error(err)

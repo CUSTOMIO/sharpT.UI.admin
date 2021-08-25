@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CourseService } from '../core/dataService';
 import { Standard } from '../core/model';
@@ -13,7 +14,7 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
 export class CourseComponent {
 
   // Table & Paginator
-  displayedColumns: string[] = ['name', 'course', 'isActive', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'batchName', 'isActive', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
   standardPerPage = 20;
   pageSizeOptions = [20, 50, 100];
@@ -24,6 +25,8 @@ export class CourseComponent {
   public isLoading = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
 
   private observer = {
     next: (data) => {
@@ -31,6 +34,7 @@ export class CourseComponent {
       data.forEach(data => {
         data.updatedAt = new Date(data.updatedAt).toDateString();
       })
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)

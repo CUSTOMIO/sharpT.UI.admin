@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { UserService } from "src/app/core/dataService";
 import { UsersDetail } from "src/app/core/model";
@@ -11,16 +12,21 @@ import { UsersDetail } from "src/app/core/model";
 
 export class UserListComponent implements OnInit{
 
+  // Table
+  public displayedColumns: string[] = ['firstName', 'email', 'standardName', 'isVerified', 'createdAt'];
+  public dataSource: MatTableDataSource<UsersDetail>;
+
+  // Paginator
+  private pageIndex = 1;
+  public userPerPage = 20;
+  public pageSizeOptions = [20, 50, 100];
+  public count: number;
+
+
+  // Loading 
   public isLoading = true;
 
-  displayedColumns: string[] = ['username', 'email', 'standard','verified', 'enrolledOn'];
-  dataSource: MatTableDataSource<UsersDetail>;
-  userPersonalDoc: object;
-
-  userPerPage = 20;
-  pageSizeOptions = [20, 50, 100];
-  pageIndex = 1;
-  public count: number;
+  @ViewChild(MatSort) sort: MatSort;
 
   private observer = {
     next: (x) => {
@@ -28,6 +34,7 @@ export class UserListComponent implements OnInit{
         data.createdAt = new Date(data.createdAt).toDateString();
       })
       this.dataSource = new MatTableDataSource(x);
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)
@@ -36,13 +43,17 @@ export class UserListComponent implements OnInit{
   constructor(private userService: UserService){
 
   }
-  ngOnInit(){    
+  ngOnInit() {
+    this.userService.getUserCount()
+      .subscribe(res => {
+        this.count = res.count;
+      })
     this.userService.getUsers(this.userPerPage, 1).subscribe(this.observer)
   }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
-    this.userService.getUsers(this.userPerPage, 1).subscribe(this.observer);
+    this.userService.getUsers(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;
   }
 

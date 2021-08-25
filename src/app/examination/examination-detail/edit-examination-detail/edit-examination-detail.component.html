@@ -1,8 +1,6 @@
-<div class="header-div">
-  <div class="header">
-    <h1 class="mat-subheading-2">Examination Detail</h1>
-    <mat-icon (click)="closeDialog()">close</mat-icon>
-  </div>
+<div class="header">
+  <h1 class="mat-subheading-2">Examination Detail</h1>
+  <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 
 <mat-divider></mat-divider>
@@ -84,13 +82,12 @@
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
-
-
     </div>
-
   </mat-step>
   <mat-step>
+
     <ng-template matStepLabel>Subject Detail</ng-template>
+
     <form [formGroup]="editForm" *ngIf="!subjectDetailLoading">
       <div *ngFor="let data of t.controls; let i = index">
         <div [formGroup]="data" align="center">
@@ -114,6 +111,7 @@
         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
       </button>
     </form>
+
     <mat-spinner [diameter]="40" *ngIf="subjectDetailLoading || spinnerLoading"></mat-spinner>
   </mat-step>
 </mat-horizontal-stepper>
