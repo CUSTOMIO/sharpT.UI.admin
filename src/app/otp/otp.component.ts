@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { OtpService } from '../core/dataService/otp/otp.service';
 import { Otp } from '../core/model';
@@ -28,6 +29,7 @@ export class OtpComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   private observer = {
     next: (data: Otp[]) => {
@@ -36,6 +38,7 @@ export class OtpComponent implements OnInit {
         data.updatedAt = new Date(data.updatedAt).toLocaleString();
       })
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)
