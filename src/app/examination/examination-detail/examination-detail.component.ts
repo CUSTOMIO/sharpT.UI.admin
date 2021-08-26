@@ -49,6 +49,10 @@ export class ExaminationDetailComponent implements OnInit{
 
 
   ngOnInit() {
+    this.examinationDetailService.examinationDetailCount()
+      .subscribe(res => {
+        this.count = res.count;
+      })
     this.examinationDetailService.getExaminationDetail(this.examinationDetailPerPage, 1)
     .subscribe(this.observer);
   }

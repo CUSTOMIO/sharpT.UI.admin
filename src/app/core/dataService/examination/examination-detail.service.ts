@@ -41,4 +41,8 @@ export class ExaminationDetailService {
     const url = `${environment.api_endpoint}/addExaminationDetail`;
     return this.http.post<{message: boolean}>(url, form);
   }
+  public examinationDetailCount() {
+    const url = `${environment.api_endpoint}/examinationDetailCount`;
+    return this.http.get<{ count: number }>(url)
+  }
 }
