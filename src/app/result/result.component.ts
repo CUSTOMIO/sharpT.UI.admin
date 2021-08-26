@@ -1,7 +1,8 @@
 import { Content } from '@angular/compiler/src/render3/r3_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ExaminationDetailService, StandardService, UserService } from '../core/dataService';
@@ -18,7 +19,7 @@ export class ResultComponent implements OnInit {
     public user: UserByStandardId[];
 
     // Table & Paginator
-    public displayedColumns: string[] = ['email', 'name'];
+    public displayedColumns: string[] = ['firstName', 'email'];
     public dataSource: MatTableDataSource<UserByStandardId>;
     public resultPerPage = 20;
     public pageSizeOptions = [20, 50, 100];
@@ -30,7 +31,10 @@ export class ResultComponent implements OnInit {
     public isLoading = true;
 
     // Form
-    public searchResult: FormGroup;
+  public searchResult: FormGroup;
+
+  @ViewChild(MatSort) sort: MatSort;
+
 
     constructor(private standardService: StandardService,
                 private userService: UserService,
@@ -55,7 +59,8 @@ export class ResultComponent implements OnInit {
         this.userService.getUserBySId(this.resultPerPage, this.pageIndex, result)
             .subscribe(res => {
                 this.user = res;
-                this.dataSource = new MatTableDataSource(res);
+              this.dataSource = new MatTableDataSource(res);
+              this.dataSource.sort = this.sort;
             });
     }
 

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReachUsService } from '../core/dataService';
 import { ReachUs } from '../core/model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -30,6 +31,9 @@ export class ReachUsComponent implements OnInit {
 
   public panelOpenState = false;
 
+  @ViewChild(MatSort) sort: MatSort;
+
+
   private observer = {
     next: (data: ReachUs[]) => {
       data.forEach(data => {
@@ -42,6 +46,7 @@ export class ReachUsComponent implements OnInit {
         }
       });
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error(err)

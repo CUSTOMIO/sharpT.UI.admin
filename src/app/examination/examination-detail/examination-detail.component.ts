@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ExaminationDetailService } from 'src/app/core/dataService';
 import { ExaminationDetail } from 'src/app/core/model';
@@ -14,7 +15,7 @@ import { EditExaminationDetailComponent } from './edit-examination-detail/edit-e
 export class ExaminationDetailComponent implements OnInit{
 
   // Paginator
-  displayedColumns: string[] = ['name', 'standard', 'startOn', 'endOn', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['examinationName', 'standardName', 'startOn', 'endOn', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<ExaminationDetail>;
   examinationDetailPerPage = 20;
   pageSizeOptions = [20, 50, 100];
@@ -24,6 +25,9 @@ export class ExaminationDetailComponent implements OnInit{
   // Loading
   public isLoading = true;
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   private observer = {
     next: (data: ExaminationDetail[]) => {
       this.dataSource = new MatTableDataSource(data);
@@ -32,12 +36,12 @@ export class ExaminationDetailComponent implements OnInit{
         x.endOn = new Date(x.endOn).toDateString();
         x.updatedAt = new Date(x.updatedAt).toDateString();
       });
+      this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
     error: err => console.error('Observer got an error: ' + err)
   };
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
   constructor(private examinationDetailService: ExaminationDetailService,

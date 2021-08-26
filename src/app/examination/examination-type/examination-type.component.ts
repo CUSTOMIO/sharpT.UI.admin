@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ExaminationService } from 'src/app/core/dataService';
 import { ExaminationType } from 'src/app/core/model';
@@ -32,6 +33,7 @@ export class ExaminationTypeComponent  implements OnInit{
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
     private observer = {
         next: (data: ExaminationType[]) => {
@@ -40,6 +42,7 @@ export class ExaminationTypeComponent  implements OnInit{
             data.createdAt = new Date(data.createdAt).toLocaleString()
             data.updatedAt = new Date(data.updatedAt).toLocaleString()
           })
+          this.dataSource.sort = this.sort;
           this.isLoading = false;
         },
         error: err => console.error('Observer got an error: ' + err)
