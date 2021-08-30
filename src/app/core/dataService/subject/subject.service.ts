@@ -12,8 +12,8 @@ export class SubjectService {
 
   constructor(private http: HttpClient) { }
 
-  public getSubject(pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/adminGetSubject?pageSize=${pageSize}&page=${currentPage}`;
+  public getSubject(pageSize: number, currentPage: number, filterStandardId, filterStatus) {
+    const url = `${environment.api_endpoint}/adminGetSubject?pageSize=${pageSize}&page=${currentPage}&standardId=${filterStandardId}&isActive=${filterStatus}`;
     return this.http.get<Subject[]>(url)
       .pipe(
         map(data =>
@@ -37,8 +37,8 @@ export class SubjectService {
     return this.http.post<{message: string}>(url, form)
   }
 
-  public subjectCount(){
-    const url = `${environment.api_endpoint}/subjectCount`;
+  public subjectCount(filterStandardId, filterStatus){
+    const url = `${environment.api_endpoint}/subjectCount?standardId=${filterStandardId}&isActive=${filterStatus}`;
     return this.http.get<{count: number}>(url)
   }
 }

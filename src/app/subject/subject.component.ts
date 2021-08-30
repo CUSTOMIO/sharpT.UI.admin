@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SubjectService } from '../core/dataService';
-import { Subject } from '../core/model';
+import { StandardService, SubjectService } from '../core/dataService';
+import { Standard, Subject } from '../core/model';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -21,6 +21,11 @@ export class SubjectComponent implements OnInit {
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;
+
+  // Filter data
+  public filterStandardId = '';
+  public standards: Standard[];
+  public filterStatus = '';
 
   // Loading
   public isLoading = true;
@@ -43,20 +48,48 @@ export class SubjectComponent implements OnInit {
   constructor(
     private subjectService: SubjectService,
     public dialog: MatDialog,
+    private standardService: StandardService
   ) { }
 
   ngOnInit() {
-    this.subjectService.subjectCount()
-    .subscribe(data => {
-      this.count = data.count;
-    })
-    this.subjectService.getSubject(this.subjectPerPage, 1).subscribe(this.observer);
+    this.getSubjectCount();
+    this.subjectService.getSubject(
+      this.subjectPerPage,
+      1,
+      this.filterStandardId,
+      this.filterStatus
+    ).subscribe(this.observer);
+
+    this.standardService.getStandard()
+      .subscribe(res => {
+        this.standards = res;
+      })
   }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
-    this.subjectService.getSubject(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
+    this.subjectService.getSubject(pageData.pageSize, pageData.pageIndex + 1, this.filterStandardId, this.filterStatus).subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;
+  }
+
+  standardIdFilter(id) {
+    this.filterStandardId = id;
+  }
+
+  isActiveFilter(value: string) {
+    this.filterStatus = value
+  }
+
+  setFilter() {
+    this.subjectService.getSubject(this.subjectPerPage, 1, this.filterStandardId, this.filterStatus).subscribe(this.observer);
+    this.getSubjectCount();
+  }
+
+  private getSubjectCount() {
+    this.subjectService.subjectCount(this.filterStandardId, this.filterStatus)
+      .subscribe(data => {
+        this.count = data.count;
+      })
   }
 
   applyFilter(event: Event) {
@@ -71,6 +104,7 @@ export class SubjectComponent implements OnInit {
     this.isLoading = false;
 
   }
+
   openDialog(subject: object, mode: string): void {
     const dialogRef = this.dialog.open(EditSubjectComponent, {
       // disableClose: true,
@@ -85,7 +119,7 @@ export class SubjectComponent implements OnInit {
       if (!result) {
         return;
       }
-      this.subjectService.getSubject(this.subjectPerPage, this.pageIndex).subscribe(this.observer);
+      this.subjectService.getSubject(this.subjectPerPage, this.pageIndex, this.filterStandardId, this.filterStatus).subscribe(this.observer);
       this.count += 1;
     });
   }

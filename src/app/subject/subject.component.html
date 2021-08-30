@@ -3,20 +3,43 @@
 
 <!-- Filter Division -->
 <div class="container">
-    <div class="filter-div">
-        <div>
-            <mat-form-field appearance="standard" class="filter-input">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="filterlist..." #input>
-            </mat-form-field>
-        </div>
-        <div class="add-icon">
-            <button mat-flat-button color="primary" (click)="openDialog({}, 'new')">
-              New <i class="fas fa-plus"></i>
-            </button>
-        </div>
+  <div class="filter-div">
+    <div class="filter-input">
+      <mat-form-field appearance="standard">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="filterlist..." #input>
+      </mat-form-field>
     </div>
-
+    <div class="filter-input">
+      <mat-form-field appearance="standard">
+        <mat-label>Standard</mat-label>
+        <mat-select (selectionChange)="standardIdFilter($event.value)">
+          <mat-option value="">- - -</mat-option>
+          <mat-option *ngFor="let s of standards" [value]="s.id" [innerHtml]="s.name"></mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filter-input">
+      <mat-form-field appearance="standard">
+        <mat-label>Status</mat-label>
+        <mat-select (selectionChange)="isActiveFilter($event.value)">
+          <mat-option value="">- - -</mat-option>
+          <mat-option value="1">True</mat-option>
+          <mat-option value="0">False</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="add-icon">
+      <button mat-flat-button color="primary" (click)="openDialog({}, 'new')">
+        New <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="add-icon">
+      <button mat-flat-button color="primary" (click)="setFilter()">
+        Apply <i class="fas fa-filter"></i>
+      </button>
+    </div>
+  </div>
     <!-- Table -->
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -62,3 +85,4 @@
         <mat-paginator [length]="count" [pageSizeOptions]="pageSizeOptions" [pageSize]="subjectPerPage" (page)="onChangedPage($event)" showFirstLastButtons></mat-paginator>
     </div>
 </div>
+
