@@ -4,7 +4,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CourseService } from '../core/dataService';
-import { Standard } from '../core/model';
+import { BatchService } from '../core/dataService/batch/batch.services';
+import { Batch, Standard } from '../core/model';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 
 @Component({
@@ -20,6 +21,11 @@ export class CourseComponent {
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;
+
+  // Filter Data
+  public batch: Batch[];
+  public filterBatchId = '';
+  public filterStatus = '';
 
   // Loading
   public isLoading = true;
@@ -43,23 +49,50 @@ export class CourseComponent {
   constructor(
     private courseService: CourseService,
     public dialog: MatDialog,
+    private batchService: BatchService
   ) { }
 
   ngOnInit() {
-    this.courseService.courseCount()
-    .subscribe(data => {
-      this.count = data.count;
-    },
-    err => {
-      console.log(err);
-    });
-    this.courseService.getAdminCourse(this.standardPerPage, 1).subscribe(this.observer);
+    this.getCourseCount()
+
+    this.courseService.getAdminCourse(this.standardPerPage, 1, this.filterBatchId, this.filterStatus).subscribe(this.observer);
+
+    this.batchService.getAdminBatch()
+      .subscribe(res => {
+        this.batch = res;
+      })
   }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
-    this.courseService.getAdminCourse(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
+    this.courseService.getAdminCourse(pageData.pageSize, pageData.pageIndex + 1, this.filterBatchId, this.filterStatus).subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;
+  }
+
+
+  batchIdFilter(id) {
+    this.filterBatchId = id;
+  }
+
+  isActiveFilter(value: string) {
+    this.filterStatus = value
+  }
+
+  getCourseCount() {
+    this.courseService.courseCount(this.filterBatchId, this.filterStatus)
+      .subscribe(data => {
+        this.count = data.count;
+      });
+  }
+
+  setFilter() {
+    this.courseService.getAdminCourse(
+      this.standardPerPage,
+      1,
+      this.filterBatchId,
+      this.filterStatus
+    ).subscribe(this.observer);
+    this.getCourseCount()
   }
 
   applyFilter(event: Event) {
@@ -86,7 +119,7 @@ export class CourseComponent {
       if (!result) {
         return;
       }
-      this.courseService.getAdminCourse(this.standardPerPage, this.pageIndex).subscribe(this.observer);
+      this.courseService.getAdminCourse(this.standardPerPage, this.pageIndex, this.filterBatchId, this.filterStatus).subscribe(this.observer);
       this.count += 1;
     });
   }
