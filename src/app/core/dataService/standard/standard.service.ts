@@ -22,8 +22,8 @@ export class StandardService {
       );
   }
 
-  public getAdminStandard(pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/getAdminstandard?pageSize=${pageSize}&page=${currentPage}`;
+  public getAdminStandard(pageSize: number, currentPage: number, filterCourseId, filterStatus, filterSubjectSelection) {
+    const url = `${environment.api_endpoint}/getAdminstandard?pageSize=${pageSize}&page=${currentPage}&courseId=${filterCourseId}&isActive=${filterStatus}&subjectSelection=${filterSubjectSelection}`;
     return this.http.get<Standard[]>(url)
       .pipe(
         map(data =>
@@ -40,8 +40,8 @@ export class StandardService {
     return this.http.post<{message: string}>(url, form)
   }
 
-  public standardCount(){
-    const url = `${environment.api_endpoint}/standardCount`;
+  public standardCount(filterCourseId, filterStatus, filterSubjectSelection){
+    const url = `${environment.api_endpoint}/standardCount?courseId=${filterCourseId}&isActive=${filterStatus}&subjectSelection=${filterSubjectSelection}`;
     return this.http.get<{count: number}>(url)
   }
   

@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { StandardService } from '../core/dataService';
-import { Standard } from '../core/model';
+import { CourseService, StandardService } from '../core/dataService';
+import { Course, Standard } from '../core/model';
 import { EditStandardComponent } from './edit-standard/edit-standard.component';
 
 @Component({
@@ -21,6 +21,12 @@ export class StandardComponent {
   pageIndex = 1;
   public count: number;
   public standardId: number;
+
+  // Filter Data
+  public filterCourseId = '';
+  public course: Course[];
+  public filterStatus = '';
+  public filterSubjectSelection = '';
 
   // Loading
   public isLoading = true;
@@ -44,23 +50,66 @@ export class StandardComponent {
   constructor(
     private standardService: StandardService,
     public dialog: MatDialog,
+    private courseService: CourseService
   ) { }
 
   ngOnInit() {
-    this.standardService.standardCount()
-    .subscribe(data => {
-      this.count = data.count;
-    },
-    err => {
-      console.log(err);
-    });
-    this.standardService.getAdminStandard(this.standardPerPage, 1).subscribe(this.observer);
+    this.getStandardCount()
+
+    this.standardService.getAdminStandard(
+      this.standardPerPage,
+      1,
+      this.filterCourseId,
+      this.filterStatus,
+      this.filterSubjectSelection
+      ).subscribe(this.observer);
+
+    this.courseService.getCourse()
+      .subscribe(res => {
+        this.course = res;
+      })
   }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
-    this.standardService.getAdminStandard(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
+    this.standardService.getAdminStandard(
+      pageData.pageSize,
+      pageData.pageIndex + 1,
+      this.filterCourseId,
+      this.filterStatus,
+      this.filterSubjectSelection
+    ).subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;  
+  }
+
+  courseIdFilter(id) {
+    this.filterCourseId = id;
+  }
+
+  isActiveFilter(value: string) {
+    this.filterStatus = value
+  }
+
+  subjectSelectionFilter(value: string) {
+    this.filterSubjectSelection = value
+  }
+
+  setFilter() {
+    this.standardService.getAdminStandard(
+      this.standardPerPage,
+      1,
+      this.filterCourseId,
+      this.filterStatus,
+      this.filterSubjectSelection
+    ).subscribe(this.observer);
+    this.getStandardCount()
+  }
+
+  private getStandardCount() {
+    this.standardService.standardCount(this.filterCourseId, this.filterStatus, this.filterSubjectSelection)
+      .subscribe(data => {
+        this.count = data.count;
+      });
   }
 
   applyFilter(event: Event) {
@@ -87,7 +136,13 @@ export class StandardComponent {
       if (!result) {
         return;
       }
-      this.standardService.getAdminStandard(this.standardPerPage, this.pageIndex).subscribe(this.observer);
+      this.standardService.getAdminStandard(
+        this.standardPerPage,
+        this.pageIndex,
+        this.filterCourseId,
+        this.filterStatus,
+        this.filterSubjectSelection
+      ).subscribe(this.observer);
       this.count += 1;
     });
   }
