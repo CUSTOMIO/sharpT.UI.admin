@@ -9,17 +9,17 @@ import { AuthService } from 'src/app/core/dataService';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  public isLoading: boolean = true;
-  public spinnerLoading: boolean = false;
+  public isLoading = true;
+  public spinnerLoading = false;
   public invalidLogin: boolean;
 
 
   constructor(private fb: FormBuilder,
-    private authService: AuthService) {
+              private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['',
         [Validators.required, Validators.email,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
       ],
       password: ['',
         [Validators.required]
@@ -31,7 +31,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.spinnerLoading = true;
-      this.authService.postlogin(this.loginForm.value)
+      this.authService.postlogin(this.loginForm.value);
       this.authService
         .getAuthStatusListener()
         .subscribe(isAuthenticated => {

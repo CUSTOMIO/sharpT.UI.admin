@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Sharp Tutorial Admin';
-  constructor() {
-  }
 }
