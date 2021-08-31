@@ -13,8 +13,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getUsers(pageSize: number, currentPage: number): Observable<UsersDetail[]> {
-    const url = `${environment.api_endpoint}/getAdminUser?pageSize=${pageSize}&page=${currentPage}`;
+  public getUsers(pageSize: number, currentPage: number, filterStandardId, filterStatus): Observable<UsersDetail[]> {
+    const url = `${environment.api_endpoint}/getAdminUser?pageSize=${pageSize}&page=${currentPage}&standardId=${filterStandardId}&isVerified=${filterStatus}`;
     return this.http.get<UsersDetail[]>(url)
       .pipe(
         map(data =>
@@ -90,8 +90,8 @@ export class UserService {
     return this.http.get<{ email: string }>(url);
   }
 
-  public getUserCount(): Observable<{ count: number }> {
-    const url = `${environment.api_endpoint}/getUserCount`;
+  public getUserCount(filterStandardId, filterStatus ): Observable<{ count: number}> {
+    const url = `${environment.api_endpoint}/getUserCount?standardId=${filterStandardId}&isVerified=${filterStatus}`;
     return this.http.get<{ count: number }>(url);
   }
 
