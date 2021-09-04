@@ -99,4 +99,9 @@ export class UserService {
     const url = `${environment.api_endpoint}/getUnverifiedUserCount`;
     return this.http.get<{ count: number }>(url);
   }
+
+  public postUserImage(image: FormData) {
+    const url = `${environment.api_endpoint}/postUpdateUserImage`;
+    return this.http.post<{ message: boolean }>(url, image);
+  }
 }

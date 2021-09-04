@@ -1,7 +1,9 @@
 import { Component, OnInit, } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { UserDetailService } from 'src/app/user/details/detail.service';
 import { environment } from 'src/environments/environment';
+import { EditUserPhotoComponent } from '../edit-user-photo/edit-user-photo.component';
 
 @Component({
     selector: 'app-user-detail-header',
@@ -21,7 +23,9 @@ export class UserDetailHeaderComponent implements OnInit {
 
     public isLoading = true;
 
-    constructor(private userService: UserDetailService) { }
+    constructor(private userService: UserDetailService,
+                public dialog: MatDialog,
+                private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.userService.userImage
@@ -54,6 +58,18 @@ export class UserDetailHeaderComponent implements OnInit {
             }
             this.isLoading = false;
         });
+    }
+
+    openDialog(){
+        const userId = Number(this.route.snapshot.paramMap.get('id'));
+        const dialogRef = this.dialog.open(EditUserPhotoComponent, {
+            // disableClose: true,
+            width: '450px',
+            data: {
+                userId,
+                imageUrl: this.imageUrl
+            }
+          });
     }
 }
 

@@ -4,8 +4,8 @@
 
         <div class="header" fxLayout="row" fxLayout.sm="row" fxLayout.xs="column" fxLayoutFap="10px" *ngIf="!isLoading">
             <div class="img-div m-auto" fxFlex="18" fxFlex.sm="25" fxFlex.xs="100">
-                <i class="far fa-edit edit-icon fa-lg"></i>
-                <img src="{{apiEndpoint + imageUrl}}">
+                <i class="far fa-edit edit-icon fa-lg" (click)="openDialog()"></i>
+                <img src="{{apiEndpoint + imageUrl}}" height="240" width="180">
             </div>
             <div class="header-content-1 mat-subheading-2" fxFlex="70" fxFlex.sm="75" fxFlex.xs="100">
 

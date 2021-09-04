@@ -7,6 +7,7 @@ import { UserDetailHeaderComponent } from './details/elements/user-detail-header
 import { UserDetailTabComponent } from './details/elements/user-detail-tab-details/user-detail-tab-details.component';
 import { UserDetailComponent } from './details/detail.component';
 import { UserStandardTabComponent } from './details/elements/user-standard-tab-details/user-standard-tab-details.component';
+import { EditUserPhotoComponent } from './details/elements/edit-user-photo/edit-user-photo.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { UserStandardTabComponent } from './details/elements/user-standard-tab-d
     UserDetailComponent,
     UserDetailTabComponent,
     UserDetailHeaderComponent,
+    EditUserPhotoComponent,
     UserStandardTabComponent
   ],
   providers: [

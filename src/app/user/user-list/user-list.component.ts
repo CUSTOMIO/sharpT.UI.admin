@@ -36,7 +36,7 @@ export class UserListComponent implements OnInit{
     next: (x) => {
       x.forEach(data => {
         data.createdAt = new Date(data.createdAt).toDateString();
-      })
+      });
       this.dataSource = new MatTableDataSource(x);
       this.dataSource.sort = this.sort;
       this.isLoading = false;
@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit{
       this.userPerPage,
       1,
       this.filterStandardId,
-      this.filterStatus).subscribe(this.observer)
+      this.filterStatus).subscribe(this.observer);
 
     this.standardService.getStandard()
       .subscribe(res => {
@@ -61,7 +61,7 @@ export class UserListComponent implements OnInit{
       });
   }
 
-  onChangedPage (pageData: PageEvent) {
+  onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
 
     this.userService.getUsers(
@@ -73,7 +73,7 @@ export class UserListComponent implements OnInit{
     this.pageIndex = pageData.pageIndex + 1;
   }
 
-  standardIdFilter (id) {
+  standardIdFilter(id) {
     console.log(id);
     this.filterStandardId = id;
   }
@@ -81,7 +81,7 @@ export class UserListComponent implements OnInit{
 
   isActiveFilter(value: string) {
   console.log(value);
-    this.filterStatus = value;
+  this.filterStatus = value;
   }
 
   setFilter() {
@@ -102,7 +102,7 @@ export class UserListComponent implements OnInit{
       this.filterStatus)
       .subscribe(res => {
         this.count = res.count;
-      })
+      });
   }
 
   applyFilter(event: Event) {
