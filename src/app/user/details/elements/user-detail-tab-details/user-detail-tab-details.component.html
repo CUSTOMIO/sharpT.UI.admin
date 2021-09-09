@@ -61,7 +61,8 @@
                 </mat-form-field>
             </div>
         </div>
-        <button mat-raised-button color="primary">
+        <div *ngIf="detailForm.hasError('whitespace')">Please enter valid data</div>
+        <button mat-raised-button color="primary" [disabled]="detailForm.invalid">
             Update
         </button>
     </form>

@@ -1,5 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/core/dataService';
 import { UserDetailService } from '../../detail.service';
 
 @Component({
@@ -20,20 +22,22 @@ export class UserDetailTabComponent implements OnInit {
     public detailForm: FormGroup;
     public isLoading = true;
 
-    constructor(private userService: UserDetailService,
-                private formBuilder: FormBuilder) {
+    constructor(private userDetailService: UserDetailService,
+                private formBuilder: FormBuilder,
+                private userService: UserService,
+                private route: ActivatedRoute) {
         this.detailForm = this.formBuilder.group({
             firstName: [, [Validators.required]],
-            middleName: [, [Validators.required]],
-            lastName: [, [Validators.required]],
-            address: ['', [Validators.required]],
+            middleName: [, [Validators.required, this.whitespaceValidator]],
+            lastName: [, [Validators.required, this.whitespaceValidator]],
+            address: ['', [Validators.required, this.whitespaceValidator]],
             studentPN: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]],
             parentPN: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]]
         });
     }
 
     ngOnInit() {
-        this.userService.userName
+        this.userDetailService.userName
             .subscribe(res => {
                 if (res) {
                     this.firstName = res.firstName;
@@ -45,7 +49,7 @@ export class UserDetailTabComponent implements OnInit {
 
                 }
             });
-        this.userService.userPN
+        this.userDetailService.userPN
             .subscribe(res => {
                 if (res) {
                     this.studentPN = res;
@@ -53,7 +57,7 @@ export class UserDetailTabComponent implements OnInit {
 
                 }
             });
-        this.userService.userPPN
+        this.userDetailService.userPPN
             .subscribe(res => {
                 if (res) {
                     this.parentPN = res;
@@ -61,7 +65,7 @@ export class UserDetailTabComponent implements OnInit {
 
                 }
             });
-        this.userService.userAddress
+        this.userDetailService.userAddress
             .subscribe(res => {
                 if (res) {
                     this.address = res;
@@ -71,8 +75,18 @@ export class UserDetailTabComponent implements OnInit {
             });
     }
 
+    public whitespaceValidator(control: FormControl) {
+        const isWhitespace = (control.value || '').trim().length === 0;
+        const isValid = !isWhitespace;
+        return isValid ? null : { 'whitespace': true };
+      }
+
     onSubmit() {
-        console.log(this.detailForm.value);
+        const userId = Number(this.route.snapshot.paramMap.get('id'));
+        this.userService.postUserData(this.detailForm.value, userId)
+        .subscribe(res => {
+            console.log(res);
+        });
     }
 }
 

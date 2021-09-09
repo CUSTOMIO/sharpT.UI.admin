@@ -2,7 +2,7 @@ import { Component, OnInit, } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ActivatedRoute } from '@angular/router';
-import { StandardService, SubjectService } from 'src/app/core/dataService';
+import { StandardService, SubjectService, UserService } from 'src/app/core/dataService';
 import { Subject, UserSubject } from 'src/app/core/model';
 import { UserDetailService } from '../../detail.service';
 
@@ -23,10 +23,12 @@ export class UserStandardTabComponent implements OnInit {
 
   public isLoading = true;
 
-  constructor(private userService: UserDetailService,
-    private standardService: StandardService,
-    private formBuilder: FormBuilder,
-    private subjectService: SubjectService
+  constructor(private userDetailService: UserDetailService,
+              private standardService: StandardService,
+              private formBuilder: FormBuilder,
+              private subjectService: SubjectService,
+              private userService: UserService,
+              private route: ActivatedRoute
   ) {
     this.standardForm = this.formBuilder.group({
       standardId: ['', [Validators.required]],
@@ -39,7 +41,7 @@ export class UserStandardTabComponent implements OnInit {
       .subscribe(data => {
         this.standards = data;
       });
-    this.userService.userStandard
+    this.userDetailService.userStandard
       .subscribe(res => {
         if (res) {
           this.userStandardId = res.id;
@@ -47,7 +49,7 @@ export class UserStandardTabComponent implements OnInit {
           this.standardForm.get('standardId').setValue(this.userStandardId);
         }
       });
-    this.userService.userSubject
+    this.userDetailService.userSubject
       .subscribe(res => {
         if (res) {
           this.userSubjects = res;
@@ -99,5 +101,10 @@ export class UserStandardTabComponent implements OnInit {
 
   onSubmit() {
     console.log(this.standardForm.value);
+    const userId = Number(this.route.snapshot.paramMap.get('id'));
+    this.userService.postUserStandard(this.standardForm.value, userId)
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 }

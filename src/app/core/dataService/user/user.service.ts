@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { UsersDetail, UserName, UserEnrollDate, UserStandard, UserSubject, UserByStandardId } from '../../model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -103,5 +104,15 @@ export class UserService {
   public postUserImage(image: FormData) {
     const url = `${environment.api_endpoint}/postUpdateUserImage`;
     return this.http.post<{ message: boolean }>(url, image);
+  }
+
+  public postUserData(form: FormGroup, userId: number) {
+    const url = `${environment.api_endpoint}/postUpdateUserData/${userId}`;
+    return this.http.post<{ message: boolean }>(url, form);
+  }
+
+  public postUserStandard (form: FormGroup, userId: number) {
+    const url = `${environment.api_endpoint}/postUpdateUserStandard/${userId}`;
+    return this.http.post<{ message: boolean }>(url, form);
   }
 }
