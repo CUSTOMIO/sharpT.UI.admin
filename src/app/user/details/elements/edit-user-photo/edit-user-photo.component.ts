@@ -40,7 +40,7 @@ export class EditUserPhotoComponent implements OnInit {
             const reader = new FileReader();
 
             reader.onload = () => {
-              //  this.imageURL = reader.result as string;
+               this.imageURL = reader.result as string;
             // this.appForm.get('imageBase64').setValue(this.imageURL)
           };
             reader.readAsDataURL(file);

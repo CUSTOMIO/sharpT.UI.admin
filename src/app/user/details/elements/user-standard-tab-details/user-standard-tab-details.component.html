@@ -1,57 +1,49 @@
 <div class="container">
-  <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="standardForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
-    <div class="wrapper">
-      <div fxFlex="50" class="label">
-        <mat-label>Standard : </mat-label>
-      </div>
-      <div fxFlex="50" class="input">
-        <mat-form-field appearance="standard">
-          <mat-select formControlName="standardId" (selectionChange)="getSubjects($event.value)">
-            <mat-option *ngFor="let s of standards" [value]="s.id" [innerHTML]="s.name">
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div *ngIf="subjects">
-      <div *ngIf="subjects.allowSubjectSelection">
-        <div class="wrapper" *ngFor="let subject of subjects.data">
-          <div fxFlex="50" class="label">
-            <mat-label>{{subject.name}} : </mat-label>
-          </div>
-          <div fxFlex="50" class="input">
-            <mat-slide-toggle color="primary"
-                              (change)="checkSubject($event, subject)"
-                              [formGroupName]="'subjects'"
-                              [checked]="checkSubjectToggle(subject)">
-            </mat-slide-toggle>
-          </div>
+    <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="standardForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <div class="wrapper">
+            <div fxFlex="50" class="label">
+                <mat-label>Standard : </mat-label>
+            </div>
+            <div fxFlex="50" class="input">
+                <mat-form-field appearance="standard">
+                    <mat-select formControlName="standardId" (selectionChange)="getSubjects($event.value)">
+                        <mat-option *ngFor="let s of standards" [value]="s.id" [innerHTML]="s.name">
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div *ngIf="subjects">
-      <div *ngIf="!subjects.allowSubjectSelection">
-        <div class="wrapper" *ngFor="let subject of subjects.data">
-          <div fxFlex="50" class="label">
-            <mat-label>{{subject.name}} : </mat-label>
-          </div>
-          <div fxFlex="50" class="input">
-            <mat-slide-toggle color="primary"
-                              (change)="checkSubject($event, subject)"
-                              [formGroupName]="'subjects'"
-                              [checked]="true"
-                              [disabled]="true">
-            </mat-slide-toggle>
-          </div>
+        <div *ngIf="subjects">
+            <div *ngIf="subjects.allowSubjectSelection">
+                <div class="wrapper" *ngFor="let subject of subjects.data">
+                    <div fxFlex="50" class="label">
+                        <mat-label>{{subject.name}} : </mat-label>
+                    </div>
+                    <div fxFlex="50" class="input">
+                        <mat-slide-toggle color="primary" (change)="checkSubject($event,
+              subject)" [formGroupName]="'subjects'" [checked]="checkSubjectToggle(subject)">
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!subjects.allowSubjectSelection">
+                <div class="wrapper" *ngFor="let subject of subjects.data">
+                    <div fxFlex="50" class="label">
+                        <mat-label>{{subject.name}} : </mat-label>
+                    </div>
+                    <div fxFlex="50" class="input">
+                        <mat-slide-toggle color="primary" [formGroupName]="'subjects'" [checked]="true" [disabled]="true">
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary">
       Update
     </button>
-  </form>
+    </form>
 </div>

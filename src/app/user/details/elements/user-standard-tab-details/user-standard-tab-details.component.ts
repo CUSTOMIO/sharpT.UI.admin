@@ -18,7 +18,7 @@ export class UserStandardTabComponent implements OnInit {
   public standardForm: FormGroup;
   public userStandardId: number;
   public standards: object;
-  public subjects: object;
+  public subjects: any;
   public userSubjects: Array<UserSubject>;
 
   public isLoading = true;
@@ -53,7 +53,6 @@ export class UserStandardTabComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.userSubjects = res;
-          (this.standardForm.controls.subjects as FormArray).clear();
           for (const item of this.userSubjects) {
             (this.standardForm.controls.subjects as FormArray).
               push(this.patchValues(item.subjectId, item.name));
@@ -63,9 +62,16 @@ export class UserStandardTabComponent implements OnInit {
   }
 
   getSubjects(standardId: number) {
+    (this.standardForm.controls.subjects as FormArray).clear();
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe(res => {
         this.subjects = res;
+        if(!this.subjects.allowSubjectSelection){
+          for (const item of this.subjects.data) {
+            (this.standardForm.controls.subjects as FormArray).
+              push(this.patchValues(item.id, item.name));
+          }
+        }
         this.isLoading = false;
       });
   }
