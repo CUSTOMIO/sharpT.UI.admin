@@ -63,9 +63,9 @@ export class UserService {
     return this.http.get<string>(url);
   }
 
-  public getUserStatus(userId: number): Observable<boolean> {
+  public getUserStatus(userId: number): Observable<{status : boolean}> {
     const url = `${environment.api_endpoint}/getUserStatus/${userId}`;
-    return this.http.get<boolean>(url);
+    return this.http.get<{status : boolean}>(url);
   }
 
   public getUserEnrollDate(userId: number): Observable<UserEnrollDate> {

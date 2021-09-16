@@ -20,6 +20,7 @@ export class UserDetailHeaderComponent implements OnInit {
     public email: string;
     public studentPN: bigint;
     public address: string;
+    public userStatus: boolean;
 
     public isLoading = true;
 
@@ -28,6 +29,11 @@ export class UserDetailHeaderComponent implements OnInit {
                 private route: ActivatedRoute) { }
 
     ngOnInit() {
+        this.userService.userStatus
+        .subscribe(res => {
+                this.userStatus = res;
+            }
+        )
         this.userService.userImage
             .subscribe(res => {
                 this.imageUrl = res;

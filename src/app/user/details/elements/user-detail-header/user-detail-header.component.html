@@ -1,5 +1,5 @@
 <div class="top-span">
-    <div class="top">
+    <div class="top" [ngClass]=" userStatus ? 'verified': 'unverified'">
         <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
 
         <div class="header" fxLayout="row" fxLayout.sm="row" fxLayout.xs="column" fxLayoutFap="10px" *ngIf="!isLoading">

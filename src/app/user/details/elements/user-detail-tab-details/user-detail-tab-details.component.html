@@ -62,8 +62,9 @@
             </div>
         </div>
         <div *ngIf="detailForm.hasError('whitespace')">Please enter valid data</div>
-        <button mat-raised-button color="primary" [disabled]="detailForm.invalid">
+        <button *ngIf="!isSubmitting" mat-raised-button color="primary" [disabled]="detailForm.invalid">
             Update
         </button>
+        <mat-spinner [diameter]="40" *ngIf="isSubmitting"></mat-spinner>
     </form>
 </div>

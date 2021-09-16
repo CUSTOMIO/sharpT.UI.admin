@@ -23,7 +23,7 @@
                     </div>
                     <div fxFlex="50" class="input">
                         <mat-slide-toggle color="primary" (change)="checkSubject($event,
-              subject)" [formGroupName]="'subjects'" [checked]="checkSubjectToggle(subject)">
+                            subject)" [formGroupName]="'subjects'" [checked]="checkSubjectToggle(subject)">
                         </mat-slide-toggle>
                     </div>
                 </div>
@@ -42,8 +42,9 @@
             </div>
         </div>
 
-        <button mat-raised-button color="primary">
-      Update
-    </button>
+        <button *ngIf="!isSubmitting" mat-raised-button color="primary">
+            Update
+        </button>
+        <mat-spinner [diameter]="40" *ngIf="isSubmitting"></mat-spinner>
     </form>
 </div>

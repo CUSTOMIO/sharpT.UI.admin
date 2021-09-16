@@ -45,7 +45,6 @@ export class EditUserPhotoComponent implements OnInit {
           };
             reader.readAsDataURL(file);
         }
-        this.updateImage();
       }
 
     closeDialog() {

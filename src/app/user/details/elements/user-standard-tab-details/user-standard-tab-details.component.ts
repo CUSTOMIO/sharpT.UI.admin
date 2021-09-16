@@ -22,6 +22,7 @@ export class UserStandardTabComponent implements OnInit {
   public userSubjects: Array<UserSubject>;
 
   public isLoading = true;
+  public isSubmitting = false;
 
   constructor(private userDetailService: UserDetailService,
               private standardService: StandardService,
@@ -66,7 +67,7 @@ export class UserStandardTabComponent implements OnInit {
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe(res => {
         this.subjects = res;
-        if(!this.subjects.allowSubjectSelection){
+        if (!this.subjects.allowSubjectSelection){
           for (const item of this.subjects.data) {
             (this.standardForm.controls.subjects as FormArray).
               push(this.patchValues(item.id, item.name));
@@ -106,10 +107,12 @@ export class UserStandardTabComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitting = true;
     console.log(this.standardForm.value);
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     this.userService.postUserStandard(this.standardForm.value, userId)
     .subscribe(res => {
+      this.isSubmitting = false;
       console.log(res);
     });
   }

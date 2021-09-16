@@ -3,9 +3,12 @@
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 
+<mat-divider></mat-divider>
+
+<div *ngIf="imageURL">
+    <img [src]="imageURL" height="120" width="90">
+</div>
 <input hidden type="file" (change)="showPreview($event)" accept="image/*" #fileInput />
 <button type="button" mat-raised-button color="accent" (click)="fileInput.click()">Choose File</button>
 
-<div *ngIf="imageURL">
-    <img [src]="imageURL" [alt]="appForm.value.name" height="120" width="90">
-</div>
+<button id="button" mat-raised-button color="primary" (click)="updateImage()">Upload</button>

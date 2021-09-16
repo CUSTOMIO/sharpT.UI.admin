@@ -17,6 +17,7 @@ export class UserDetailService {
   public userSubject: BehaviorSubject<UserSubject[]> = new BehaviorSubject(null);
   public userEmail: BehaviorSubject<string> = new BehaviorSubject(null);
   public userStandardId: BehaviorSubject<number> = new BehaviorSubject(null);
+  public userStatus: BehaviorSubject<boolean> = new BehaviorSubject(null);
   
   constructor(private userService: UserService) { }
 
@@ -47,6 +48,9 @@ export class UserDetailService {
       });
       this.userService.getUserEmail(id).subscribe(res => {
         this.userEmail.next(res.email);
+      });
+      this.userService.getUserStatus(id).subscribe(res => {
+        this.userStatus.next(res.status);
       });
   }
 
