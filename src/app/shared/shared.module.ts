@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_NATIVE_DATE_FORMATS, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import { NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        NGX_MAT_NATIVE_DATE_FORMATS,
+        NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -34,7 +38,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 
-
+// custom component
+import { ConfirmationModelComponent } from './confirmation-model/confirmation-model.component';
 
 // Format used for the Intl format functions
 const fullDateTimeOptions = {
@@ -101,11 +106,15 @@ const CUSTOM_DATE_FORMATS = Object.assign({}, NGX_MAT_NATIVE_DATE_FORMATS, {
     MatChipsModule,
     MatBadgeModule,
 
-    //Flex references
+    // Flex references
     FlexLayoutModule
   ],
-  declarations: [],
-  entryComponents: [],
+  declarations: [
+    ConfirmationModelComponent
+  ],
+  entryComponents: [
+    ConfirmationModelComponent
+  ],
   providers: [
     { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }
   ]

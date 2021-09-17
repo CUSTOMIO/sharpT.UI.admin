@@ -10,10 +10,16 @@
             <div class="header-content-1 mat-subheading-2" fxFlex="70" fxFlex.sm="75" fxFlex.xs="100">
 
                 <div fxLayout="column" fxLayoutAlign="start start" fxLayoutFap="10px">
-                    <div fxFlex="20" class="w-full">
-                        <p class="mat-display-1">
-                            {{firstName+' '+middleName}}
-                        </p>
+                    <div fxFlex="100" class="w-full">
+                            <p class="mat-display-1 user-name">
+                                {{firstName+' '+middleName}}
+                            </p>
+                        <div class="user-status">
+                            <i class="fas fa-md fa-check text-success" *ngIf="userStatus"></i>
+                            <button *ngIf="!userStatus" mat-raised-button color="warn" (click)="verifyUser()">
+                                Verify
+                            </button>
+                        </div>
                     </div>
                     <div fxFlex="80" style="width: 100%;">
                         <div fXLayout="row" fxLayout.sm="row" fxLayout.xs="column">

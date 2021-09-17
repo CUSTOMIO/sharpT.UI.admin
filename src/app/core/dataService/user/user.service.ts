@@ -115,4 +115,11 @@ export class UserService {
     const url = `${environment.api_endpoint}/postUpdateUserStandard/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
+
+  
+  public postVerifyUser ( userId: number) {
+    const url = `${environment.api_endpoint}/postVerifyUser/${userId}`;
+    return this.http.get<{ message: boolean }>(url);
+  }
+
 }

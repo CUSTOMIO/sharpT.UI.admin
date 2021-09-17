@@ -1,6 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/core/dataService';
 import { UserDetailService } from 'src/app/user/details/detail.service';
 import { environment } from 'src/environments/environment';
 import { EditUserPhotoComponent } from '../edit-user-photo/edit-user-photo.component';
@@ -24,55 +25,66 @@ export class UserDetailHeaderComponent implements OnInit {
 
     public isLoading = true;
 
-    constructor(private userService: UserDetailService,
+    constructor(private userDetailService: UserDetailService,
+                private userService: UserService,
                 public dialog: MatDialog,
                 private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.userService.userStatus
+        this.userId = Number(this.route.snapshot.paramMap.get('id'));
+        this.userDetailService.userStatus
         .subscribe(res => {
                 this.userStatus = res;
             }
-        )
-        this.userService.userImage
+        );
+        this.userDetailService.userImage
             .subscribe(res => {
                 this.imageUrl = res;
             });
-        this.userService.userName
+        this.userDetailService.userName
             .subscribe(res => {
                 if (res) {
                     this.firstName = res.firstName;
                     this.middleName = res.middleName;
                 }
             });
-        this.userService.userEmail
+        this.userDetailService.userEmail
         .subscribe(res => {
             if (res) {
                 this.email = res;
             }
         });
-        this.userService.userPN
+        this.userDetailService.userPN
         .subscribe(res => {
             if (res) {
                 this.studentPN = res;
             }
         });
-        this.userService.userAddress
+        this.userDetailService.userAddress
         .subscribe(res => {
             if (res) {
                 this.address = res;
             }
             this.isLoading = false;
         });
+
+    }
+
+    verifyUser(){
+        if (confirm('Are you sure, you want to verify ' + this.firstName + ' ' + this. middleName)) {
+            this.userService.postVerifyUser(this.userId)
+            .subscribe(res => {
+                console.log(res);
+            });
+          }
     }
 
     openDialog(){
-        const userId = Number(this.route.snapshot.paramMap.get('id'));
         const dialogRef = this.dialog.open(EditUserPhotoComponent, {
             // disableClose: true,
             width: '450px',
             data: {
-                userId,
+                userId: this.userId,
                 imageUrl: this.imageUrl
             }
           });
