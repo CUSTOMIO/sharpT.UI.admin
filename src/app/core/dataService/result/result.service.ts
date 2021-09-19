@@ -22,4 +22,18 @@ export class ResultService {
       );
   }
 
+  public postAddResult(form, userId: number) {
+    const url = `${environment.api_endpoint}/postAddResult/${userId}`;
+    return this.http.post<{ message: boolean }>(url, form);
+  }
+
+  public postFetchResult(examinationDetailId: string, subjectArray: number[], userId: number) {
+    const form = {
+      examinationDetailId,
+      subjectArray
+    };
+    const url = `${environment.api_endpoint}/postFetchResult/${userId}`;
+    return this.http.post<{ message: boolean }>(url, form);
+  }
+
 }

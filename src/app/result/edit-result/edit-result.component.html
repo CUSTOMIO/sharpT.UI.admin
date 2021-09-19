@@ -26,7 +26,7 @@
       </mat-form-field>
     </div>
   </div>
-  <button mat-raised-button color="primary">Submit</button>
+  <button mat-raised-button color="primary">{{newResult ? 'Submit' : 'Update' }}</button>
 </form>
 
 <mat-spinner [diameter]="40" *ngIf="spinnerLoading"></mat-spinner>

@@ -45,7 +45,7 @@ export class ExaminationTypeComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
-    error: err => console.error('Observer got an error: ' + err)
+    error: err => console.error(err)
   };
 
   constructor(private examinationService: ExaminationService,

@@ -90,6 +90,7 @@ export class EditExaminationDetailComponent implements OnInit {
       });
     this.examinationService.examination()
       .subscribe(res => {
+        console.log(res)
         this.examination = res;
       });
     this.academicYearService.academicYear()

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { ExaminationSubjectDetailService, UserService } from 'src/app/core/dataService';
+import { ExaminationSubjectDetailService, ResultService, UserService } from 'src/app/core/dataService';
 import { UserSubject } from 'src/app/core/model';
 
 @Component({
@@ -14,6 +14,10 @@ export class EditResultComponent implements OnInit {
 
   public userSubject: any;
   public resultForm: FormGroup;
+  public subjectArray: Array<number> = [];
+  public autoFetchResult: any;
+  public autoFetchResultForm: FormGroup;
+  public newResult = true;
 
   public spinnerLoading = true;
 
@@ -22,34 +26,41 @@ export class EditResultComponent implements OnInit {
     private dialogRef: MatDialogRef<EditResultComponent>,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private examinationSubjectDetailService: ExaminationSubjectDetailService
+    private examinationSubjectDetailService: ExaminationSubjectDetailService,
+    private resultService: ResultService
   ) {
     this.resultForm = this.formBuilder.group({
       data: new FormArray([])
     });
   }
 
-  get t() { return this.resultForm.controls.data as FormArray; }
+  get t(): FormArray { return this.resultForm.controls.data as FormArray; }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userService.getUserSubject(this.data.user.userId)
       .subscribe(res => {
         this.userSubject = res;
-        for (let s of this.userSubject) {
+        for (const s of this.userSubject) {
+          // for Marksobtained
+          this.subjectArray.push(+s.subjectId);
+
           this.t.push(this.formBuilder.group({
-            userId: [this.data.user.userId, [Validators.required]],
+            userId: [{ value: this.data.user.userId, disabled: true }, [Validators.required]],
             examinationDetailId: [this.data.searchResult.examinationDetailId, [Validators.required]],
             subjectId: [s.subjectId, [Validators.required]],
-            subjectName: [s.name, [Validators.required]],
+            subjectName: [{ value: s.name, disabled: true }, [Validators.required]],
             marksObtained: ['', [Validators.required]],
-            outOf: ['', [Validators.required]]
+            outOf: [{ value: '', disabled: true }, [Validators.required]]
           }));
         }
+        this.autoFillMarksObtained();
         this.getExaminationSubjectDetail(this.data.searchResult.examinationDetailId);
       });
+
+
   }
 
-  public patchValues(id: number) {
+  public patchValues(id: number): FormGroup {
     return this.formBuilder.group({
       subjectId: [id],
       examinationDetailId: this.data.searchResult.examinationDetailId,
@@ -57,31 +68,64 @@ export class EditResultComponent implements OnInit {
     });
   }
 
-  getExaminationSubjectDetail(examinationDetailId: number) {
+  getExaminationSubjectDetail(examinationDetailId: number): void {
     this.examinationSubjectDetailService.getExaminationSubjectDetail(examinationDetailId)
       .subscribe(res => {
         res.forEach(e => {
           this.userSubject.forEach(s => {
-            if (e.subjectId == s.subjectId) {
+            if (e.subjectId === s.subjectId) {
               const index = this.t.value.findIndex((x, id) => {
                 return x.subjectId === e.subjectId;
-              })
+              });
               this.t.at(index).patchValue({
                 outOf: e.outOf
-              })
+              });
             }
-          })
-        })
+          });
+        });
         this.spinnerLoading = false;
-        console.log('Trigggered')
-      })
+      });
   }
 
-  onSubmit() {
-    console.log(this.resultForm.get('data').value)
+  private autoFillMarksObtained(): void {
+    this.resultService.postFetchResult(
+      this.data.searchResult.examinationDetailId,
+      this.subjectArray,
+      this.data.user.userId)
+      .subscribe(data => {
+        this.autoFetchResult = data;
+        console.log(this.autoFetchResult);
+        if (this.autoFetchResult.length > 0) {
+          this.newResult = false;
+          for (const fetchResult of this.autoFetchResult) {
+            for (const result of this.t.value) {
+              if (fetchResult.subjectId === result.subjectId) {
+                const index = this.t.value.findIndex((x, id) => {
+                  return x.subjectId === result.subjectId;
+                });
+                this.t.at(index).patchValue({
+                  marksObtained: fetchResult.marksObtained
+                });
+              }
+            }
+          }
+        }
+      });
   }
 
-  closeDialog() {
+  onSubmit(): void {
+    console.log(this.newResult);
+    if (this.newResult) {
+      this.resultService.postAddResult(this.resultForm.value, this.data.user.userId)
+        .subscribe(res => {
+          console.log(res);
+        });
+    } else {
+      console.log('Make an edit result requset here');
+    }
+  }
+
+  closeDialog(): void {
     this.dialogRef.close();
   }
 }
