@@ -116,12 +116,17 @@ export class EditResultComponent implements OnInit {
   onSubmit(): void {
     console.log(this.newResult);
     if (this.newResult) {
+      console.log(1);
       this.resultService.postAddResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
           console.log(res);
         });
     } else {
-      console.log('Make an edit result requset here');
+      console.log(2);
+      this.resultService.postEditResult(this.resultForm.value, this.data.user.userId)
+        .subscribe(res => {
+          console.log(res);
+        });
     }
   }
 
