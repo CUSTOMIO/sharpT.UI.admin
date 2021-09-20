@@ -20,6 +20,7 @@ export class EditResultComponent implements OnInit {
   public newResult = true;
 
   public spinnerLoading = true;
+  public isSubmitting = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { user: any, searchResult: any },
@@ -41,7 +42,7 @@ export class EditResultComponent implements OnInit {
       .subscribe(res => {
         this.userSubject = res;
         for (const s of this.userSubject) {
-          // for Marksobtained
+
           this.subjectArray.push(+s.subjectId);
 
           this.t.push(this.formBuilder.group({
@@ -94,7 +95,6 @@ export class EditResultComponent implements OnInit {
       this.data.user.userId)
       .subscribe(data => {
         this.autoFetchResult = data;
-        console.log(this.autoFetchResult);
         if (this.autoFetchResult.length > 0) {
           this.newResult = false;
           for (const fetchResult of this.autoFetchResult) {
@@ -114,18 +114,22 @@ export class EditResultComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.newResult);
+    this.isSubmitting = true;
     if (this.newResult) {
-      console.log(1);
       this.resultService.postAddResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
-          console.log(res);
+          this.isSubmitting = false;
+          if(res.message){
+            this.closeDialog();
+          }
         });
     } else {
-      console.log(2);
       this.resultService.postEditResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
-          console.log(res);
+          this.isSubmitting = false;
+          if(res.message){
+            this.closeDialog();
+          }
         });
     }
   }
