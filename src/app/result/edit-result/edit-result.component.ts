@@ -51,7 +51,7 @@ export class EditResultComponent implements OnInit {
             subjectId: [s.subjectId, [Validators.required]],
             subjectName: [{ value: s.name, disabled: true }, [Validators.required]],
             marksObtained: ['', [Validators.required]],
-            outOf: [{ value: '', disabled: true }, [Validators.required]]
+            outOf: [{ value: ''}, [Validators.required]]
           }));
         }
         this.autoFillMarksObtained();
@@ -115,7 +115,7 @@ export class EditResultComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    console.log(this.resultForm.value)
+    console.log(this.resultForm.value);
     if (this.newResult) {
       this.resultService.postAddResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
