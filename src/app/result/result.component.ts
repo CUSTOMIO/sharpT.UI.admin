@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'; 
+
 import { ExaminationDetailService, StandardService, UserService } from '../core/dataService';
 import { ExaminationDetailBySId, Standard, UserByStandardId } from '../core/model';
 import { EditResultComponent } from './edit-result/edit-result.component';
@@ -19,7 +21,7 @@ export class ResultComponent implements OnInit {
     public user: UserByStandardId[];
 
     // Table & Paginator
-    public displayedColumns: string[] = ['firstName', 'email'];
+    public displayedColumns: string[] = ['email', 'firstName'];
     public dataSource: MatTableDataSource<UserByStandardId>;
     public resultPerPage = 20;
     public pageSizeOptions = [20, 50, 100];
@@ -41,7 +43,8 @@ export class ResultComponent implements OnInit {
                 private examinationService: ExaminationDetailService,
                 private formbuilder: FormBuilder,
                 public dialog: MatDialog,
-                private router: Router) {
+                private router: Router,
+                private snackBar: MatSnackBar) {
         this.searchResult = this.formbuilder.group({
             standardId: ['', [Validators.required]],
             examinationDetailId: ['', [Validators.required]]
@@ -76,13 +79,14 @@ export class ResultComponent implements OnInit {
             return;
         }
         const dialogRef = this.dialog.open(EditResultComponent, {
-          // disableClose: true,
-          width: 'fit-content ',
-          data: {
-              user,
-              searchResult: this.searchResult.value
-          }
+            // disableClose: true,
+            width: 'fit-content ',
+            data: {
+                user,
+                searchResult: this.searchResult.value
+            }
         });
+        this.snackBar.open('Test', 'Test');
         dialogRef.afterClosed().subscribe(result => {
           if (!result) {
             return;
