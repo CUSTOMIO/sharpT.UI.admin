@@ -115,6 +115,7 @@ export class EditResultComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
+    console.log(this.resultForm.value)
     if (this.newResult) {
       this.resultService.postAddResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
