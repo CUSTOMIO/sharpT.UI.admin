@@ -51,7 +51,7 @@ export class EditResultComponent implements OnInit {
             subjectId: [s.subjectId, [Validators.required]],
             subjectName: [{ value: s.name, disabled: true }, [Validators.required]],
             marksObtained: ['', [Validators.required]],
-            outOf: [{ value: ''}, [Validators.required]]
+            outOf: [{ value: '', disabled: true }, [Validators.required]]
           }));
         }
         this.autoFillMarksObtained();
