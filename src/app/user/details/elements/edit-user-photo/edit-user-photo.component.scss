@@ -1,5 +1,6 @@
 .header {
     margin-bottom: 10px;
+    width: 100%;
     h1 {
         float: left;
     }
@@ -11,7 +12,29 @@
     }
 }
 
-#button {
-    display: block;
-    margin: 0 auto;
+// #button {
+//     display: block;
+//     margin: 0 auto;
+// }
+.img-div{
+    margin-top: 10px;
+    text-align: center;
+}
+.button {
+    margin-top: 20px;
+    width: 100%;
+    .button-1, .button-2 {
+        text-align: center;
+    }   
+    .button-1  {
+        width: 45% !important;
+        float: left;
+    }
+    .button-2  {
+        width: 45% !important;
+        float: right;
+    }
+    button {
+        margin: 0 auto;
+    }
 }

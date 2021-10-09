@@ -1,14 +1,20 @@
 <div class="header">
-    <h1 class="mat-subheading-2">Edit Image</h1>
+    <h1 class="mat-title">Edit Image</h1>
     <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 
 <mat-divider></mat-divider>
 
-<div *ngIf="imageURL">
+<p class="mat-hint mt-20" align="center">Recommended image aspect ratio 4/3</p>
+<div *ngIf="imageURL" class="img-div">
     <img [src]="imageURL" height="120" width="90">
 </div>
 <input hidden type="file" (change)="showPreview($event)" accept="image/*" #fileInput />
-<button type="button" mat-raised-button color="accent" (click)="fileInput.click()">Choose File</button>
-
-<button id="button" mat-raised-button color="primary" (click)="updateImage()">Upload</button>
+<div class="button">
+    <div class="button-1">
+        <button mat-raised-button color="accent" (click)="fileInput.click()">Choose File</button>
+    </div>
+    <div class="button-2">
+        <button mat-raised-button color="primary" [disabled]="!imageURL" (click)="updateImage()">Upload</button>
+    </div>
+</div>

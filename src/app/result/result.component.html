@@ -3,7 +3,7 @@
         <div>
             <mat-form-field appearance="standard" class="filter-input">
                 <mat-label>Filter</mat-label>
-                <input matInput placeholder="filterlist...">
+                <input matInput (keyup)="applyFilter($event)" placeholder="search..." #input>
             </mat-form-field>
             <form [formGroup]="searchResult">
                 <mat-form-field appearance="standard" class="search-input">

@@ -24,13 +24,15 @@ export class EditSubjectComponent implements OnInit {
             name: ['', [Validators.required]],
             standardId: ['', [Validators.required]],
             isActive: [false, [Validators.required]],
-            description: ['', [Validators.required]]
+            description: ['', [Validators.required]],
+            rate: ['', [Validators.required]]
         });
         if (data.mode === 'edit') {
             this.editForm.get('name').setValue(data.subject.name);
             this.editForm.controls.standardId.setValue(data.subject.standardId);
             this.editForm.get('isActive').setValue(data.subject.isActive);
             this.editForm.get('description').setValue(data.subject.description);
+            this.editForm.get('rate').setValue(data.subject.rate);
         }
     }
     ngOnInit() {
@@ -59,6 +61,7 @@ export class EditSubjectComponent implements OnInit {
             }
         };
         if (this.data.mode === 'edit') {
+            console.log(this.editForm.value)
             this.subjectService.postEditSubject(this.editForm.value, this.data.subject.id)
                 .subscribe(observer);
         }

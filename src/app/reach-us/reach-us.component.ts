@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReachUsService } from '../core/dataService';
 import { ReachUs } from '../core/model';
@@ -22,7 +22,7 @@ export class ReachUsComponent implements OnInit {
 
   public displayedColumns: string[] = ['name', 'email', 'truncatedMsg', 'createdAt'];
   public dataSource: MatTableDataSource<ReachUs>;
-  public reachUsPerPage = 20;
+  public reachUsPerPage = 5;
   public pageSizeOptions = [20, 50, 100];
   private pageIndex = 1;
   public count: number;
@@ -32,11 +32,12 @@ export class ReachUsComponent implements OnInit {
   public panelOpenState = false;
 
   @ViewChild(MatSort) sort: MatSort;
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
     next: (data: ReachUs[]) => {
-      data.forEach(data => {
+      data.forEach( data => {
+        console.log(data);
         data.createdAt = new Date(data.createdAt).toLocaleString();
         if (data.message.length > 80) {
           data.truncatedMsg = data.message.slice(0, 80) + '...';
@@ -76,11 +77,10 @@ export class ReachUsComponent implements OnInit {
   }
 
   onChangedPage(pageData: PageEvent) {
-    console.log(pageData)
-    this.reachUsPerPage = pageData.pageSize;
+    console.log(pageData);
     this.isLoading = true;
     this.reachUsService.getReachus(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
-    this.pageIndex = pageData.pageIndex + 1;
+    //this.pageIndex = pageData.pageIndex + 1;
   }
 
   messageRead(data: any) {

@@ -79,7 +79,6 @@
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
     <!-- Paginator -->
-    <mat-paginator [length]="count" [pageSizeOptions]="pageSizeOptions" [pageSize]="reachUsPerPage" showFirstLastButtons (page)="onChangedPage($event)">
-    </mat-paginator>
+    <mat-paginator [length]="30" [pageSizeOptions]="pageSizeOptions" [pageSize]="reachUsPerPage"  (page)="onChangedPage($event)" showFirstLastButtons> </mat-paginator>
   </div>
 </div>

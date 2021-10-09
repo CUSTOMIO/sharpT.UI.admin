@@ -47,7 +47,7 @@
 
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav disableClose #drawer class="sidenav bgcolor-blue-light" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" id="sidenav"
+  <mat-sidenav disableClose="true" #drawer class="sidenav bgcolor-blue-light" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" id="sidenav"
                [ngClass]="{'menu-open' : isMenuOpen, 'menu-close' : !isMenuOpen}">
     <mat-nav-list>
       <mat-list-item [routerLink]="['/subject']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">

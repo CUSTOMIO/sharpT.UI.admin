@@ -15,7 +15,7 @@ import { MatSort } from '@angular/material/sort';
 export class SubjectComponent implements OnInit {
 
   // Table & Paginator
-  displayedColumns: string[] = ['name', 'standardName', 'isActive', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'standardName', 'rate', 'isActive', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Subject>;
   subjectPerPage = 20;
   pageSizeOptions = [20, 50, 100];
@@ -68,7 +68,11 @@ export class SubjectComponent implements OnInit {
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
-    this.subjectService.getSubject(pageData.pageSize, pageData.pageIndex + 1, this.filterStandardId, this.filterStatus).subscribe(this.observer);
+    this.subjectService.getSubject(
+      pageData.pageSize,
+      pageData.pageIndex + 1,
+      this.filterStandardId,
+      this.filterStatus).subscribe(this.observer);
     this.pageIndex = pageData.pageIndex + 1;
   }
 
@@ -94,7 +98,6 @@ export class SubjectComponent implements OnInit {
 
   applyFilter(event: Event) {
     this.isLoading = true;
-    console.log(this.dataSource)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

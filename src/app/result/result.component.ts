@@ -1,11 +1,10 @@
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'; 
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import { ExaminationDetailService, StandardService, UserService } from '../core/dataService';
 import { ExaminationDetailBySId, Standard, UserByStandardId } from '../core/model';
@@ -62,8 +61,8 @@ export class ResultComponent implements OnInit {
         this.userService.getUserBySId(this.resultPerPage, this.pageIndex, result)
             .subscribe(res => {
                 this.user = res;
-              this.dataSource = new MatTableDataSource(res);
-              this.dataSource.sort = this.sort;
+                this.dataSource = new MatTableDataSource(res);
+                this.dataSource.sort = this.sort;
             });
     }
 
@@ -74,6 +73,17 @@ export class ResultComponent implements OnInit {
             });
         this.getUser(result);
     }
+
+    applyFilter(event: Event) {
+        this.isLoading = true;
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+        this.isLoading = false;
+      }
+
     openDialog(user: object): void {
         if (this.searchResult.invalid){
             return;
@@ -91,8 +101,6 @@ export class ResultComponent implements OnInit {
           if (!result) {
             return;
           }
-         // this.standardService.getAdminStandard(this.standardPerPage, this.pageIndex).subscribe(this.observer);
-         // this.count += 1;
         });
       }
 }
