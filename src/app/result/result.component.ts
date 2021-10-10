@@ -89,7 +89,7 @@ export class ResultComponent implements OnInit {
             return;
         }
         const dialogRef = this.dialog.open(EditResultComponent, {
-            // disableClose: true,
+            disableClose: true,
             width: 'fit-content ',
             data: {
                 user,
