@@ -115,8 +115,8 @@ export class EditResultComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    console.log(this.resultForm.value);
     if (this.newResult) {
+      console.log(1);
       this.resultService.postAddResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
           this.isSubmitting = false;
@@ -125,6 +125,7 @@ export class EditResultComponent implements OnInit {
           }
         });
     } else {
+      console.log(2);
       this.resultService.postEditResult(this.resultForm.value, this.data.user.userId)
         .subscribe(res => {
           this.isSubmitting = false;
