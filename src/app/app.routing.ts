@@ -71,6 +71,13 @@ const routes: Routes = [
     children: [{ path: '', loadChildren: () => import('./reach-us/reach-us.module')
     .then(m => m.ReachUsModule)}],
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'notice',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./notice/notice.module')
+    .then(m => m.NoticeModule)}],
+    canActivate: [AuthGuard],
   }
 
 ];

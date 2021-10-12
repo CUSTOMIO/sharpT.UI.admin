@@ -81,7 +81,7 @@ export class SubjectComponent implements OnInit {
   }
 
   isActiveFilter(value: string) {
-    this.filterStatus = value
+    this.filterStatus = value;
   }
 
   setFilter() {
@@ -93,10 +93,10 @@ export class SubjectComponent implements OnInit {
     this.subjectService.subjectCount(this.filterStandardId, this.filterStatus)
       .subscribe(data => {
         this.count = data.count;
-      })
+      });
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     this.isLoading = true;
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -122,7 +122,8 @@ export class SubjectComponent implements OnInit {
       if (!result) {
         return;
       }
-      this.subjectService.getSubject(this.subjectPerPage, this.pageIndex, this.filterStandardId, this.filterStatus).subscribe(this.observer);
+      this.subjectService.getSubject(this.subjectPerPage, this.pageIndex, this.filterStandardId, this.filterStatus)
+      .subscribe(this.observer);
       this.count += 1;
     });
   }

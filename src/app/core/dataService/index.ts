@@ -8,6 +8,8 @@ export * from './examination/examination-subject-detail.service';
 export * from './examination/examination-detail.service';
 export * from './result/result.service';
 export * from './reach-us/reach-us.service';
+export * from './notice/notice.service';
+
 
 
 

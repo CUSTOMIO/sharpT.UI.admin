@@ -17,6 +17,8 @@ export * from './examination/examination-subject-detail';
 export * from './academic-year/academic-year.model';
 export * from './result/result.model';
 export * from './reach-us/reach-us.model';
+export * from './notice/notice.model';
+
 
 
 
