@@ -72,7 +72,7 @@ export class UserDetailHeaderComponent implements OnInit {
 
     verifyUser(){
         if (confirm('Are you sure, you want to verify ' + this.firstName + ' ' + this. middleName)) {
-            this.userService.postVerifyUser(this.userId)
+            this.userService.postVerifyUser(this.userId, this.email)
             .subscribe(res => {
                 console.log(res);
             });

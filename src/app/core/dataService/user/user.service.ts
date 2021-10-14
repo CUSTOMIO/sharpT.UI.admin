@@ -117,9 +117,12 @@ export class UserService {
   }
 
   
-  public postVerifyUser ( userId: number) {
+  public postVerifyUser ( userId: number, email: string) {
+    const form = {
+      email
+    };
     const url = `${environment.api_endpoint}/postVerifyUser/${userId}`;
-    return this.http.get<{ message: boolean }>(url);
+    return this.http.post<{ message: boolean }>(url, form);
   }
 
 }
