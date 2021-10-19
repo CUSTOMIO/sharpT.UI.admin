@@ -12,7 +12,7 @@ import { EditNoticeComponent } from './edit-notice/edit-notice.component';
 })
 export class NoticeComponent implements OnInit {
     // Table & Paginator
-    displayedColumns: string[] = ['content', 'isActive', 'createdAt', 'updatedAt', 'edit'];
+    displayedColumns: string[] = ['content', 'file', 'isActive',  'createdAt', 'updatedAt', 'edit'];
     dataSource: MatTableDataSource<Notice>;
     noticePerPage = 20;
     pageSizeOptions = [20, 50, 100];
@@ -31,10 +31,10 @@ export class NoticeComponent implements OnInit {
 
     private observer = {
         next: (data) => {
-            data.forEach(data => {
-                data.updatedAt = new Date(data.updatedAt).toDateString();
-                data.createdAt = new Date(data.createdAt).toDateString();
-            });
+            // data.forEach(data => {
+            //     data.updatedAt = new Date(data.updatedAt).toDateString();
+            //     data.createdAt = new Date(data.createdAt).toDateString();
+            // });
             this.dataSource = new MatTableDataSource(data);
             //this.dataSource.sort = this.sort;
             this.isLoading = false;

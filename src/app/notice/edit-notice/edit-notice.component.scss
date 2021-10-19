@@ -2,10 +2,6 @@
     overflow: hidden;
 }
 
-button {
-    display: block;
-    margin: 10px auto;
-}
 
 .header {
     margin-bottom: 10px;
@@ -33,10 +29,10 @@ button {
         }
         mat-form-field {
             width: 100%;
-            height: fit-content;
+            //height: fit-content;
             }
     }
-    button {
+    .submit-btn {
         display: block;
         margin: 10px auto 0 auto;
     }

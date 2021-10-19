@@ -13,11 +13,24 @@
             </div>
             <div fxFlex="75" class="input">
                 <mat-form-field appearance="standard">
-                    <textarea rows="5"  matInput formControlName="content"></textarea>
+                    <textarea rows="1" matInput formControlName="content"></textarea>
                 </mat-form-field>
             </div>
         </div>
-        <div class="wrapper pt-20">
+
+        <div class="wrapper">
+            <div fxFlex="25" class="label">
+                <mat-label for="file">File : </mat-label>
+            </div>
+            <div fxFlex="75" class="input">
+                    <!-- <input hidden formControlName="file" id="file" type="file" (change)="onFileChange($event)"> -->
+                    <input hidden type="file" name="file" (change)="onFileChange($event)" #fileInput />
+                    <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+                    <span>{{this.editNoticeForm.get('file').value.name}}</span>
+            </div>
+        </div>
+
+        <div class="wrapper">
             <div fxFlex="25" class="label">
                 <mat-label>Active Status : </mat-label>
             </div>
@@ -27,8 +40,8 @@
             </div>
         </div>
 
-        <button type="submit" mat-flat-button color="accent" *ngIf="!isLoading">
-        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-    </button>
+        <button class="submit-btn"type="submit" mat-flat-button color="accent" *ngIf="!isLoading">
+            {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+        </button>
     </form>
 </div>
