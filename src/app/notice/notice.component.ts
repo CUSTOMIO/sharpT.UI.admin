@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NoticeService } from '../core/dataService';
 import { Notice } from '../core/model';
@@ -23,6 +24,7 @@ export class NoticeComponent implements OnInit {
     public isLoading = true;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(private noticeService: NoticeService,
                 public dialog: MatDialog,
@@ -36,7 +38,7 @@ export class NoticeComponent implements OnInit {
             //     data.createdAt = new Date(data.createdAt).toDateString();
             // });
             this.dataSource = new MatTableDataSource(data);
-            //this.dataSource.sort = this.sort;
+            this.dataSource.sort = this.sort;
             this.isLoading = false;
         },
         error: err => console.error('Observer got an error: ' + err)
