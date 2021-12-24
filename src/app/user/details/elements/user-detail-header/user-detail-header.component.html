@@ -19,6 +19,9 @@
                             <button *ngIf="!userStatus" mat-raised-button color="warn" (click)="verifyUser()">
                                 Verify
                             </button>
+                            <button *ngIf="userStatus" mat-raised-button color="accent" (click)="refuteUser()">
+                                Refute
+                            </button>
                         </div>
                     </div>
                     <div fxFlex="80" style="width: 100%;">

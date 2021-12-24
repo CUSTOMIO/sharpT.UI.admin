@@ -117,11 +117,21 @@ export class UserService {
   }
 
   
-  public postVerifyUser ( userId: number, email: string) {
+  public postVerifyUser ( userId: number, email: string, standard: number) {
     const form = {
-      email
+      email,
+      standard
     };
     const url = `${environment.api_endpoint}/postVerifyUser/${userId}`;
+    return this.http.post<{ message: boolean }>(url, form);
+  }
+
+  public postRefuteUser ( userId: number, email: string, standard: number) {
+    const form = {
+      email,
+      standard
+    };
+    const url = `${environment.api_endpoint}/postRefuteUser/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 

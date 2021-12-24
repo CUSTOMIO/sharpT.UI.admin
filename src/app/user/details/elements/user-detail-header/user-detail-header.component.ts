@@ -22,6 +22,7 @@ export class UserDetailHeaderComponent implements OnInit {
     public studentPN: bigint;
     public address: string;
     public userStatus: boolean;
+    public userStandardId: number;
 
     public isLoading = true;
 
@@ -67,12 +68,27 @@ export class UserDetailHeaderComponent implements OnInit {
             }
             this.isLoading = false;
         });
+        this.userDetailService.userStandard
+        .subscribe(res => {
+            if (res) {
+                this.userStandardId = res.id;
+            }
+        });
 
     }
 
     verifyUser(){
         if (confirm('Are you sure, you want to verify ' + this.firstName + ' ' + this. middleName)) {
-            this.userService.postVerifyUser(this.userId, this.email)
+            this.userService.postVerifyUser(this.userId, this.email, this.userStandardId)
+            .subscribe(res => {
+                console.log(res);
+            });
+          }
+    }
+
+    refuteUser(){
+        if (confirm('Are you sure, you want to refute ' + this.firstName + ' ' + this. middleName)) {
+            this.userService.postRefuteUser(this.userId, this.email, this.userStandardId)
             .subscribe(res => {
                 console.log(res);
             });
