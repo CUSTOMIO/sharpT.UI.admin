@@ -13,7 +13,7 @@ export class StandardService {
   constructor(private http: HttpClient) { }
 
   public getStandard() {
-    const url = `${environment.api_endpoint}/standard`;
+    const url = `${environment.api_endpoint}/standard `;
     return this.http.get<Standard[]>(url)
       .pipe(
         map(data =>

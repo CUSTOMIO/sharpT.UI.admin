@@ -23,7 +23,7 @@ export class SubjectService {
   }
 
   public getSubjectByStandardId(id: number) {
-    const url = `${environment.api_endpoint}/subject/${id}?getActive=true`;
+    const url = `${environment.api_endpoint}/subject/${id}`;
     return this.http.get<Subject[]>(url);
   }
 
