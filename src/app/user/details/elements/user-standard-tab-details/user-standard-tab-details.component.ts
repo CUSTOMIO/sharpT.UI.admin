@@ -48,6 +48,7 @@ export class UserStandardTabComponent implements OnInit {
           this.userStandardId = res.id;
           this.getSubjects(this.userStandardId);
           this.standardForm.get('standardId').setValue(this.userStandardId);
+          console.log(this.standardForm.value);
         }
       });
     this.userDetailService.userSubject
@@ -67,6 +68,7 @@ export class UserStandardTabComponent implements OnInit {
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe(res => {
         this.subjects = res;
+        console.log(this.subjects);
         if (!this.subjects.allowSubjectSelection){
           for (const item of this.subjects.data) {
             (this.standardForm.controls.subjects as FormArray).
