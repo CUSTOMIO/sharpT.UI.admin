@@ -66,8 +66,9 @@ export class UserStandardTabComponent implements OnInit {
     (this.standardForm.controls.subjects as FormArray).clear();
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe(res => {
-        console.log(res);
         this.subjects = res;
+        console.log(this.subjects);
+        console.log(this.subjects.allowSubjectSelection)
         if (!this.subjects.allowSubjectSelection){
           for (const item of this.subjects.data) {
             (this.standardForm.controls.subjects as FormArray).
