@@ -23,6 +23,7 @@ export class UserStandardTabComponent implements OnInit {
 
   public isLoading = true;
   public isSubmitting = false;
+  public subjectLoading = false;
 
   constructor(private userDetailService: UserDetailService,
               private standardService: StandardService,
@@ -63,6 +64,7 @@ export class UserStandardTabComponent implements OnInit {
   }
 
   getSubjects(standardId: number) {
+    this.subjectLoading = true;
     (this.standardForm.controls.subjects as FormArray).clear();
     this.subjectService.getSubjectByStandardId(standardId)
       .subscribe(res => {
@@ -73,6 +75,7 @@ export class UserStandardTabComponent implements OnInit {
               push(this.patchValues(item.id, item.name));
           }
         }
+        this.subjectLoading = false;
         this.isLoading = false;
       });
   }

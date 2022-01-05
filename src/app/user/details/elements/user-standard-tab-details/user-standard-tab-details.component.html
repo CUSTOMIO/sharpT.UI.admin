@@ -61,6 +61,6 @@
     <button *ngIf="!isSubmitting" mat-raised-button color="primary">
       Update
     </button>
-    <mat-spinner [diameter]="40" *ngIf="isSubmitting"></mat-spinner>
+    <mat-spinner [diameter]="40" *ngIf="isSubmitting || subjectLoading"></mat-spinner>
   </form>
 </div>
