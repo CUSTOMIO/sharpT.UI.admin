@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div *ngIf="subjects">
+    <div *ngIf="subjects && !subjectLoading">
       <div class="wrapper" *ngFor="let subject of subjects.data">
         <div fxFlex="50" class="label">
           <mat-label>{{subject.name}} : </mat-label>
@@ -58,7 +58,7 @@
       </div>
     </div>-->
 
-    <button *ngIf="!isSubmitting" mat-raised-button color="primary">
+    <button *ngIf="!isSubmitting && !subjectLoading" mat-raised-button color="primary">
       Update
     </button>
     <mat-spinner [diameter]="40" *ngIf="isSubmitting || subjectLoading"></mat-spinner>
