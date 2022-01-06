@@ -1,8 +1,8 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 
-<app-user-detail-header></app-user-detail-header>
+<app-user-detail-header *ngIf="!isLoading"></app-user-detail-header>
 
-<mat-tab-group mat-align-tabs="center">
+<mat-tab-group mat-align-tabs="center" *ngIf="!isLoading">
     <mat-tab label="Detail">
         <app-user-detail-tab-details></app-user-detail-tab-details>
     </mat-tab>
