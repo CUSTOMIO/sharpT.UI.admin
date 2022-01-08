@@ -13,7 +13,7 @@ export class ExaminationDetailService {
   constructor(private http: HttpClient) { }
 
   public getExaminationDetail(pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/getExaminationDetail?pageSize=${pageSize}&page=${currentPage}`;
+    const url = `${environment.api_endpoint}/examinationDetail?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<ExaminationDetail[]>(url)
       .pipe(
         map(data =>
@@ -23,7 +23,7 @@ export class ExaminationDetailService {
   }
 
   public getExaminationDetailBySId(standardId: number) {
-    const url = `${environment.api_endpoint}/getExaminationDetail/${standardId}`;
+    const url = `${environment.api_endpoint}/examinationDetail/${standardId}`;
     return this.http.get<ExaminationDetailBySId[]>(url)
       .pipe(
         map(data =>

@@ -1,9 +1,9 @@
 export class ReachUs {
     id: number;
-    name: string;
-    email: string;
+    Name: string;
+    Email: string;
     message: string;
-    truncatedMsg: string;
+    Message: string;
     createdAt: string;
 
     constructor(item: ReachUs) {

@@ -18,7 +18,7 @@ export class ExaminationService {
   }
 
   public getExamination(pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/getExamination?pageSize=${pageSize}&page=${currentPage}`;
+    const url = `${environment.api_endpoint}/adminExamination?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<ExaminationType[]>(url)
       .pipe(
         map(data =>
@@ -28,7 +28,7 @@ export class ExaminationService {
   }
 
   public examinationCount(){
-    const url = `${environment.api_endpoint}/getExaminationCount`;
+    const url = `${environment.api_endpoint}/examinationCount`;
     return this.http.get<{count: number}>(url)
   }
 

@@ -13,7 +13,7 @@ export class OtpService {
   constructor(private http: HttpClient) { }
 
   public getOtp(pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/getOtp?pageSize=${pageSize}&page=${currentPage}`;
+    const url = `${environment.api_endpoint}/otp?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<Otp[]>(url)
       .pipe(
         map(data =>
@@ -23,7 +23,7 @@ export class OtpService {
   }
 
   public otpCount(){
-    const url = `${environment.api_endpoint}/getOtpCount`;
+    const url = `${environment.api_endpoint}/otpCount`;
     return this.http.get<{count: number}>(url)
   }
 }

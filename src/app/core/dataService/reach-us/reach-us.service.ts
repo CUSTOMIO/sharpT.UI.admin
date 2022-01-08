@@ -13,7 +13,7 @@ export class ReachUsService {
   constructor(private http: HttpClient) { }
 
   public getReachus (pageSize: number, currentPage: number) {
-    const url = `${environment.api_endpoint}/reachus?pageSize=${pageSize}&page=${currentPage}`;
+    const url = `${environment.api_endpoint}/reachUs?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<ReachUs[]>(url)
       .pipe(
         map(data =>
@@ -28,11 +28,14 @@ export class ReachUsService {
   }
 
   public reachUsUnreadCount() {
-    const url = `${environment.api_endpoint}/reachusUnreadCount`;
+    const url = `${environment.api_endpoint}/reachUsUnreadCount`;
     return this.http.get<{ count: number }>(url)
   }
 
-  public reachUsRead(form: object, id: number) {
+  public reachUsRead(email: string, id: number) {
+    const form = {
+      email
+    }
     const url = `${environment.api_endpoint}/reachUs/${id}`;
     return this.http.post<{ message: boolean }>(url, form)
   }

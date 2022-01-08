@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public getUsers(pageSize: number, currentPage: number, filterStandardId, filterStatus): Observable<UsersDetail[]> {
-    const url = `${environment.api_endpoint}/getAdminUser?pageSize=${pageSize}&page=${currentPage}&standardId=${filterStandardId}&isVerified=${filterStatus}`;
+    const url = `${environment.api_endpoint}/adminUser?pageSize=${pageSize}&page=${currentPage}&standardId=${filterStandardId}&isVerified=${filterStatus}`;
     return this.http.get<UsersDetail[]>(url)
       .pipe(
         map(data =>
@@ -24,7 +24,7 @@ export class UserService {
   }
 
   public getUserBySId(pageSize: number, currentPage: number, standardId: number): Observable<UserByStandardId[]> {
-    const url = `${environment.api_endpoint}/getUserBySId/${standardId}?pageSize=${pageSize}&page=${currentPage}`;
+    const url = `${environment.api_endpoint}/userBySId/${standardId}?pageSize=${pageSize}&page=${currentPage}`;
     return this.http.get<UserByStandardId[]>(url)
       .pipe(
         map(data =>
@@ -34,52 +34,52 @@ export class UserService {
 
 
   public getUserName(userId: number): Observable<UserName> {
-    const url = `${environment.api_endpoint}/getUserName/${userId}`;
+    const url = `${environment.api_endpoint}/userName/${userId}`;
     return this.http.get<UserName>(url);
   }
 
   public getUserImage(userId: number): Observable<{ image: string }> {
-    const url = `${environment.api_endpoint}/getUserImage/${userId}`;
+    const url = `${environment.api_endpoint}/userImage/${userId}`;
     return this.http.get<{ image: string }>(url);
   }
 
   public getUserPN(userId: number): Observable<{ studentPN: bigint }> {
-    const url = `${environment.api_endpoint}/getUserPN/${userId}`;
+    const url = `${environment.api_endpoint}/userPN/${userId}`;
     return this.http.get<{ studentPN: bigint }>(url);
   }
 
   public getUserPPN(userId: number): Observable<{ parentPN: bigint }> {
-    const url = `${environment.api_endpoint}/getUserPPN/${userId}`;
+    const url = `${environment.api_endpoint}/userPPN/${userId}`;
     return this.http.get<{ parentPN: bigint }>(url);
   }
 
   public getUserAddress(userId: number): Observable<{ address: string }> {
-    const url = `${environment.api_endpoint}/getUserAddress/${userId}`;
+    const url = `${environment.api_endpoint}/userAddress/${userId}`;
     return this.http.get<{ address: string }>(url);
   }
 
   public getUserSchool(userId: number): Observable<string> {
-    const url = `${environment.api_endpoint}/getUserSchool/${userId}`;
+    const url = `${environment.api_endpoint}/userSchool/${userId}`;
     return this.http.get<string>(url);
   }
 
   public getUserStatus(userId: number): Observable<{status : boolean}> {
-    const url = `${environment.api_endpoint}/getUserStatus/${userId}`;
+    const url = `${environment.api_endpoint}/userStatus/${userId}`;
     return this.http.get<{status : boolean}>(url);
   }
 
   public getUserEnrollDate(userId: number): Observable<UserEnrollDate> {
-    const url = `${environment.api_endpoint}/getUserEnrollDate/${userId}`;
+    const url = `${environment.api_endpoint}/userEnrollDate/${userId}`;
     return this.http.get<UserEnrollDate>(url);
   }
 
   public getUserStandard(userId: number): Observable<UserStandard> {
-    const url = `${environment.api_endpoint}/getUserStandard/${userId}`;
+    const url = `${environment.api_endpoint}/userStandard/${userId}`;
     return this.http.get<UserStandard>(url);
   }
 
   public getUserSubject(userId: number): Observable<UserSubject[]> {
-    const url = `${environment.api_endpoint}/getUserSubject/${userId}`;
+    const url = `${environment.api_endpoint}/userSubject/${userId}`;
     return this.http.get<UserSubject[]>(url)
       .pipe(
         map(data =>
@@ -87,32 +87,32 @@ export class UserService {
         ));
   }
   public getUserEmail(userId: number): Observable<{ email: string }> {
-    const url = `${environment.api_endpoint}/getUserEmail/${userId}`;
+    const url = `${environment.api_endpoint}/userEmail/${userId}`;
     return this.http.get<{ email: string }>(url);
   }
 
   public getUserCount(filterStandardId, filterStatus ): Observable<{ count: number}> {
-    const url = `${environment.api_endpoint}/getUserCount?standardId=${filterStandardId}&isVerified=${filterStatus}`;
+    const url = `${environment.api_endpoint}/userCount?standardId=${filterStandardId}&isVerified=${filterStatus}`;
     return this.http.get<{ count: number }>(url);
   }
 
   public getUserUnverifiedCount(): Observable<{ count: number }> {
-    const url = `${environment.api_endpoint}/getUnverifiedUserCount`;
+    const url = `${environment.api_endpoint}/unverifiedUserCount`;
     return this.http.get<{ count: number }>(url);
   }
 
   public postUserImage(image: FormData) {
-    const url = `${environment.api_endpoint}/postUpdateUserImage`;
+    const url = `${environment.api_endpoint}/updateUserImage`;
     return this.http.post<{ message: boolean }>(url, image);
   }
 
   public postUserData(form: FormGroup, userId: number) {
-    const url = `${environment.api_endpoint}/postUpdateUserData/${userId}`;
+    const url = `${environment.api_endpoint}/updateUserData/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 
   public postUserStandard (form: FormGroup, userId: number) {
-    const url = `${environment.api_endpoint}/postUpdateUserStandard/${userId}`;
+    const url = `${environment.api_endpoint}/updateUserStandard/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 
@@ -122,7 +122,7 @@ export class UserService {
       email,
       standard
     };
-    const url = `${environment.api_endpoint}/postVerifyUser/${userId}`;
+    const url = `${environment.api_endpoint}/verifyUser/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 
@@ -131,7 +131,7 @@ export class UserService {
       email,
       standard
     };
-    const url = `${environment.api_endpoint}/postRefuteUser/${userId}`;
+    const url = `${environment.api_endpoint}/refuteUser/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 

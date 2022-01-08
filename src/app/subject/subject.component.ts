@@ -67,6 +67,7 @@ export class SubjectComponent implements OnInit {
   }
 
   onChangedPage(pageData: PageEvent) {
+    console.log(pageData)
     this.isLoading = true;
     this.subjectService.getSubject(
       pageData.pageSize,

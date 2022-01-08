@@ -13,7 +13,7 @@ export class NoticeService {
     constructor(private http: HttpClient) { }
 
     public getNotice(pageSize: number, currentPage: number) {
-        const url = `${environment.api_endpoint}/getNotice?pageSize=${pageSize}&page=${currentPage}`;
+        const url = `${environment.api_endpoint}/adminNotice?pageSize=${pageSize}&page=${currentPage}`;
         return this.http.get<Notice[]>(url)
           .pipe(
             map(data =>

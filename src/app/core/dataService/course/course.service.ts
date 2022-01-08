@@ -23,7 +23,7 @@ export class CourseService {
   }
 
   public getAdminCourse(pageSize: number, currentPage: number, filterBatchId, filterStatus) {
-    const url = `${environment.api_endpoint}/getAdminCourse?pageSize=${pageSize}&page=${currentPage}&batchId=${filterBatchId}&isActive=${filterStatus}`;
+    const url = `${environment.api_endpoint}/adminCourse?pageSize=${pageSize}&page=${currentPage}&batchId=${filterBatchId}&isActive=${filterStatus}`;
     return this.http.get<Course[]>(url)
       .pipe(
         map(data =>
@@ -32,16 +32,16 @@ export class CourseService {
       );
   }
   public postEditCours(form: object, id:number) {
-    const url = `${environment.api_endpoint}/postEditAdminCourse/${id}`;
+    const url = `${environment.api_endpoint}/editAdminCourse/${id}`;
     return this.http.post<{message: string}>(url, form)
   }
   public postAddCourse(form: object) {
-    const url = `${environment.api_endpoint}/postAddAdminCourse`;
+    const url = `${environment.api_endpoint}/addAdminCourse`;
     return this.http.post<{message: string}>(url, form)
   }
 
   public courseCount(filterBatchId, filterStatus){
-    const url = `${environment.api_endpoint}/getCourseCount?batchId=${filterBatchId}&isActive=${filterStatus}`;
+    const url = `${environment.api_endpoint}/courseCount?batchId=${filterBatchId}&isActive=${filterStatus}`;
     return this.http.get<{count: number}>(url)
   }
 }

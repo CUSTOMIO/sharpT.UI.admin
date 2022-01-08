@@ -13,7 +13,7 @@ export class ResultService {
   constructor(private http: HttpClient) { }
 
   public getResult(standardId: number) {
-    const url = `${environment.api_endpoint}/getResult/${standardId}`;
+    const url = `${environment.api_endpoint}/adminResult/${standardId}`;
     return this.http.get<Result[]>(url)
       .pipe(
         map(data =>
@@ -23,12 +23,12 @@ export class ResultService {
   }
 
   public postAddResult(form, userId: number) {
-    const url = `${environment.api_endpoint}/postAddResult/${userId}`;
+    const url = `${environment.api_endpoint}/addResult/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 
   public postEditResult(form, userId: number) {
-    const url = `${environment.api_endpoint}/postEditResult/${userId}`;
+    const url = `${environment.api_endpoint}/editResult/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 
@@ -37,7 +37,7 @@ export class ResultService {
       examinationDetailId,
       subjectArray
     };
-    const url = `${environment.api_endpoint}/postFetchResult/${userId}`;
+    const url = `${environment.api_endpoint}/fetchResult/${userId}`;
     return this.http.post<{ message: boolean }>(url, form);
   }
 

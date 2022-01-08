@@ -20,10 +20,10 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ReachUsComponent implements OnInit {
 
-  public displayedColumns: string[] = ['name', 'email', 'truncatedMsg', 'createdAt'];
+  public displayedColumns: string[] = ['Name', 'Email', 'Message', 'Created At'];
   public dataSource: MatTableDataSource<ReachUs>;
-  public reachUsPerPage = 5;
-  public pageSizeOptions = [20, 50, 100];
+  public reachUsPerPage = 1;
+  public pageSizeOptions = [1,2,20, 50, 100];
   private pageIndex = 1;
   public count: number;
 
@@ -36,16 +36,6 @@ export class ReachUsComponent implements OnInit {
 
   private observer = {
     next: (data: ReachUs[]) => {
-      data.forEach( data => {
-        console.log(data);
-        data.createdAt = new Date(data.createdAt).toLocaleString();
-        if (data.message.length > 80) {
-          data.truncatedMsg = data.message.slice(0, 80) + '...';
-        }
-        else {
-          data.truncatedMsg = data.message;
-        }
-      });
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.isLoading = false;
@@ -59,6 +49,7 @@ export class ReachUsComponent implements OnInit {
   ngOnInit() {
     this.reachUsService.reachUsCount()
       .subscribe(res => {
+        console.log(res);
         this.count = res.count;
       })
     this.reachUsService.getReachus(this.reachUsPerPage, 1)
@@ -77,10 +68,8 @@ export class ReachUsComponent implements OnInit {
   }
 
   onChangedPage(pageData: PageEvent) {
-    console.log(pageData);
-    this.isLoading = true;
+    //this.isLoading = true;
     this.reachUsService.getReachus(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
-    //this.pageIndex = pageData.pageIndex + 1;
   }
 
   messageRead(data: any) {
@@ -89,7 +78,7 @@ export class ReachUsComponent implements OnInit {
     }
     if (!data.isRead) {
       data.isRead = true;
-      this.reachUsService.reachUsRead(data, data.id)
+      this.reachUsService.reachUsRead(data.Email, data.id)
         .subscribe(res => {
           console.log(res.message);
         })

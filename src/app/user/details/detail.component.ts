@@ -7,7 +7,7 @@ import { UserDetailService } from './detail.service';
     templateUrl: './detail.component.html'
 })
 
-export class UserDetailComponent implements OnInit, AfterViewInit {
+export class UserDetailComponent implements OnInit {
     public isLoading = true;
 
     constructor(
@@ -18,9 +18,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         const userId = Number(this.route.snapshot.paramMap.get('id'));
         this.userDetailService.getUser(userId);
-  }
-  ngAfterViewInit() {
-    this.isLoading = false;
+        this.isLoading = false;
   }
 }
 

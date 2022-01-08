@@ -13,7 +13,7 @@ export class BatchService {
   constructor(private http: HttpClient) { }
 
   public getAdminBatch(){
-    const url = `${environment.api_endpoint}/getAdminBatch`;
+    const url = `${environment.api_endpoint}/adminBatch`;
     return this.http.get<Batch[]>(url)
     .pipe(
         map(data =>
@@ -23,7 +23,7 @@ export class BatchService {
   }
 
   public batchCount(){
-    const url = `${environment.api_endpoint}/getBatchCount`;
+    const url = `${environment.api_endpoint}/batchCount`;
     return this.http.get<{count: number}>(url)
   }
 

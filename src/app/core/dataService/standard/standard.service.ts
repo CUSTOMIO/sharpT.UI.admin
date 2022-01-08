@@ -23,7 +23,7 @@ export class StandardService {
   }
 
   public getAdminStandard(pageSize: number, currentPage: number, filterCourseId, filterStatus, filterSubjectSelection) {
-    const url = `${environment.api_endpoint}/getAdminstandard?pageSize=${pageSize}&page=${currentPage}&courseId=${filterCourseId}&isActive=${filterStatus}&subjectSelection=${filterSubjectSelection}`;
+    const url = `${environment.api_endpoint}/adminstandard?pageSize=${pageSize}&page=${currentPage}&courseId=${filterCourseId}&isActive=${filterStatus}&subjectSelection=${filterSubjectSelection}`;
     return this.http.get<Standard[]>(url)
       .pipe(
         map(data =>
@@ -32,11 +32,11 @@ export class StandardService {
       );
   }
   public postEditStandard(form: object, id:number) {
-    const url = `${environment.api_endpoint}/postEditAdminStandard/${id}`;
+    const url = `${environment.api_endpoint}/editAdminStandard/${id}`;
     return this.http.post<{message: string}>(url, form)
   }
   public postAddStandard(form: object) {
-    const url = `${environment.api_endpoint}/postAddAdminStandard`;
+    const url = `${environment.api_endpoint}/addAdminStandard`;
     return this.http.post<{message: string}>(url, form)
   }
 
