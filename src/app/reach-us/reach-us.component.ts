@@ -22,9 +22,8 @@ export class ReachUsComponent implements OnInit {
 
   public displayedColumns: string[] = ['Name', 'Email', 'Message', 'Created At'];
   public dataSource: MatTableDataSource<ReachUs>;
-  public reachUsPerPage = 1;
-  public pageSizeOptions = [1,2,20, 50, 100];
-  private pageIndex = 1;
+  public reachUsPerPage = 20;
+  public pageSizeOptions = [20, 50, 100];
   public count: number;
 
   public isLoading = true;
