@@ -22,8 +22,8 @@ export class CourseService {
       );
   }
 
-  public getAdminCourse(pageSize: number, currentPage: number, filterBatchId, filterStatus) {
-    const url = `${environment.api_endpoint}/adminCourse?pageSize=${pageSize}&page=${currentPage}&batchId=${filterBatchId}&isActive=${filterStatus}`;
+  public getAdminCourse(pageSize: number, currentPage: number,  filterStatus) {
+    const url = `${environment.api_endpoint}/adminCourse?pageSize=${pageSize}&page=${currentPage}&isActive=${filterStatus}`;
     return this.http.get<Course[]>(url)
       .pipe(
         map(data =>
@@ -40,8 +40,8 @@ export class CourseService {
     return this.http.post<{message: string}>(url, form)
   }
 
-  public courseCount(filterBatchId, filterStatus){
-    const url = `${environment.api_endpoint}/courseCount?batchId=${filterBatchId}&isActive=${filterStatus}`;
+  public courseCount(filterStatus){
+    const url = `${environment.api_endpoint}/courseCount?&isActive=${filterStatus}`;
     return this.http.get<{count: number}>(url)
   }
 }

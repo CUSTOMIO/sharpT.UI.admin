@@ -25,7 +25,8 @@ export class EditStandardComponent implements OnInit {
             courseId: ['', [Validators.required]],
             isActive: [false, [Validators.required]],
             allowSubjectSelection: [false, [Validators.required]],
-            description: ['', [Validators.required]]
+            description: ['', [Validators.required]],
+            rate: ['', [Validators.required]]
         });
         if (data.mode === 'edit') {
             this.editForm.controls.name.setValue(data.standard.name);
@@ -33,6 +34,7 @@ export class EditStandardComponent implements OnInit {
             this.editForm.controls.isActive.setValue(data.standard.isActive);
             this.editForm.controls.allowSubjectSelection.setValue(data.standard.allowSubjectSelection);
             this.editForm.controls.description.setValue(data.standard.description);
+            this.editForm.controls.rate.setValue(data.standard.rate);
         }
     }
     ngOnInit() {

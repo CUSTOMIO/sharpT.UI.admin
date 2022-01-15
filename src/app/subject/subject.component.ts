@@ -15,7 +15,7 @@ import { MatSort } from '@angular/material/sort';
 export class SubjectComponent implements OnInit {
 
   // Table & Paginator
-  displayedColumns: string[] = ['name', 'standardName', 'rate', 'isActive', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'standardName', 'isActive', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Subject>;
   subjectPerPage = 20;
   pageSizeOptions = [20, 50, 100];

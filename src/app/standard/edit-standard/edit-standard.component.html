@@ -6,64 +6,74 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 
 <div class="container">
-    <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20" (ngSubmit)="onSubmit()">
-        <div class="wrapper">
-            <div fxFlex="35" class="label">
-                <mat-label>Name : </mat-label>
-            </div>
-            <div fxFlex="65" class="input">
-                <mat-form-field appearance="standard">
-                    <input matInput formControlName="name">
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div fxFlex="35" class="label">
-                <mat-label>Description : </mat-label>
-            </div>
-            <div fxFlex="65" class="input">
-                <mat-form-field appearance="standard">
-                    <input matInput formControlName="description">
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div fxFlex="35" class="label">
-                <mat-label>Course : </mat-label>
-            </div>
-            <div fxFlex="65" class="input">
-                <mat-form-field appearance="standard">
-                    <mat-select formControlName="courseId">
-                        <mat-option *ngFor="let c of course" [value]="c.id" [innerHTML]="c.name">
-                            {{c.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
+  <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20" (ngSubmit)="onSubmit()">
+    <div class="wrapper">
+      <div fxFlex="35" class="label">
+        <mat-label>Name : </mat-label>
+      </div>
+      <div fxFlex="65" class="input">
+        <mat-form-field appearance="standard">
+          <input matInput formControlName="name">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div fxFlex="35" class="label">
+        <mat-label>Description : </mat-label>
+      </div>
+      <div fxFlex="65" class="input">
+        <mat-form-field appearance="standard">
+          <input matInput formControlName="description">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div fxFlex="35" class="label">
+          <mat-label>Rate : </mat-label>
+      </div>
+      <div fxFlex="65" class="input">
+          <mat-form-field appearance="standard">
+              <input type="number" matInput formControlName="rate">
+          </mat-form-field>
+      </div>
+  </div>
+    <div class="wrapper">
+      <div fxFlex="35" class="label">
+        <mat-label>Course : </mat-label>
+      </div>
+      <div fxFlex="65" class="input">
+        <mat-form-field appearance="standard">
+          <mat-select formControlName="courseId">
+            <mat-option *ngFor="let c of course" [value]="c.id" [innerHTML]="c.name">
+              {{c.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
-        <div class="wrapper">
-            <div fxFlex="35" class="label">
-                <mat-label>Subject Selection : </mat-label>
-            </div>
-            <div fxFlex="65">
-                <mat-slide-toggle formControlName="allowSubjectSelection" color="primary" class="side-toggle">
-                </mat-slide-toggle>
-            </div>
-        </div>
+    <div class="wrapper">
+      <div fxFlex="35" class="label">
+        <mat-label>Subject Selection : </mat-label>
+      </div>
+      <div fxFlex="65">
+        <mat-slide-toggle formControlName="allowSubjectSelection" color="primary" class="side-toggle">
+        </mat-slide-toggle>
+      </div>
+    </div>
 
-        <div class="wrapper">
-            <div fxFlex="35" class="label">
-                <mat-label>Active Status : </mat-label>
-            </div>
-            <div fxFlex="65">
-                <mat-slide-toggle formControlName="isActive" color="primary" class="side-toggle">
-                </mat-slide-toggle>
-            </div>
-        </div>
+    <div class="wrapper">
+      <div fxFlex="35" class="label">
+        <mat-label>Active Status : </mat-label>
+      </div>
+      <div fxFlex="65">
+        <mat-slide-toggle formControlName="isActive" color="primary" class="side-toggle">
+        </mat-slide-toggle>
+      </div>
+    </div>
 
-        <button type="submit" mat-flat-button color="accent">
-            {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-        </button>
-    </form>
+    <button type="submit" mat-flat-button color="accent">
+      {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+    </button>
+  </form>
 </div>

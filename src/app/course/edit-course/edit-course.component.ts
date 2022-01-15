@@ -22,13 +22,13 @@ export class EditCourseComponent implements OnInit {
         private courseService: CourseService) {
         this.editForm = formBuilder.group({
             name: [, [Validators.required]],
-            batchId: ['', [Validators.required]],
+            //batchId: ['', [Validators.required]],
             isActive: [false, [Validators.required]],
             description: ['', [Validators.required]]
         });
         if (data.mode === 'edit') {
             this.editForm.controls.name.setValue(data.course.name);
-            this.editForm.controls.batchId.setValue(data.course.batchId);
+            //this.editForm.controls.batchId.setValue(data.course.batchId);
             this.editForm.controls.isActive.setValue(data.course.isActive);
             this.editForm.controls.description.setValue(data.course.description);
         }

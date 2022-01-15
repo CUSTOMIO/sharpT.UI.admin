@@ -14,7 +14,7 @@ import { EditStandardComponent } from './edit-standard/edit-standard.component';
 export class StandardComponent {
 
   // Table & Paginator
-  displayedColumns: string[] = ['name', 'courseName', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
+  displayedColumns: string[] = ['name', 'courseName', 'rate', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
   standardPerPage  = 20;
   pageSizeOptions = [20, 50, 100];
