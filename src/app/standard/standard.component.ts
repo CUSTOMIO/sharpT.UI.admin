@@ -37,6 +37,7 @@ export class StandardComponent {
 
   private observer = {
     next: (data: Standard[]) => {
+      console.log(data)
       this.dataSource = new MatTableDataSource(data);
       data.forEach(data => {
         data.updatedAt = new Date(data.updatedAt).toDateString();
@@ -125,7 +126,7 @@ export class StandardComponent {
   openDialog(standard: object, mode: string): void {
     const dialogRef = this.dialog.open(EditStandardComponent, {
       // disableClose: true,
-      width: '450px',
+      width: '550px',
       data: {
         standard,
         mode
