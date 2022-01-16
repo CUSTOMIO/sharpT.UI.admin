@@ -109,6 +109,7 @@ export class StandardComponent {
   private getStandardCount() {
     this.standardService.standardCount(this.filterCourseId, this.filterStatus, this.filterSubjectSelection)
       .subscribe(data => {
+        console.log(data);
         this.count = data.count;
       });
   }
@@ -126,7 +127,7 @@ export class StandardComponent {
   openDialog(standard: object, mode: string): void {
     const dialogRef = this.dialog.open(EditStandardComponent, {
       // disableClose: true,
-      width: '550px',
+      width: '650px',
       data: {
         standard,
         mode
@@ -144,7 +145,7 @@ export class StandardComponent {
         this.filterStatus,
         this.filterSubjectSelection
       ).subscribe(this.observer);
-      this.count += 1;
+      console.log(result);
     });
   }
 }

@@ -1,6 +1,6 @@
 <div class="header">
-    <h1 class="mat-subheading-2">Edit Standard</h1>
-    <mat-icon (click)="closeDialog()">close</mat-icon>
+  <h1 class="mat-subheading-2">Edit Standard</h1>
+  <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <mat-divider></mat-divider>
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
@@ -9,42 +9,42 @@
   <mat-horizontal-stepper>
     <mat-step>
       <ng-template matStepLabel>Standard Detail</ng-template>
-      <form [formGroup]="editForm" *ngIf="data.standard" class="pt-20">
+      <form [formGroup]="editForm" *ngIf="data.standard">
         <div class="wrapper">
-          <div fxFlex="35" class="label">
+          <div fxFlex="50" class="label">
             <mat-label>Name : </mat-label>
           </div>
-          <div fxFlex="65" class="input">
+          <div fxFlex="50" class="input">
             <mat-form-field appearance="standard">
               <input matInput formControlName="name">
             </mat-form-field>
           </div>
         </div>
         <div class="wrapper">
-          <div fxFlex="35" class="label">
+          <div fxFlex="50" class="label">
             <mat-label>Description : </mat-label>
           </div>
-          <div fxFlex="65" class="input">
+          <div fxFlex="50" class="input">
             <mat-form-field appearance="standard">
               <input matInput formControlName="description">
             </mat-form-field>
           </div>
         </div>
         <div class="wrapper">
-          <div fxFlex="35" class="label">
+          <div fxFlex="50" class="label">
             <mat-label>Rate : </mat-label>
           </div>
-          <div fxFlex="65" class="input">
+          <div fxFlex="50" class="input">
             <mat-form-field appearance="standard">
               <input type="number" matInput formControlName="rate">
             </mat-form-field>
           </div>
         </div>
         <div class="wrapper">
-          <div fxFlex="35" class="label">
+          <div fxFlex="50" class="label">
             <mat-label>Course : </mat-label>
           </div>
-          <div fxFlex="65" class="input">
+          <div fxFlex="50" class="input">
             <mat-form-field appearance="standard">
               <mat-select formControlName="courseId">
                 <mat-option *ngFor="let c of course" [value]="c.id" [innerHTML]="c.name">
@@ -56,28 +56,24 @@
         </div>
 
         <div class="wrapper">
-          <div fxFlex="35" class="label">
+          <div fxFlex="50" class="label">
             <mat-label>Subject Selection : </mat-label>
           </div>
-          <div fxFlex="65">
+          <div fxFlex="50">
             <mat-slide-toggle formControlName="allowSubjectSelection" color="primary" class="side-toggle">
             </mat-slide-toggle>
           </div>
         </div>
 
         <div class="wrapper">
-          <div fxFlex="35" class="label">
+          <div fxFlex="50" class="label">
             <mat-label>Active Status : </mat-label>
           </div>
-          <div fxFlex="65">
+          <div fxFlex="00">
             <mat-slide-toggle formControlName="isActive" color="primary" class="side-toggle">
             </mat-slide-toggle>
           </div>
         </div>
-
-        <!--<button type="submit" mat-flat-button color="accent">
-          {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-        </button>-->
       </form>
     </mat-step>
     <mat-step>
@@ -86,57 +82,48 @@
         <div *ngFor="let batches of t.controls; let i = index">
           <div [formGroup]="batches" align="center">
             <div class="wrapper">
-              <div fxFlex="35" class="label">
+              <div fxFlex="45" class="label">
                 <mat-label>Batch {{i+1}}: </mat-label>
               </div>
-              <div fxFlex="65" class="input">
+              <div class="input">
                 <mat-form-field appearance="standard">
                   <mat-select formControlName="batchId">
-                    <!--<mat-option value="'0'" >
-                      Select this to remove
-                    </mat-option>-->
                     <mat-option *ngFor="let b of batch" [value]="b.id" [innerHTML]="b.name">
                       {{b.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
-          <i class="far fa-trash-alt" (click)="removeBatch(i)"></i>
+              <i class="far fa-trash-alt pl-5" (click)="removeBatch(i)"></i>
             </div>
           </div>
         </div>
-                <button mat-button (click)="addBatch()">Add</button>
-        <button type="submit"
-                mat-flat-button
-                color="accent"
-                [disabled]="!editForm.valid"
-                (click)="onSubmit()">
-          {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-        </button>
-        <!--<button *ngIf="!spinnerLoading && !subjectDetailLoading"
-          type="submit"
-          mat-flat-button color="accent"
-          (click)="onSubmit()"
-          [disabled]="!editForm.valid || editForm.untouched">
-    {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
-  </button>-->
+        <button mat-flat-button (click)="addBatch()" color="primary">Add new batch</button>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Image Detail</ng-template>
-      <div *ngIf="imageURL" class="img-div">
-        <img [src]="imageURL" height="120" width="90">
+      <div class="img-div" *ngIf="this.data.standard.image">
+        <p class="m-0 mat-subheading-1" align="left">Current Image : </p>
+        <img src="{{apiEndpoint + this.data.standard.image}}" style="width: 80%; border-radius: 15px">
+      </div>
+      <div class="img-div" *ngIf="imageURL" align="left">
+        <p class="m-0 mat-subheading-1" align="left">New Image : </p>
+        <img [src]="imageURL" style="width: 80%; border-radius: 15px">
       </div>
       <input hidden type="file" (change)="showPreview($event)" accept="image/*" #fileInput />
       <div class="button">
         <div class="button-1">
-          <button mat-raised-button color="accent" (click)="fileInput.click()">Choose File</button>
-        </div>
-        <div class="button-2">
-          <!--<button mat-raised-button color="primary" [disabled]="!imageURL" (click)="updateImage()">Upload</button>-->
-          <button mat-raised-button color="primary" [disabled]="!imageURL">Upload</button>
+          <button mat-flat-button color="primary" (click)="fileInput.click()">Choose File</button>
         </div>
       </div>
+      <button type="submit"
+              mat-raised-button
+              color="accent"
+              [disabled]="!editForm.valid"
+              (click)="onSubmit()">
+        {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
+      </button>
     </mat-step>
   </mat-horizontal-stepper>
 

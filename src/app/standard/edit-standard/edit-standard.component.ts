@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { CourseService, StandardService } from 'src/app/core/dataService';
 import { BatchService } from '../../core/dataService/batch/batch.services';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
     templateUrl: './edit-standard.component.html',
@@ -15,6 +17,8 @@ export class EditStandardComponent implements OnInit {
     public batch: any;
     public isLoading = true;
     public imageURL: string;
+    public apiEndpoint: any = environment.api_endpoint;
+
 
 
     constructor(
@@ -58,6 +62,10 @@ export class EditStandardComponent implements OnInit {
       this.editForm.controls.isActive.setValue(this.data.standard.isActive);
       this.editForm.controls.allowSubjectSelection.setValue(this.data.standard.allowSubjectSelection);
       this.editForm.controls.description.setValue(this.data.standard.description);
+      this.editForm.controls.rate.setValue(this.data.standard.rate);
+      if (this.data.standard.image) {
+        this.editForm.controls.rate.setValue(this.data.standard.image);
+      }
       this.editForm.controls.rate.setValue(this.data.standard.rate);
       for (let b of this.data.standard.batches) {
         (this.editForm.controls.batches as FormArray).

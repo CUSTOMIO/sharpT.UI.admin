@@ -18,6 +18,10 @@
 }
 
 .container {
+    .fa-edit {
+        cursor: pointer;
+    }
+
     width: 95%;
     margin: 50px auto 100px auto;
     table {
