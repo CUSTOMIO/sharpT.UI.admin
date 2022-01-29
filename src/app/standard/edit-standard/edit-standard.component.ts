@@ -114,8 +114,8 @@ export class EditStandardComponent implements OnInit {
         this.isLoading = true;
         const observer = {
             next: (x) => {
-                if (x.message !== null) {
-                    this.dialogRef.close({ data: x.message });
+            if (x.message !== null) {
+              this.dialogRef.close({ data: x.message, mode: this.data.mode });
                 }
                 this.isLoading = false;
             },
@@ -151,7 +151,7 @@ export class EditStandardComponent implements OnInit {
                 .subscribe(observer);
         }
         else if (this.data.mode === 'new') {
-            this.standardService.postAddStandard(this.editForm.value)
+      this.standardService.postAddStandard(fd)
                 .subscribe(observer);
         }
   }

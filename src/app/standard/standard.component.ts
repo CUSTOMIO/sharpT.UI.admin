@@ -138,6 +138,7 @@ export class StandardComponent {
       if (!result) {
         return;
       }
+      if (result.mode == 'new' && result.data) this.count += 1;
       this.standardService.getAdminStandard(
         this.standardPerPage,
         this.pageIndex,
