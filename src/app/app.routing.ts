@@ -78,6 +78,13 @@ const routes: Routes = [
     children: [{ path: '', loadChildren: () => import('./notice/notice.module')
     .then(m => m.NoticeModule)}],
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'testimonial',
+    component: LayoutComponent,
+    children: [{ path: '', loadChildren: () => import('./testimonial/testimonial.module')
+    .then(m => m.TestimonialModule)}],
+    canActivate: [AuthGuard],
   }
 
 ];

@@ -18,6 +18,7 @@ export * from './academic-year/academic-year.model';
 export * from './result/result.model';
 export * from './reach-us/reach-us.model';
 export * from './notice/notice.model';
+export * from './testimonial/testimonial.model';
 
 
 

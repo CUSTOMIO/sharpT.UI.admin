@@ -1,15 +1,15 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ReachUsService } from '../core/dataService';
-import { ReachUs } from '../core/model';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatSort } from '@angular/material/sort';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { TestimonialService } from '../core/dataService';
+import { Testimonial } from '../core/model';
 
 @Component({
-  templateUrl: './reach-us.component.html',
-  styleUrls: ['./reach-us.component.scss'],
+  selector: 'app-testimonial',
+  templateUrl: './testimonial.component.html',
+  styleUrls: ['./testimonial.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -18,23 +18,24 @@ import { MatSort } from '@angular/material/sort';
     ]),
   ]
 })
-export class ReachUsComponent implements OnInit {
+export class TestimonialComponent implements OnInit {
 
-  public displayedColumns: string[] = ['Name', 'Email', 'Message', 'Created At'];
-  public dataSource: MatTableDataSource<ReachUs>;
-  public reachUsPerPage = 20;
-  public pageSizeOptions = [20, 50, 100];
-  public count: number;
-
+  public testimonial: Testimonial[];
   public isLoading = true;
 
-  public panelOpenState = false;
+  //Paginator
+  dataSource: MatTableDataSource<Testimonial>;
+  displayedColumns: string[] = ['Username', 'Review', 'Status', 'Created At'];
+  testimonialPerPage = 20;
+  pageSizeOptions = [20, 50, 100];
+  pageIndex = 1;
+  public count: number = 10;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private observer = {
-    next: (data: ReachUs[]) => {
+    next: (data: Testimonial[]) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.isLoading = false;
@@ -42,16 +43,10 @@ export class ReachUsComponent implements OnInit {
     error: err => console.error(err)
   };
 
+  constructor(private testimonialService: TestimonialService) { }
 
-  constructor(private reachUsService: ReachUsService) { }
-
-  ngOnInit() {
-    this.reachUsService.reachUsCount()
-      .subscribe(res => {
-        console.log(res);
-        this.count = res.count;
-      });
-    this.reachUsService.getReachus(this.reachUsPerPage, 1)
+  ngOnInit(): void {
+    this.testimonialService.getTestimonial(this.testimonialPerPage, 1)
       .subscribe(this.observer);
   }
 
@@ -67,16 +62,15 @@ export class ReachUsComponent implements OnInit {
   }
 
   onChangedPage(pageData: PageEvent) {
-    // this.isLoading = true;
-    this.reachUsService.getReachus(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
+    this.isLoading = true;
+    this.testimonialService.getTestimonial(pageData.pageSize, pageData.pageIndex + 1).subscribe(this.observer);
   }
-
-  messageRead(data: any) {
+  reviewRead(data: any) {
     if (!data) {
       return;
     }
     if (!data.isRead) {
-      this.reachUsService.reachUsRead(data.Email, data.id)
+      this.testimonialService.testimonialRead('tst', data.id)
         .subscribe(res => {
           if (res.message) {
             data.isRead = true;
@@ -84,4 +78,5 @@ export class ReachUsComponent implements OnInit {
         });
     }
   }
+
 }

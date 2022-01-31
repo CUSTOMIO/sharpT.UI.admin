@@ -14,45 +14,7 @@
 
   <!-- Table -->
   <div class="mat-elevation-z8" *ngIf="!isLoading">
-    <!--<table mat-table [dataSource]="dataSource">
-  <mat-accordion>
-      <mat-expansion-panel>
-          <mat-expansion-panel-header>-->
-    <!-- Name Column -->
-    <!--<ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{bgColor: !element.isRead}">
-          {{element.name}}
-      </td>
-  </ng-container>-->
-    <!-- Email Column -->
-    <!--<ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{bgColor: !element.isRead}">
-          {{element.email}} </td>
-  </ng-container>-->
-    <!-- Message Column -->
-    <!--<ng-container matColumnDef="message">
-      <th mat-header-cell *matHeaderCellDef> Message </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{bgColor: !element.isRead}">
-          {{element.truncatedMsg}} </td>
-  </ng-container>-->
-    <!-- Created At Column -->
-    <!--<ng-container matColumnDef="createdAt">
-                      <th mat-header-cell *matHeaderCellDef> Created At </th>
-                      <td mat-cell *matCellDef="let element" [ngClass]="{bgColor: !element.isRead}">
-                          {{element.createdAt}} </td>
-                  </ng-container>
 
-              </mat-expansion-panel-header>
-
-
-              <p>Test TestTestTestTest </p>
-          </mat-expansion-panel>
-      </mat-accordion>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>-->
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
       <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
@@ -63,7 +25,7 @@
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
           <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="message-expanded mat-subheading-2">
-              {{element.message}}
+              {{element.review}}
             </div>
           </div>
         </td>
@@ -72,14 +34,15 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let element; columns: displayedColumns;"
           class="row" [class.example-expanded-row]="expandedElement === element"
-          (click)="expandedElement = expandedElement === element ? null : element; messageRead(expandedElement)"
+          (click)="expandedElement = expandedElement === element ? null : element; reviewRead(expandedElement)"
           [ngClass]="{bgColor: !element.isRead}">
       </tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
     <!-- Paginator -->
+    <!--<mat-paginator [length]="count" [pageSizeOptions]="pageSizeOptions" [pageSize]="reachUsPerPage"  (page)="onChangedPage($event)" showFirstLastButtons> </mat-paginator>-->
     <mat-paginator [length]="count"
-                   [pageSize]="reachUsPerPage"
+                   [pageSize]="testimonialPerPage"
                    [pageSizeOptions]="pageSizeOptions"
                    (page)="onChangedPage($event)">
     </mat-paginator>

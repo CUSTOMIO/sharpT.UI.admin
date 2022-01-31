@@ -81,6 +81,10 @@
         <i class="fas fa-poll  m-10 fa-md color-not-so-black"></i>
         <span *ngIf="isMenuOpen">Notices</span>
       </mat-list-item>
+      <mat-list-item [routerLink]="['/testimonial']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
+        <i class="fas fa-poll  m-10 fa-md color-not-so-black"></i>
+        <span *ngIf="isMenuOpen">Testimonial</span>
+      </mat-list-item>
       <mat-list-item [routerLink]="['/reach-us']" [routerLinkActive]="['active-nav-item']" [routerLinkActiveOptions]="{exact: true}" role="main">
         <i *ngIf="isMenuOpen" class="fas fa-file-signature m-10 fa-md color-not-so-black"></i>
         <i *ngIf="!isMenuOpen" class="fas fa-file-signature m-10 fa-md color-not-so-black" matBadge="{{unreadReadUs}}" matBadgeColor="warn"></i>

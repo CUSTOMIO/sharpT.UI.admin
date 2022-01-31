@@ -7,6 +7,6 @@ export class Subject {
     standardId: number;
     standardName: string;
     constructor(item: Subject) {
-        Object.assign(this, item)
+        Object.assign(this, item);
     }
 }

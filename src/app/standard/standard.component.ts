@@ -16,7 +16,7 @@ export class StandardComponent {
   // Table & Paginator
   displayedColumns: string[] = ['name', 'courseName', 'rate', 'isActive', 'allowSubjectSelection', 'updatedAt', 'edit'];
   dataSource: MatTableDataSource<Standard>;
-  standardPerPage  = 20;
+  standardPerPage = 20;
   pageSizeOptions = [20, 50, 100];
   pageIndex = 1;
   public count: number;
@@ -37,11 +37,11 @@ export class StandardComponent {
 
   private observer = {
     next: (data: Standard[]) => {
-      console.log(data)
+      console.log(data);
       this.dataSource = new MatTableDataSource(data);
       data.forEach(data => {
         data.updatedAt = new Date(data.updatedAt).toDateString();
-      })
+      });
       this.dataSource.sort = this.sort;
       this.isLoading = false;
     },
@@ -55,7 +55,7 @@ export class StandardComponent {
   ) { }
 
   ngOnInit() {
-    this.getStandardCount()
+    this.getStandardCount();
 
     this.standardService.getAdminStandard(
       this.standardPerPage,
@@ -63,12 +63,12 @@ export class StandardComponent {
       this.filterCourseId,
       this.filterStatus,
       this.filterSubjectSelection
-      ).subscribe(this.observer);
+    ).subscribe(this.observer);
 
     this.courseService.getCourse()
       .subscribe(res => {
         this.course = res;
-      })
+      });
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -80,7 +80,7 @@ export class StandardComponent {
       this.filterStatus,
       this.filterSubjectSelection
     ).subscribe(this.observer);
-    this.pageIndex = pageData.pageIndex + 1;  
+    this.pageIndex = pageData.pageIndex + 1;
   }
 
   courseIdFilter(id) {
@@ -88,11 +88,11 @@ export class StandardComponent {
   }
 
   isActiveFilter(value: string) {
-    this.filterStatus = value
+    this.filterStatus = value;
   }
 
   subjectSelectionFilter(value: string) {
-    this.filterSubjectSelection = value
+    this.filterSubjectSelection = value;
   }
 
   setFilter() {
@@ -103,7 +103,7 @@ export class StandardComponent {
       this.filterStatus,
       this.filterSubjectSelection
     ).subscribe(this.observer);
-    this.getStandardCount()
+    this.getStandardCount();
   }
 
   private getStandardCount() {
@@ -126,7 +126,8 @@ export class StandardComponent {
   }
   openDialog(standard: object, mode: string): void {
     const dialogRef = this.dialog.open(EditStandardComponent, {
-      // disableClose: true,
+      disableClose: true,
+
       width: '650px',
       data: {
         standard,
@@ -138,7 +139,7 @@ export class StandardComponent {
       if (!result) {
         return;
       }
-      if (result.mode == 'new' && result.data) this.count += 1;
+      if (result.mode == 'new' && result.data) { this.count += 1; }
       this.standardService.getAdminStandard(
         this.standardPerPage,
         this.pageIndex,
