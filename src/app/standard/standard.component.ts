@@ -4,7 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CourseService, StandardService } from '../core/dataService';
-import { Course, Standard } from '../core/model';
+import { Course, Standard, StandardRate } from '../core/model';
 import { EditStandardComponent } from './edit-standard/edit-standard.component';
 
 @Component({
@@ -21,6 +21,7 @@ export class StandardComponent {
   pageIndex = 1;
   public count: number;
   public standardId: number;
+  public StandardRate: StandardRate[];
 
   // Filter Data
   public filterCourseId = '';
@@ -69,6 +70,11 @@ export class StandardComponent {
       .subscribe(res => {
         this.course = res;
       });
+
+    this.standardService.getStandardRate()
+    .subscribe((res: StandardRate[])=> {
+      this.StandardRate = res;
+    })  
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -124,14 +130,20 @@ export class StandardComponent {
     }
     this.isLoading = false;
   }
-  openDialog(standard: object, mode: string): void {
+
+  filterStandardRate(standardId: number) {
+    return this.StandardRate.filter(standardRate => standardRate.standardId === standardId);
+  }
+
+  openDialog(standard: any, mode: string): void {
     const dialogRef = this.dialog.open(EditStandardComponent, {
       disableClose: true,
-
-      width: '650px',
+      width: '70%',
+      height: '70%',
       data: {
         standard,
-        mode
+        mode,
+        standardRates : this.filterStandardRate(standard.id)
       }
     });
 

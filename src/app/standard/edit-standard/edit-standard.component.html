@@ -101,6 +101,55 @@
         <button mat-flat-button (click)="addBatch()" color="primary">Add new batch</button>
       </form>
     </mat-step>
+    <mat-step *ngIf="subjects">
+      <ng-template matStepLabel>Packages Detail</ng-template>
+      <p class="mat-subheading-2 p-50" *ngIf="!subjects.allowSubjectSelection" align="center">You cannot add Batches to
+        this standard</p>
+      <div *ngIf="subjects.allowSubjectSelection">
+        <form [formGroup]="editForm">
+          <div class="package-div" *ngFor="let standardRate of s.controls; let i = index">
+            <div [formGroup]="standardRate" align="center">
+              <div fxFlex="90" class="wrapper" style="height: 100px;">
+                <div fxFlex="10" class="label">
+                  <mat-label>Packages {{i+1}}: </mat-label>
+                </div>
+                <div fxFlex="85" class="input">
+                  <mat-form-field class="chip-list" appearance="fill">
+                    <mat-chip-list #standardRateList>
+                      <span *ngIf="s.controls[i].value.subjects">
+                        <mat-chip *ngFor="let subject of s.controls[i].value.subjects"
+                          (removed)="removeSubject(subject, i)">
+                          {{subject.subjectName}}
+                          <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                          </button>
+                        </mat-chip>
+                      </span>
+                      <!-- Add [formControl]="id" if you get some error in input attributes -->
+                      <input placeholder="Add Standard..." #standardInput [matAutocomplete]="auto"
+                        [matChipInputFor]="standardRateList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event, i)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, i)">
+                      <mat-option *ngFor="let subject of filteredStandards | async" [value]="subject.id">
+                        {{subject.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <i class="far fa-trash-alt pl-5" (click)="removePackage(i)"></i>
+              </div>
+              <mat-form-field fxFlex="6" appearance="standard">
+                <mat-label>rate</mat-label>
+                <input matInput formControlName="rate">
+              </mat-form-field>
+            </div>
+
+          </div>
+          <button mat-flat-button (click)="addPackage()" color="primary">Add new Package</button>
+        </form>
+      </div>
+    </mat-step>
     <mat-step>
       <ng-template matStepLabel>Image Detail</ng-template>
       <div class="img-div" *ngIf="this.data.standard.image">
@@ -117,11 +166,7 @@
           <button mat-flat-button color="primary" (click)="fileInput.click()">Choose File</button>
         </div>
       </div>
-      <button type="submit"
-              mat-raised-button
-              color="accent"
-              [disabled]="!editForm.valid"
-              (click)="onSubmit()">
+      <button type="submit" mat-raised-button color="accent" [disabled]="!editForm.valid" (click)="onSubmit()">
         {{this.data.mode === 'edit' ? 'Update' : 'Add'}}
       </button>
     </mat-step>

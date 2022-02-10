@@ -20,7 +20,7 @@ button {
 }
 
 .container {
-  width: fit-content;
+  width: 100%;
   margin: 0 auto;
 
   .wrapper {
@@ -42,4 +42,11 @@ button {
   .side-toggle {
     transform: translateY(50%);
   }
+}
+
+.chip-list {
+  width: 100%;
+}
+.package-div{
+  margin: 20px auto;
 }

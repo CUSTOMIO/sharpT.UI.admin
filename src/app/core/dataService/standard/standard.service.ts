@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../../environments/environment';
-import { Standard } from '../../model';
+import { Standard, StandardRate } from '../../model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -43,6 +43,16 @@ export class StandardService {
   public standardCount(filterCourseId, filterStatus, filterSubjectSelection){
     const url = `${environment.api_endpoint}/standardCount?courseId=${filterCourseId}&isActive=${filterStatus}&subjectSelection=${filterSubjectSelection}`;
     return this.http.get<{count: number}>(url)
+  }
+
+  public getStandardRate() {
+    const url = `${environment.api_endpoint}/standardRate`;
+    return this.http.get<StandardRate[]>(url)
+      .pipe(
+        map(data =>
+          data.map(x => new StandardRate(x))
+        )
+      );
   }
   
 }
