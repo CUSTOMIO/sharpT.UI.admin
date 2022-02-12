@@ -63,6 +63,7 @@ export class EditExaminationDetailComponent implements OnInit {
       academicYearId: [, [Validators.required]],
       startOn: [, [Validators.required]],
       endOn: [, [Validators.required]],
+      bestOf: [],
       data: new FormArray([], Validators.required)
     });
 
@@ -77,6 +78,9 @@ export class EditExaminationDetailComponent implements OnInit {
       this.editForm.get('endOn').setValue(this.endOn);
       this.editForm.get('examinationId').setValue(data.examinationDetail.examinationId);
       this.editForm.get('academicYearId').setValue(data.examinationDetail.academicYearId);
+      if(data.examinationDetail.bestOf != null) {
+        this.editForm.get('bestOf').setValue(data.examinationDetail.bestOf);
+      }
     }
     //else this.subjectDetailLoading = false;
   }
